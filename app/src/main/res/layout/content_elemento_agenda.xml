@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/Theme.AppCompat.NoActionBar"
+        android:orientation="vertical"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/titleOb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:gravity="left"
+            android:padding="@dimen/appbar_padding"
+            android:text="@string/agenda_tittle"
+            android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+    <ScrollView
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/contenido_agenda"
+    android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="24dp"
+            android:orientation="vertical">
+    <LinearLayout
+        android:id="@+id/ll_comentario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="12dp">
+        <TextView
+            android:text="Comentario"
+            android:textSize="18dp"
+            android:textColor="#757575"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"/>
+
+        <TextView
+            android:id="@+id/tv_comentario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="dahjfdhldkafdafkdsalfdljhafhaafkjfhadjkdfhdahjfdhldkafdafkdsalfdljhafhaafkjfhadjkdfhdahjfdhldkafdafkdsalfdljhafhaafkjfhadjkdfhdahjfdhldkafdafkdsalfdljhafhaafkjfhadjkdfhdahjfdhldkafdafkdsalfdljhafhaafkjfhadjkdfhdahjfdhldkafdafkdsalfdljhafhaafkjfhadjkdfhdahjfdhldkafdafkdsalfdljhafhaafkjfhadjkdfhdahjfdhldkafdafkdsalfdljhafhaafkjfhadjkdfhdahjfdhldkafdafkdsalfdljhafhaafkjfhadjkdfhdahjfdhldkafdafkdsalfdljhafhaafkjfhadjkdfhdahjfdhldkafdafkdsalfdljhafhaafkjfhadjkdfhdahjfdhldkafdafkdsalfdljhafhaafkjfhadjkdfhdahjfdhldkafdafkdsalfdljhafhaafkjfhadjkdfh"
+            android:textColor="#000000" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_asignatura"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="12dp">
+        <TextView
+            android:text="Asigantura"
+            android:textSize="18dp"
+            android:textColor="#757575"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"/>
+
+        <TextView
+            android:id="@+id/tv_asignatura"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Matematicas"
+            android:textColor="#000000" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_Fecha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="12dp">
+        <TextView
+            android:text="Fecha"
+            android:textSize="18dp"
+            android:textColor="#757575"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"/>
+
+        <TextView
+            android:id="@+id/tv_Fecha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="15/05/2020"
+            android:textColor="#000000" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_Tipo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="12dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:text="Tipo"
+            android:textColor="#757575"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/tv_Tipo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Recordatorio"
+            android:textColor="#000000" />
+    </LinearLayout>
+        </LinearLayout>
+</ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#23E0E0E0">
+
+        <Button
+            android:id="@+id/btnEditar"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="#00FFFFFF"
+            android:padding="8dp"
+            android:text="Editar"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/btnBorrar"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="#00FFFFFF"
+            android:padding="8dp"
+            android:text="Borrar"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20dp" />
+    </LinearLayout>
+</LinearLayout>
