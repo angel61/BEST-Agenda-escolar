@@ -13,7 +13,8 @@
         android:theme="@style/AppTheme">
         <activity android:name=".AgendaObjectActivity"
             android:label="AgendaObject View"
-            android:theme="@style/Theme.AppCompat.Dialog"/>
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".EditarObjectAgendaActivity"
             android:label="Editar actividad"
             android:parentActivityName=".MainActivity"/>

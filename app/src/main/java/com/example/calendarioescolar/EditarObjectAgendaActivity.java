@@ -6,26 +6,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CalendarView;
-import android.widget.DatePicker;
-import android.widget.DatePicker.OnDateChangedListener;
-import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import com.example.calendarioescolar.Modelo.AgendaBD;
 import com.example.calendarioescolar.Modelo.agenda_object;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 
-import java.text.DateFormat;
-import java.util.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 
@@ -42,26 +32,21 @@ public class EditarObjectAgendaActivity extends AppCompatActivity {
     private CalendarView calendario;
 
     private AdaptadorAgendaBD adaptador;
-    private Toolbar toolbar;
-    private FloatingActionButton fab;
     private int _id;
-    private int tab;
+    private Bundle extras;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.editar_layout);
-        Bundle extras = getIntent().getExtras();
+        extras = getIntent().getExtras();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         pos = extras.getInt("pos", 0);
-        tab = extras.getInt("tab", 0);
+        _id= extras.getInt("_id",0);
         agendaBD = ((Aplicacion) getApplication()).agendaBD;
-        if(tab==0) {
-            adaptador = ((Aplicacion) getApplication()).adaptador;
-        } else {
-            adaptador = ((Aplicacion) getApplication()).adaptadorPa;
-        }
-        casosUso = new CasosUsoAO(this, agendaBD, adaptador,((Aplicacion) getApplication()));
-        agendaObject = adaptador.agendaPosicion(pos);
+        adaptador = ((Aplicacion) getApplication()).adaptador;
+        if(_id==0){_id=adaptador.idPosicion(pos);}
+        casosUso = new CasosUsoAO(this, agendaBD, adaptador);
+        agendaObject = agendaBD.elemento(_id);
         _id=agendaObject.getId();
         actualizaVistas();
     }
@@ -83,6 +68,12 @@ public class EditarObjectAgendaActivity extends AppCompatActivity {
                 casosUso.guardar(_id, agendaObject);
                 finish();
                 return true;
+            case android.R.id.home:
+
+                if(extras.getInt("_id",0)!=0)agendaBD.borrar(_id);
+                finish();
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -138,7 +129,7 @@ public class EditarObjectAgendaActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (_id == -1) agendaBD.borrar(_id);
+        if(extras.getInt("_id",0)!=0)agendaBD.borrar(_id);
         finish();
     }
 }

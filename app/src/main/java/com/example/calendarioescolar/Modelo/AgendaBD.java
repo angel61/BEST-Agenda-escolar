@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.preference.PreferenceManager;
 
+import java.util.Calendar;
+
 public class AgendaBD extends SQLiteOpenHelper
         implements RepositorioAgenda {
 
@@ -79,11 +81,17 @@ public class AgendaBD extends SQLiteOpenHelper
     @Override
     public int nuevo() {
         int _id = -1;
+        long fecha= System.currentTimeMillis();
+        Calendar cal=Calendar.getInstance();
+        cal.setTimeInMillis(fecha);
+        cal.add(Calendar.DAY_OF_MONTH,1);
+        fecha=cal.getTimeInMillis();
+
         getWritableDatabase().execSQL("INSERT INTO agenda (titulo, " +
                 "comentario, tipo, asignatura, fecha" +
-                ") VALUES ('', '',  0, '', null)");
+                ") VALUES ('', '',  0, '', "+fecha+")");
         Cursor c = getReadableDatabase().rawQuery(
-                "SELECT _id FROM agenda WHERE fecha = null", null);
+                "SELECT _id FROM agenda WHERE fecha = "+fecha, null);
         if (c.moveToNext()) _id = c.getInt(0);
         c.close();
         return _id;
@@ -121,46 +129,11 @@ public class AgendaBD extends SQLiteOpenHelper
         return agendaobject;
     }
 
-    public Cursor extraeCursor(int num) {
+    public Cursor extraeCursor() {
         SharedPreferences pref =
                 PreferenceManager.getDefaultSharedPreferences(contexto);
         String consulta;
-        if(num==0){
-            switch (pref.getString("orden", "0")) {
-                case "0":
                     consulta = "SELECT * FROM agenda WHERE fecha>="+System.currentTimeMillis()+" ORDER BY fecha";
-                    break;
-                case "1":
-                    consulta = "SELECT * FROM agenda WHERE fecha>="+System.currentTimeMillis()+" ORDER BY fecha DESC";
-                    break;
-                default:
-                    consulta = "SELECT * FROM agenda WHERE fecha>="+System.currentTimeMillis()+" ORDER BY fecha";
-                    break;
-            }}else if(num==1){
-            switch (pref.getString("orden", "0")) {
-                case "0":
-                    consulta = "SELECT * FROM agenda WHERE fecha<"+System.currentTimeMillis()+" ORDER BY fecha DESC";
-                    break;
-                case "1":
-                    consulta = "SELECT * FROM agenda WHERE fecha<"+System.currentTimeMillis()+" ORDER BY fecha DESC";
-                    break;
-                default:
-                    consulta = "SELECT * FROM agenda WHERE  fecha<"+System.currentTimeMillis()+" ORDER BY fecha";
-                    break;
-            }}else{
-            switch (pref.getString("orden", "0")) {
-                case "0":
-                    consulta = "SELECT * FROM agenda ";
-                    break;
-                case "1":
-                    consulta = "SELECT * FROM agenda ORDER BY fecha DESC";
-                    break;
-                default:
-                    consulta = "SELECT * FROM agenda ORDER BY fecha";
-                    break;
-            }
-
-        }
         consulta += " LIMIT " + pref.getString("maximo", "12");
         SQLiteDatabase bd = getReadableDatabase();
         return bd.rawQuery(consulta, null);

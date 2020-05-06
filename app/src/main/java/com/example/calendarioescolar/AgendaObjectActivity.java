@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -11,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.calendarioescolar.Modelo.AgendaBD;
@@ -20,7 +23,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 
-public class AgendaObjectActivity extends Activity {
+public class AgendaObjectActivity extends AppCompatActivity {
 
     public AgendaBD agBD;
     private int pos;
@@ -36,45 +39,48 @@ public class AgendaObjectActivity extends Activity {
     private Button btnEditar;
     private Button btnborrar;
     private CasosUsoAO casosUso;
-    private int tab;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_elemento_agenda);
+        setContentView(R.layout.detalle_elemento_agenda);
         extras = getIntent().getExtras();
         pos = extras.getInt("pos", 0);
-        tab = extras.getInt("tab", 0);
         agBD = ((Aplicacion) getApplication()).agendaBD;
-        if(tab==0) {
-            adaptador = ((Aplicacion) getApplication()).adaptador;
-        } else {
-            adaptador = ((Aplicacion) getApplication()).adaptadorPa;
-        }
+        adaptador = ((Aplicacion) getApplication()).adaptador;
         _id = adaptador.idPosicion(pos);
         agendaObject = adaptador.agendaPosicion(pos);
-        casosUso=new CasosUsoAO(this,agBD,adaptador,((Aplicacion) getApplication()));
+        casosUso=new CasosUsoAO(this,agBD,adaptador);
         actualizarVistas ();
         listeners();
 
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.detalle_ao, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.accion_editar:
+                casosUso.editar(pos, RESULTADO_EDITAR);
+                return true;
+            case R.id.accion_borrar:
+                casosUso.borrar(_id);
+                return true;
 
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
     private void listeners() {
-        btnEditar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                casosUso.editar(pos, RESULTADO_EDITAR,tab);
-            }
-        });
-        btnborrar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
     }
 
     private void actualizarVistas (){
         fab = findViewById(R.id.fab);
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         TextView tvComentario=findViewById(R.id.tv_comentario);
         tvComentario.setText(agendaObject.getComentario());
 
@@ -91,12 +97,13 @@ public class AgendaObjectActivity extends Activity {
 
         TextView tvTipo=findViewById(R.id.tv_Tipo);
         tvTipo.setText(agendaObject.getTipoAg().getTexto());
+        setTitle(agendaObject.getTitulo());
 
-        TextView tvTitulo=findViewById(R.id.titleOb);
+       /* TextView tvTitulo=findViewById(R.id.titleOb);
         tvTitulo.setText(agendaObject.getTitulo());
 
         btnborrar=findViewById(R.id.btnBorrar);
-        btnEditar=findViewById(R.id.btnEditar);
+        btnEditar=findViewById(R.id.btnEditar);*/
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode,

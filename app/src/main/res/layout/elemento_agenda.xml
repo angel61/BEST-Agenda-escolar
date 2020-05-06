@@ -25,6 +25,7 @@
         android:maxLines="1"
         android:text="Titulo"
         android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#000000"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/elFoto"
@@ -38,6 +39,7 @@
         android:layout_marginTop="4dp"
         android:maxLines="1"
         android:text="Anotacion/Asignatura"
+        android:textColor="@color/gris"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/elFoto"
         app:layout_constraintTop_toBottomOf="@id/elTitulo" />
@@ -48,12 +50,12 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
+        android:textColor="@color/gris"
 
+        android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
         android:gravity="right"
         android:text="Nunca"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.99"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/elFoto"
         app:layout_constraintTop_toBottomOf="@id/elNota_Asig" />
 </androidx.constraintlayout.widget.ConstraintLayout>

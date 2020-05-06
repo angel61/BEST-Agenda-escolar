@@ -13,54 +13,48 @@ public class CasosUsoAO {
     private Activity actividad;
     private AgendaBD agBD;
     private AdaptadorAgendaBD adaptador;
-    private Aplicacion apli;
 
 
     public CasosUsoAO(Activity actividad, AgendaBD agBD,
-                      AdaptadorAgendaBD adaptador,Aplicacion apli) {
+                      AdaptadorAgendaBD adaptador) {
         this.actividad = actividad;
         this.agBD = agBD;
         this.adaptador = adaptador;
-        this.apli=apli;
     }
 
 
-    public void mostrar(int pos, int codidoSolicitud, int tab) {
+    public void mostrar(int pos, int codidoSolicitud) {
         if (adaptador.getCursor().getCount() > 0) {
             Intent i = new Intent(actividad, AgendaObjectActivity.class);
             i.putExtra("pos", pos);
-            i.putExtra("tab", tab);
             actividad.startActivityForResult(i, codidoSolicitud);
         } else {
         }
     }
 
-    public void editar(int pos, int codidoSolicitud, int tab) {
+    public void editar(int pos, int codidoSolicitud) {
         Intent i = new Intent(actividad, EditarObjectAgendaActivity.class);
         i.putExtra("pos", pos);
-        i.putExtra("tab", tab);
         actividad.startActivityForResult(i, codidoSolicitud);
     }
 
     public void borrar(final int id) {
         agBD.borrar(id);
-        adaptador.setCursor(agBD.extraeCursor(adaptador.getTiempo()));
+        adaptador.setCursor(agBD.extraeCursor());
         adaptador.notifyDataSetChanged();
         actividad.finish();
     }
 
     public void borrarSinFinish(final int id) {
         agBD.borrar(id);
-        adaptador.setCursor(agBD.extraeCursor(adaptador.getTiempo()));
+        adaptador.setCursor(agBD.extraeCursor());
         adaptador.notifyDataSetChanged();
     }
 
     public void guardar(int id, agenda_object nuevoagObject) {
         agBD.actualiza(id, nuevoagObject);
-        apli.adaptador.setCursor(agBD.extraeCursor(0));
-        apli.adaptador.notifyDataSetChanged();
-        apli.adaptadorPa.setCursor(agBD.extraeCursor(1));
-        apli.adaptadorPa.notifyDataSetChanged();
+        adaptador.setCursor(agBD.extraeCursor());
+        adaptador.notifyDataSetChanged();
     }
 
     public void compartir(agenda_object AO) {
@@ -73,8 +67,10 @@ public class CasosUsoAO {
 
     public void nuevo() {
         int id = agBD.nuevo();
+        System.out.println(id);
         Intent i = new Intent(actividad, EditarObjectAgendaActivity.class);
         i.putExtra("_id", id);
+        i.putExtra("tab", 0);
         actividad.startActivityForResult(i, 8);
     }
 }

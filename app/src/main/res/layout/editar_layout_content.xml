@@ -5,8 +5,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:showIn="@layout/editar_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context=".EditarObjectAgendaActivity"
-    android:theme="@style/Theme.AppCompat.NoActionBar">
+    android:layout_height="match_parent"
+    tools:context=".EditarObjectAgendaActivity"
+    android:theme="@style/Theme.AppCompat.NoActionBar"
+    android:layout_below="@id/app_bar"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <LinearLayout
         android:layout_width="match_parent"
