@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="tipo_agenda">
+        <item>Recordatorio</item>
+        <item>Ejercicios</item>
+        <item>Trabajo</item>
+        <item>Examen</item>
+    </array>
+</resources>

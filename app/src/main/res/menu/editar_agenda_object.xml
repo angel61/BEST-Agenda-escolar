@@ -4,6 +4,7 @@
     <item
         android:id="@+id/accion_guardar"
         android:title="Guardar"
+        android:icon="@drawable/ic_save"
         android:orderInCategory="20"
         app:showAsAction="ifRoom"/>
 </menu>

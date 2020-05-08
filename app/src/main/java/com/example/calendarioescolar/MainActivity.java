@@ -1,5 +1,6 @@
 package com.example.calendarioescolar;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.RippleDrawable;
@@ -15,6 +16,7 @@ import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,6 +25,7 @@ import android.view.GestureDetector;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     public AdaptadorAgendaBD adaptador;
     private CasosUsoAO casosUsoAO;
     private RecyclerView recycler;
+    private SwipeRefreshLayout refresh;
     private FloatingActionButton fab;
     private RippleDrawable rippleDrawable;
 
@@ -49,12 +53,24 @@ public class MainActivity extends AppCompatActivity {
         recycler.setLayoutManager(new LinearLayoutManager(this));
         recycler.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
         recycler.setAdapter(adaptador);
+
+        refresh = findViewById(R.id.refreshl);
+
         fab = findViewById(R.id.fab);
         inicializarListeners();
 
     }
     private void inicializarListeners() {
 
+        refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                adaptador=new AdaptadorAgendaBD(agendaBD,agendaBD.extraeCursor());
+                recycler.setAdapter(adaptador);
+                ((Aplicacion)getApplication()).adaptador=adaptador;
+                refresh.setRefreshing(false);
+            }
+        });
 
         final GestureDetector GestureDetector =
                 new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
@@ -111,7 +127,13 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                casosUsoAO.nuevo();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    builder.setTitle("Selecciona el tipo de actividad")
+                            .setItems(R.array.tipo_agenda, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    casosUsoAO.nuevo(which);
+                                }
+                            }).show();
             }
         });
     }

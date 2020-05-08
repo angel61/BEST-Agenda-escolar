@@ -6,7 +6,7 @@ public interface RepositorioAgenda {
 
     void annade(agenda_object agendaobject);
 
-    int nuevo();
+    int nuevo(int tipo);
 
     void borrar(int id);
 

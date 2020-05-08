@@ -65,8 +65,8 @@ public class CasosUsoAO {
         actividad.startActivity(i);
     }
 
-    public void nuevo() {
-        int id = agBD.nuevo();
+    public void nuevo(int tipo) {
+        int id = agBD.nuevo(tipo);
         System.out.println(id);
         Intent i = new Intent(actividad, EditarObjectAgendaActivity.class);
         i.putExtra("_id", id);

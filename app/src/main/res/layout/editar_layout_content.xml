@@ -19,46 +19,56 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tituloe"
-            android:layout_marginBottom="12dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp"
+            android:layout_marginBottom="12dp"
             android:background="@drawable/text_field"
-            android:hint="Titulo">
+            android:hint="Titulo"
+            android:padding="8dp"
+            android:textColorHint="#BEFFFFFF"
+            android:theme="@style/TextInputMod">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:theme="@style/EditTextMod" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/comentarioe"
-            android:layout_marginBottom="12dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp"
+            android:layout_marginBottom="12dp"
             android:background="@drawable/text_field"
-            android:hint="Comentario">
+            android:hint="Comentario"
+            android:padding="8dp"
+            android:textColorHint="#BEFFFFFF"
+            android:theme="@style/TextInputMod">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:theme="@style/EditTextMod" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/asignaturae"
-            android:layout_marginBottom="12dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp"
+            android:layout_marginBottom="12dp"
             android:background="@drawable/text_field"
-            android:hint="Asignatura">
+            android:hint="Asignatura"
+            android:padding="8dp"
+            android:textColorHint="#BEFFFFFF"
+            android:theme="@style/TextInputMod">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:theme="@style/EditTextMod" />
 
         </com.google.android.material.textfield.TextInputLayout>
         <LinearLayout

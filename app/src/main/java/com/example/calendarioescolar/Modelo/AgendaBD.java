@@ -79,7 +79,7 @@ public class AgendaBD extends SQLiteOpenHelper
 
 
     @Override
-    public int nuevo() {
+    public int nuevo(int tipo) {
         int _id = -1;
         long fecha= System.currentTimeMillis();
         Calendar cal=Calendar.getInstance();
@@ -89,7 +89,7 @@ public class AgendaBD extends SQLiteOpenHelper
 
         getWritableDatabase().execSQL("INSERT INTO agenda (titulo, " +
                 "comentario, tipo, asignatura, fecha" +
-                ") VALUES ('', '',  0, '', "+fecha+")");
+                ") VALUES ('', '',  "+tipo+", '', "+fecha+")");
         Cursor c = getReadableDatabase().rawQuery(
                 "SELECT _id FROM agenda WHERE fecha = "+fecha, null);
         if (c.moveToNext()) _id = c.getInt(0);

@@ -1,6 +1,8 @@
 package com.example.calendarioescolar;
 
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,12 +12,16 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.calendarioescolar.Modelo.AgendaBD;
+import com.example.calendarioescolar.Modelo.AsignaturasBD;
 import com.example.calendarioescolar.Modelo.agenda_object;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 
@@ -34,12 +40,15 @@ public class EditarObjectAgendaActivity extends AppCompatActivity {
     private AdaptadorAgendaBD adaptador;
     private int _id;
     private Bundle extras;
+    private Toolbar tool;
+    private CasosUsoAsignatura casosUsoAsignatura;
+    private AsignaturasBD asBD;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.editar_layout);
+
         extras = getIntent().getExtras();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         pos = extras.getInt("pos", 0);
         _id= extras.getInt("_id",0);
         agendaBD = ((Aplicacion) getApplication()).agendaBD;
@@ -48,6 +57,8 @@ public class EditarObjectAgendaActivity extends AppCompatActivity {
         casosUso = new CasosUsoAO(this, agendaBD, adaptador);
         agendaObject = agendaBD.elemento(_id);
         _id=agendaObject.getId();
+        asBD=((Aplicacion) getApplication()).asigBD;
+        casosUsoAsignatura=new CasosUsoAsignatura(this,asBD);
         actualizaVistas();
     }
 
@@ -85,6 +96,7 @@ public class EditarObjectAgendaActivity extends AppCompatActivity {
         comentario = findViewById(R.id.comentarioe);
         comentario.getEditText().setText(agendaObject.getComentario());
         asignatura=findViewById(R.id.asignaturae);
+        listaAsignaturas();
         if(agendaObject.getTipoAg().getTexto().equals("Recordatorio")){
             asignatura.setVisibility(View.GONE);
         }else{
@@ -109,6 +121,37 @@ public class EditarObjectAgendaActivity extends AppCompatActivity {
         };
         calendario.setOnDateChangeListener(list);
 
+        tool= (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(tool);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    private void listaAsignaturas() {
+
+        asignatura.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ArrayList<String> array=new ArrayList<String>();
+                array.add("+ Añadir asignatura");
+
+                array=casosUsoAsignatura.arrayAsignaturas(array);
+
+                final String[] a= array.toArray(new String[0]);
+                final boolean annadir=false;
+                final AlertDialog.Builder builder = new AlertDialog.Builder(EditarObjectAgendaActivity.this);
+                builder.setTitle("Seleccionar una asignatura")
+                        .setItems(a, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                if(which==0){
+                                    casosUsoAsignatura.dialogoAnnadirAsignatura();
+                                }else {
+                                    System.out.println(which);
+                                    asignatura.getEditText().setText(a[which]);
+                                }
+                            }
+                        }).show();
+            }
+        });
     }
 
     private void seleccionarHora(long milis) {

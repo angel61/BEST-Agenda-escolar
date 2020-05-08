@@ -1,5 +1,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/element_ag"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -9,23 +10,24 @@
 
     <ImageView
         android:id="@+id/elFoto"
-        android:layout_width="?android:attr/listPreferredItemHeight"
-        android:layout_height="?android:attr/listPreferredItemHeight"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
         android:contentDescription="fotografía"
         android:src="@drawable/recordatorio"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="6dp"/>
 
     <TextView
         android:id="@+id/elTitulo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="8dp"
         android:maxLines="1"
         android:text="Titulo"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#000000"
+        android:textColor="#303030"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/elFoto"
@@ -35,7 +37,7 @@
         android:id="@+id/elNota_Asig"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
         android:maxLines="1"
         android:text="Anotacion/Asignatura"
@@ -52,7 +54,7 @@
         android:layout_alignParentBottom="true"
         android:textColor="@color/gris"
 
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
         android:gravity="right"
         android:text="Nunca"
