@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/accion_guardar"
+        android:title="Guardar"
+        android:icon="@drawable/ic_done"
+        android:orderInCategory="10"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/accion_borrar"
+        android:title="Borrar"
+        android:icon="@drawable/ic_clear"
+        android:orderInCategory="20"
+        app:showAsAction="ifRoom"/>
+</menu>

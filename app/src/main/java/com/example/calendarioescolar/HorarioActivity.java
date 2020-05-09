@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,14 +32,20 @@ public class HorarioActivity extends AppCompatActivity {
         init();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.horario, menu);
+        return true;
+    }
     private void init(){
         this.context = this;
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         timetable = findViewById(R.id.timetable);
         Calendar cal= Calendar.getInstance();
-        if(cal.get(Calendar.DAY_OF_WEEK)!=0&&cal.get(Calendar.DAY_OF_WEEK)!=6)timetable.setHeaderHighlight(cal.get(Calendar.DAY_OF_WEEK)-1);
+        if(cal.get(Calendar.DAY_OF_WEEK)!=1&&cal.get(Calendar.DAY_OF_WEEK)!=7)timetable.setHeaderHighlight(cal.get(Calendar.DAY_OF_WEEK)-1);
         initView();
     }
 
@@ -60,13 +67,20 @@ public class HorarioActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-                Intent i = new Intent(this,EditActivity.class);
+        switch (item.getItemId()){
+            case R.id.accion_annadir:
+                Intent i = new Intent(this,EditarHorarioActivity.class);
                 i.putExtra("mode",REQUEST_ADD);
                 startActivityForResult(i,REQUEST_ADD);
-                //timetable.removeAll();
                 //saveByPreference(timetable.createSaveData());
                 //loadSavedData();
             return true;
+            case R.id.accion_limpiar:
+                timetable.removeAll();
+                return true;
+                default:
+                    return true;
+        }
     }
 
     @Override
@@ -89,6 +103,7 @@ public class HorarioActivity extends AppCompatActivity {
                 } else if (resultCode == EditarHorarioActivity.RESULT_OK_DELETE) {
                     int idx = data.getIntExtra("idx", -1);
                     timetable.remove(idx);
+                    saveByPreference(timetable.createSaveData());
                 }
                 break;
         }
@@ -100,7 +115,6 @@ public class HorarioActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = mPref.edit();
         editor.putString("timetable_demo",data);
         editor.commit();
-        //Toast.makeText(this,"saved!",Toast.LENGTH_SHORT).show();
     }
 
 
@@ -109,7 +123,6 @@ public class HorarioActivity extends AppCompatActivity {
         SharedPreferences mPref = PreferenceManager.getDefaultSharedPreferences(this);
         String savedData = mPref.getString("timetable_demo","");
         if(savedData == null && savedData.equals("")) return;
-        timetable.load(savedData);
-        //Toast.makeText(this,"loaded!",Toast.LENGTH_SHORT).show();
+        if(savedData != null && !savedData.equals("")) timetable.load(savedData);
     }
 }

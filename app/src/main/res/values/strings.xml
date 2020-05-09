@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">Best Agenda</string>
     <string name="agenda_tittle">Agenda</string>
+
+
+    <string-array name="days">
+        <item>Lunes</item>
+        <item>Martes</item>
+        <item>Miercoles</item>
+        <item>Jueves</item>
+        <item>Viernes</item>
+    </string-array>
 </resources>

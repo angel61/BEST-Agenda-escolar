@@ -26,12 +26,12 @@
             android:hint="Titulo"
             android:padding="8dp"
             android:textColorHint="#BEFFFFFF"
-            android:theme="@style/TextInputMod">
+            app:hintTextAppearance="@style/TextInputMod">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:theme="@style/EditTextMod" />
+                android:theme="@style/TextInputMod" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -44,12 +44,12 @@
             android:hint="Comentario"
             android:padding="8dp"
             android:textColorHint="#BEFFFFFF"
-            android:theme="@style/TextInputMod">
+            app:hintTextAppearance="@style/TextInputMod">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:theme="@style/EditTextMod" />
+                android:theme="@style/TextInputMod" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -62,13 +62,14 @@
             android:hint="Asignatura"
             android:padding="8dp"
             android:textColorHint="#BEFFFFFF"
-            android:theme="@style/TextInputMod">
+            app:hintTextAppearance="@style/TextInputMod">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/asignaturaTIET"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:editable="false"
-                android:theme="@style/EditTextMod" />
+                android:theme="@style/TextInputMod" />
 
         </com.google.android.material.textfield.TextInputLayout>
         <LinearLayout

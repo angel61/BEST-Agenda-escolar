@@ -19,6 +19,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.example.calendarioescolar.Modelo.AgendaBD;
 import com.example.calendarioescolar.Modelo.AsignaturasBD;
 import com.example.calendarioescolar.Modelo.agenda_object;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ public class EditarObjectAgendaActivity extends AppCompatActivity {
     private TextInputLayout titulo;
     private TextInputLayout comentario;
     private TextInputLayout asignatura;
+    private TextInputEditText asignaturaText;
     private TextView hora;
     private CalendarView calendario;
 
@@ -96,6 +98,7 @@ public class EditarObjectAgendaActivity extends AppCompatActivity {
         comentario = findViewById(R.id.comentarioe);
         comentario.getEditText().setText(agendaObject.getComentario());
         asignatura=findViewById(R.id.asignaturae);
+        asignaturaText=findViewById(R.id.asignaturaTIET);
         listaAsignaturas();
         if(agendaObject.getTipoAg().getTexto().equals("Recordatorio")){
             asignatura.setVisibility(View.GONE);
@@ -127,7 +130,12 @@ public class EditarObjectAgendaActivity extends AppCompatActivity {
     }
 
     private void listaAsignaturas() {
-
+        asignaturaText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                asignatura.performClick();
+            }
+        });
         asignatura.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

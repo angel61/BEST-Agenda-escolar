@@ -6,4 +6,14 @@
         <item>Trabajo</item>
         <item>Examen</item>
     </array>
+    <array name="header_title">
+        <item></item>
+        <item>L</item>
+        <item>M</item>
+        <item>X</item>
+        <item>J</item>
+        <item>V</item>
+        <item>S</item>
+        <item>D</item>
+    </array>
 </resources>
