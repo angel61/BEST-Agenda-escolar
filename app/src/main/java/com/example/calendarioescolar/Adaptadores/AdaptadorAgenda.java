@@ -1,4 +1,4 @@
-package com.example.calendarioescolar;
+package com.example.calendarioescolar.Adaptadores;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.calendarioescolar.Modelo.RepositorioAgenda;
 import com.example.calendarioescolar.Modelo.agenda_object;
+import com.example.calendarioescolar.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -44,12 +45,12 @@ public class AdaptadorAgenda extends RecyclerView.Adapter<AdaptadorAgenda.ViewHo
             titulo.setText(agendaOb.getTitulo());
 
 
-            String texto=agendaOb.getComentario();
-            if(texto.length()>35){
-                texto=texto.substring(0,32)+"...";
+            String texto = agendaOb.getComentario();
+            if (texto.length() > 35) {
+                texto = texto.substring(0, 32) + "...";
             }
             comentario.setText(texto);
-            if(agendaOb.getAsig().length()>0){
+            if (agendaOb.getAsig().length() > 0) {
                 comentario.setText(agendaOb.getAsig());
             }
             int id = R.drawable.recordatorio;
@@ -67,30 +68,30 @@ public class AdaptadorAgenda extends RecyclerView.Adapter<AdaptadorAgenda.ViewHo
             foto.setImageResource(id);
             foto.setScaleType(ImageView.ScaleType.FIT_END);
 
-            Date fec=new Date(agendaOb.getFecha());
-            Date actual=new Date(System.currentTimeMillis());
-            Calendar cal= Calendar.getInstance();
+            Date fec = new Date(agendaOb.getFecha());
+            Date actual = new Date(System.currentTimeMillis());
+            Calendar cal = Calendar.getInstance();
             cal.setTime(actual);
-            int hoy=cal.get(Calendar.DAY_OF_MONTH);
-            cal.add(Calendar.DAY_OF_YEAR,-1);
-            int ayer=cal.get(Calendar.DAY_OF_MONTH);
-            cal.add(Calendar.DAY_OF_YEAR,+2);
-            int mannana=cal.get(Calendar.DAY_OF_MONTH);
+            int hoy = cal.get(Calendar.DAY_OF_MONTH);
+            cal.add(Calendar.DAY_OF_YEAR, -1);
+            int ayer = cal.get(Calendar.DAY_OF_MONTH);
+            cal.add(Calendar.DAY_OF_YEAR, +2);
+            int mannana = cal.get(Calendar.DAY_OF_MONTH);
             cal.setTime(fec);
-            int fecInt=cal.get(Calendar.DAY_OF_MONTH);
+            int fecInt = cal.get(Calendar.DAY_OF_MONTH);
 
             cal.setTime(fec);
             String textoFecha;
-            if(fecInt==ayer){
-                textoFecha="Ayer a las "+cal.get(Calendar.HOUR_OF_DAY)+":"+cal.get(Calendar.MINUTE);
+            if (fecInt == ayer) {
+                textoFecha = "Ayer a las " + cal.get(Calendar.HOUR_OF_DAY) + ":" + cal.get(Calendar.MINUTE);
 
-            } else if(fecInt==mannana){
-                textoFecha="Mañana a las "+cal.get(Calendar.HOUR_OF_DAY)+":"+cal.get(Calendar.MINUTE);
+            } else if (fecInt == mannana) {
+                textoFecha = "Mañana a las " + cal.get(Calendar.HOUR_OF_DAY) + ":" + cal.get(Calendar.MINUTE);
 
-            } else if(fecInt==hoy){
-                textoFecha="Hoy a las "+cal.get(Calendar.HOUR_OF_DAY)+":"+cal.get(Calendar.MINUTE);
-            }else{
-                textoFecha=new SimpleDateFormat("dd-MM-yyyy").format(fec);
+            } else if (fecInt == hoy) {
+                textoFecha = "Hoy a las " + cal.get(Calendar.HOUR_OF_DAY) + ":" + cal.get(Calendar.MINUTE);
+            } else {
+                textoFecha = new SimpleDateFormat("dd-MM-yyyy").format(fec);
             }
             fecha.setText(textoFecha);
         }

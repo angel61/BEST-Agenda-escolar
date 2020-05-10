@@ -2,6 +2,7 @@ package com.example.calendarioescolar;
 
 import android.app.Application;
 
+import com.example.calendarioescolar.Adaptadores.AdaptadorAgendaBD;
 import com.example.calendarioescolar.Modelo.AgendaBD;
 import com.example.calendarioescolar.Modelo.AsignaturasBD;
 

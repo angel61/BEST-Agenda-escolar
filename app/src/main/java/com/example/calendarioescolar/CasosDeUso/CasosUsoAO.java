@@ -1,8 +1,11 @@
-package com.example.calendarioescolar;
+package com.example.calendarioescolar.CasosDeUso;
 
 import android.app.Activity;
 import android.content.Intent;
 
+import com.example.calendarioescolar.Adaptadores.AdaptadorAgendaBD;
+import com.example.calendarioescolar.Presentacion.AgendaObjectActivity;
+import com.example.calendarioescolar.Presentacion.EditarObjectAgendaActivity;
 import com.example.calendarioescolar.Modelo.AgendaBD;
 import com.example.calendarioescolar.Modelo.agenda_object;
 

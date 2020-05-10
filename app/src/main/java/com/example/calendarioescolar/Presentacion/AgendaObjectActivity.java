@@ -1,23 +1,22 @@
-package com.example.calendarioescolar;
+package com.example.calendarioescolar.Presentacion;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.calendarioescolar.Adaptadores.AdaptadorAgendaBD;
+import com.example.calendarioescolar.Aplicacion;
+import com.example.calendarioescolar.CasosDeUso.CasosUsoAO;
 import com.example.calendarioescolar.Modelo.AgendaBD;
 import com.example.calendarioescolar.Modelo.agenda_object;
+import com.example.calendarioescolar.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.sql.Date;

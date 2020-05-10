@@ -1,8 +1,7 @@
-package com.example.calendarioescolar;
+package com.example.calendarioescolar.Presentacion;
 
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,9 +15,14 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.calendarioescolar.Adaptadores.AdaptadorAgendaBD;
+import com.example.calendarioescolar.Aplicacion;
+import com.example.calendarioescolar.CasosDeUso.CasosUsoAO;
+import com.example.calendarioescolar.CasosDeUso.CasosUsoAsignatura;
 import com.example.calendarioescolar.Modelo.AgendaBD;
 import com.example.calendarioescolar.Modelo.AsignaturasBD;
 import com.example.calendarioescolar.Modelo.agenda_object;
+import com.example.calendarioescolar.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -83,7 +87,7 @@ public class EditarObjectAgendaActivity extends AppCompatActivity {
                 return true;
             case android.R.id.home:
 
-                if(extras.getInt("_id",0)!=0)agendaBD.borrar(_id);
+                if (extras.getInt("_id", 0) != 0) agendaBD.borrar(_id);
                 finish();
                 return true;
 

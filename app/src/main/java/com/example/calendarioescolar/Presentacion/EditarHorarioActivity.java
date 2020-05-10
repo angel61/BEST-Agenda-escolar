@@ -1,4 +1,4 @@
-package com.example.calendarioescolar;
+package com.example.calendarioescolar.Presentacion;
 
 import android.app.TimePickerDialog;
 import android.content.Context;
@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
@@ -17,7 +16,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.calendarioescolar.Aplicacion;
+import com.example.calendarioescolar.CasosDeUso.CasosUsoAsignatura;
 import com.example.calendarioescolar.Modelo.AsignaturasBD;
+import com.example.calendarioescolar.R;
 import com.github.tlaabs.timetableview.Schedule;
 import com.github.tlaabs.timetableview.Time;
 import com.google.android.material.textfield.TextInputEditText;
@@ -26,7 +28,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class EditarHorarioActivity extends AppCompatActivity  {
+public class EditarHorarioActivity extends AppCompatActivity {
     public static final int RESULT_OK_ADD = 1;
     public static final int RESULT_OK_EDIT = 2;
     public static final int RESULT_OK_DELETE = 3;
@@ -55,52 +57,52 @@ public class EditarHorarioActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.editar_horario_layout);
-        init();
+        iniciar();
     }
 
-    private void init(){
+    private void iniciar() {
         this.context = this;
 
-        asBD=((Aplicacion) getApplication()).asigBD;
-        casosUsoAsignatura=new CasosUsoAsignatura(this,asBD);
+        asBD = ((Aplicacion) getApplication()).asigBD;
+        casosUsoAsignatura = new CasosUsoAsignatura(this, asBD);
 
-        asignatura=findViewById(R.id.asignaturae);
-        asignaturaText=findViewById(R.id.asignaturaeTIET);
-        listaAsignaturas();
+        asignatura = findViewById(R.id.asignaturae);
+        asignaturaText = findViewById(R.id.asignaturaeTIET);
         day = findViewById(R.id.dias_semana);
-        hInicio=findViewById(R.id.hora_inicio);
-        hFin=findViewById(R.id.hora_fin);
-        hInicioText=findViewById(R.id.h_inicioTXT);
-        hFinText=findViewById(R.id.h_finTXT);
-        Toolbar tool=findViewById(R.id.toolbar);
+        hInicio = findViewById(R.id.hora_inicio);
+        hFin = findViewById(R.id.hora_fin);
+        hInicioText = findViewById(R.id.h_inicioTXT);
+        hFinText = findViewById(R.id.h_finTXT);
+        Toolbar tool = findViewById(R.id.toolbar);
         setSupportActionBar(tool);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Calendar cal=Calendar.getInstance();
-        int hora=cal.get(Calendar.HOUR_OF_DAY);
+        Calendar cal = Calendar.getInstance();
+        int hora = cal.get(Calendar.HOUR_OF_DAY);
 
         schedule = new Schedule();
-        schedule.setStartTime(new Time(hora,0));
-        schedule.setEndTime(new Time(hora+1,0));
+        schedule.setStartTime(new Time(hora, 0));
+        schedule.setEndTime(new Time(hora + 1, 0));
 
-        initView();
+        iniciarListeners();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         Intent i = getIntent();
-        mode = i.getIntExtra("mode",HorarioActivity.REQUEST_ADD);
+        mode = i.getIntExtra("mode", HorarioActivity.REQUEST_ADD);
 
-        if(mode == HorarioActivity.REQUEST_EDIT){
-            loadScheduleData();
+        if (mode == HorarioActivity.REQUEST_EDIT) {
+            cargarDatos();
             getMenuInflater().inflate(R.menu.editar_horario, menu);
-        }else {
+        } else {
             getMenuInflater().inflate(R.menu.annadir_horario, menu);
         }
         return true;
     }
 
-    private void listaAsignaturas() {
+
+    private void iniciarListeners() {
         asignaturaText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,7 +112,7 @@ public class EditarHorarioActivity extends AppCompatActivity  {
         asignaturaText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus) {
+                if (hasFocus) {
                     asignatura.performClick();
                 }
             }
@@ -118,31 +120,26 @@ public class EditarHorarioActivity extends AppCompatActivity  {
         asignatura.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArrayList<String> array=new ArrayList<String>();
+                ArrayList<String> array = new ArrayList<String>();
                 array.add("+ Añadir asignatura");
 
-                array=casosUsoAsignatura.arrayAsignaturas(array);
+                array = casosUsoAsignatura.arrayAsignaturas(array);
 
-                final String[] a= array.toArray(new String[0]);
-                final boolean annadir=false;
+                final String[] a = array.toArray(new String[0]);
+                final boolean annadir = false;
                 final AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle("Seleccionar una asignatura")
                         .setItems(a, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                if(which==0){
+                                if (which == 0) {
                                     casosUsoAsignatura.dialogoAnnadirAsignatura();
-                                }else {
-                                    System.out.println(which);
+                                } else {
                                     asignatura.getEditText().setText(a[which]);
                                 }
                             }
                         }).show();
             }
         });
-    }
-
-
-    private void initView(){
 
         day.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -155,11 +152,11 @@ public class EditarHorarioActivity extends AppCompatActivity  {
 
             }
         });
-        final Calendar cal=Calendar.getInstance();
+        final Calendar cal = Calendar.getInstance();
         hInicio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TimePickerDialog dialog = new TimePickerDialog(context,listener,schedule.getStartTime().getHour(), schedule.getStartTime().getMinute(), true);
+                TimePickerDialog dialog = new TimePickerDialog(context, listener, schedule.getStartTime().getHour(), schedule.getStartTime().getMinute(), true);
                 dialog.show();
             }
 
@@ -167,9 +164,9 @@ public class EditarHorarioActivity extends AppCompatActivity  {
                 @Override
                 public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
-                    if(minute>9) {
+                    if (minute > 9) {
                         hInicio.getEditText().setText(hourOfDay + ":" + minute);
-                    }else{
+                    } else {
                         hInicio.getEditText().setText(hourOfDay + ":0" + minute);
                     }
                     schedule.getStartTime().setHour(hourOfDay);
@@ -180,16 +177,16 @@ public class EditarHorarioActivity extends AppCompatActivity  {
         hFin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TimePickerDialog dialog = new TimePickerDialog(context,listener,schedule.getEndTime().getHour(), schedule.getEndTime().getMinute(), true);
+                TimePickerDialog dialog = new TimePickerDialog(context, listener, schedule.getEndTime().getHour(), schedule.getEndTime().getMinute(), true);
                 dialog.show();
             }
 
             private TimePickerDialog.OnTimeSetListener listener = new TimePickerDialog.OnTimeSetListener() {
                 @Override
                 public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                    if(minute>9) {
+                    if (minute > 9) {
                         hFin.getEditText().setText(hourOfDay + ":" + minute);
-                    }else{
+                    } else {
                         hFin.getEditText().setText(hourOfDay + ":0" + minute);
                     }
                     schedule.getEndTime().setHour(hourOfDay);
@@ -197,7 +194,6 @@ public class EditarHorarioActivity extends AppCompatActivity  {
                 }
             };
         });
-
 
 
         hInicioText.setOnClickListener(new View.OnClickListener() {
@@ -209,7 +205,7 @@ public class EditarHorarioActivity extends AppCompatActivity  {
         hInicioText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus) {
+                if (hasFocus) {
                     hInicio.performClick();
                 }
             }
@@ -224,43 +220,42 @@ public class EditarHorarioActivity extends AppCompatActivity  {
         hFinText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus) {
+                if (hasFocus) {
                     hFinText.performClick();
                 }
             }
         });
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.accion_guardar:
-                if(mode == HorarioActivity.REQUEST_ADD){
-                    inputDataProcessing();
+                schedule.setClassTitle(asignatura.getEditText().getText().toString());
+                if (mode == HorarioActivity.REQUEST_ADD) {
                     Intent i = new Intent();
                     ArrayList<Schedule> schedules = new ArrayList<Schedule>();
                     schedules.add(schedule);
-                    i.putExtra("schedules",schedules);
-                    setResult(RESULT_OK_ADD,i);
+                    i.putExtra("schedules", schedules);
+                    setResult(RESULT_OK_ADD, i);
                     finish();
-                }
-                else if(mode == HorarioActivity.REQUEST_EDIT){
-                    inputDataProcessing();
+                } else if (mode == HorarioActivity.REQUEST_EDIT) {
                     Intent i = new Intent();
                     ArrayList<Schedule> schedules = new ArrayList<Schedule>();
                     schedules.add(schedule);
-                    i.putExtra("idx",editIdx);
-                    i.putExtra("schedules",schedules);
-                    setResult(RESULT_OK_EDIT,i);
+                    i.putExtra("idx", editIdx);
+                    i.putExtra("schedules", schedules);
+                    setResult(RESULT_OK_EDIT, i);
                     finish();
                 }
                 return true;
             case R.id.accion_borrar:
 
                 Intent i = new Intent();
-                i.putExtra("idx",editIdx);
+                i.putExtra("idx", editIdx);
                 setResult(RESULT_OK_DELETE, i);
                 finish();
-                    return true;
+                return true;
             case android.R.id.home:
 
                 finish();
@@ -271,29 +266,26 @@ public class EditarHorarioActivity extends AppCompatActivity  {
     }
 
 
-    private void loadScheduleData(){
+    private void cargarDatos() {
         Intent i = getIntent();
-        editIdx = i.getIntExtra("idx",-1);
-        ArrayList<Schedule> schedules = (ArrayList<Schedule>)i.getSerializableExtra("schedules");
+        editIdx = i.getIntExtra("idx", -1);
+        ArrayList<Schedule> schedules = (ArrayList<Schedule>) i.getSerializableExtra("schedules");
         schedule = schedules.get(0);
         asignatura.getEditText().setText(schedule.getClassTitle());
         day.setSelection(schedule.getDay());
 
-        int mInicio=schedule.getStartTime().getMinute();
-        int mFin=schedule.getEndTime().getMinute();
-        if(mInicio>9){
-            hInicio.getEditText().setText(schedule.getStartTime().getHour()+":"+mInicio);
-        }else{
-            hInicio.getEditText().setText(schedule.getStartTime().getHour()+":0"+mInicio);
+        int mInicio = schedule.getStartTime().getMinute();
+        int mFin = schedule.getEndTime().getMinute();
+        if (mInicio > 9) {
+            hInicio.getEditText().setText(schedule.getStartTime().getHour() + ":" + mInicio);
+        } else {
+            hInicio.getEditText().setText(schedule.getStartTime().getHour() + ":0" + mInicio);
         }
-        if(mFin>9){
-            hFin.getEditText().setText(schedule.getEndTime().getHour()+":"+mFin);
-        }else{
-            hFin.getEditText().setText(schedule.getEndTime().getHour()+":0"+mFin);
+        if (mFin > 9) {
+            hFin.getEditText().setText(schedule.getEndTime().getHour() + ":" + mFin);
+        } else {
+            hFin.getEditText().setText(schedule.getEndTime().getHour() + ":0" + mFin);
         }
     }
 
-    private void inputDataProcessing(){
-        schedule.setClassTitle(asignatura.getEditText().getText().toString());
-    }
 }

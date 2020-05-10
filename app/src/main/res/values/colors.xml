@@ -6,4 +6,19 @@
     <color name="text">#000000</color>
     <color name="blanco">#ffffff</color>
     <color name="gris">#757575</color>
+
+
+    <string-array name="colorHorario">
+        <item>#f08676</item>
+        <item>#ecc369</item>
+        <item>#a7ca70</item>
+        <item>#7dd1c1</item>
+        <item>#7aa5e9</item>
+        <item>#fbaa68</item>
+        <item>#9f86e1</item>
+        <item>#78cb87</item>
+        <item>#d397ed</item>
+    </string-array>
+
+
 </resources>

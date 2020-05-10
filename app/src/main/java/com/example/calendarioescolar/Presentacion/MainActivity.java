@@ -1,31 +1,26 @@
-package com.example.calendarioescolar;
+package com.example.calendarioescolar.Presentacion;
 
-import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.RippleDrawable;
 import android.os.Bundle;
 
+import com.example.calendarioescolar.Adaptadores.AdaptadorAgendaBD;
+import com.example.calendarioescolar.Aplicacion;
+import com.example.calendarioescolar.CasosDeUso.CasosUsoAO;
 import com.example.calendarioescolar.Modelo.AgendaBD;
+import com.example.calendarioescolar.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.tabs.TabLayout;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.view.ContextThemeWrapper;
 import android.view.GestureDetector;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -46,12 +41,12 @@ public class MainActivity extends AppCompatActivity {
 
         agendaBD = ((Aplicacion) getApplication()).agendaBD;
 
-        casosUsoAO=new CasosUsoAO(this,agendaBD,adaptador);
+        casosUsoAO = new CasosUsoAO(this, agendaBD, adaptador);
 
         recycler = findViewById(R.id.recycler_view);
         recycler.setHasFixedSize(true);
         recycler.setLayoutManager(new LinearLayoutManager(this));
-        recycler.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
+        recycler.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         recycler.setAdapter(adaptador);
 
         refresh = findViewById(R.id.refreshl);
@@ -60,14 +55,15 @@ public class MainActivity extends AppCompatActivity {
         inicializarListeners();
 
     }
+
     private void inicializarListeners() {
 
         refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                adaptador=new AdaptadorAgendaBD(agendaBD,agendaBD.extraeCursor());
+                adaptador = new AdaptadorAgendaBD(agendaBD, agendaBD.extraeCursor());
                 recycler.setAdapter(adaptador);
-                ((Aplicacion)getApplication()).adaptador=adaptador;
+                ((Aplicacion) getApplication()).adaptador = adaptador;
                 refresh.setRefreshing(false);
             }
         });
@@ -99,8 +95,6 @@ public class MainActivity extends AppCompatActivity {
                     if (child != null) {
 
 
-
-
                         if (GestureDetector.onTouchEvent(motionEvent)) {
 
                             rippleDrawable = (RippleDrawable) child.getBackground();
@@ -127,13 +121,13 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                    builder.setTitle("Selecciona el tipo de actividad")
-                            .setItems(R.array.tipo_agenda, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    casosUsoAO.nuevo(which);
-                                }
-                            }).show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("Selecciona el tipo de actividad")
+                        .setItems(R.array.tipo_agenda, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                casosUsoAO.nuevo(which);
+                            }
+                        }).show();
             }
         });
     }

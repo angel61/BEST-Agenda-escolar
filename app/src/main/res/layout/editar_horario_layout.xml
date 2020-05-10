@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:id="@+id/editar_layout"
-    tools:context=".EditarHorarioActivity">
+    tools:context=".Presentacion.EditarHorarioActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
