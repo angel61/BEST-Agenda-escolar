@@ -134,12 +134,6 @@ public class EditarObjectAgendaActivity extends AppCompatActivity {
     }
 
     private void listaAsignaturas() {
-        asignaturaText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                asignatura.performClick();
-            }
-        });
         asignatura.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -162,6 +156,20 @@ public class EditarObjectAgendaActivity extends AppCompatActivity {
                                 }
                             }
                         }).show();
+            }
+        });
+        asignaturaText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                asignatura.performClick();
+            }
+        });
+        asignaturaText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    asignatura.performClick();
+                }
             }
         });
     }

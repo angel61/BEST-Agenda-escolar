@@ -22,7 +22,6 @@ import com.example.calendarioescolar.Adaptadores.AdaptadorAgendaBD;
 import com.example.calendarioescolar.Aplicacion;
 import com.example.calendarioescolar.CasosDeUso.CasosUsoAO;
 import com.example.calendarioescolar.Modelo.AgendaBD;
-import com.example.calendarioescolar.Presentacion.AgendaActivity;
 import com.example.calendarioescolar.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 

@@ -18,6 +18,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.calendarioescolar.Aplicacion;
 import com.example.calendarioescolar.CasosDeUso.CasosUsoAsignatura;
+import com.example.calendarioescolar.Fragments.horario.HorarioFragment;
 import com.example.calendarioescolar.Modelo.AsignaturasBD;
 import com.example.calendarioescolar.R;
 import com.github.tlaabs.timetableview.Schedule;
@@ -90,9 +91,9 @@ public class EditarHorarioActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         Intent i = getIntent();
-        mode = i.getIntExtra("mode", HorarioActivity.REQUEST_ADD);
+        mode = i.getIntExtra("mode", HorarioFragment.REQUEST_ADD);
 
-        if (mode == HorarioActivity.REQUEST_EDIT) {
+        if (mode == HorarioFragment.REQUEST_EDIT) {
             cargarDatos();
             getMenuInflater().inflate(R.menu.editar_horario, menu);
         } else {
@@ -232,14 +233,14 @@ public class EditarHorarioActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.accion_guardar:
                 schedule.setClassTitle(asignatura.getEditText().getText().toString());
-                if (mode == HorarioActivity.REQUEST_ADD) {
+                if (mode == HorarioFragment.REQUEST_ADD) {
                     Intent i = new Intent();
                     ArrayList<Schedule> schedules = new ArrayList<Schedule>();
                     schedules.add(schedule);
                     i.putExtra("schedules", schedules);
                     setResult(RESULT_OK_ADD, i);
                     finish();
-                } else if (mode == HorarioActivity.REQUEST_EDIT) {
+                } else if (mode == HorarioFragment.REQUEST_EDIT) {
                     Intent i = new Intent();
                     ArrayList<Schedule> schedules = new ArrayList<Schedule>();
                     schedules.add(schedule);
