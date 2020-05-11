@@ -2,34 +2,17 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:id="@+id/horario_layout"
-    android:orientation="vertical"
-    tools:context=".Presentacion.HorarioActivity">
-
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/app_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-
-    </com.google.android.material.appbar.AppBarLayout>
+    android:orientation="vertical">
     <com.github.tlaabs.timetableview.TimetableView
     android:id="@+id/timetable"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:header_title="@array/header_title"
     app:start_time="7"
-    app:row_count="24"/>
+    app:row_count="24"
+        app:header_highlight_color="@color/colorPrimaryDark"/>
 
 </LinearLayout>

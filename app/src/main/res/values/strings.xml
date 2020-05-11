@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Best Agenda</string>
     <string name="agenda_tittle">Agenda</string>
+    <string name="nav_header_desc">Navigation header</string>
 
 
     <string-array name="days">

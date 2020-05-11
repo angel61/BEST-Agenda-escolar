@@ -1,41 +1,57 @@
 package com.example.calendarioescolar.Presentacion;
 
 import android.content.DialogInterface;
-import android.graphics.drawable.RippleDrawable;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 
 import com.example.calendarioescolar.Adaptadores.AdaptadorAgendaBD;
 import com.example.calendarioescolar.Aplicacion;
 import com.example.calendarioescolar.CasosDeUso.CasosUsoAO;
 import com.example.calendarioescolar.Modelo.AgendaBD;
 import com.example.calendarioescolar.R;
+import com.github.tlaabs.timetableview.Schedule;
+import com.github.tlaabs.timetableview.TimetableView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.view.GestureDetector;
-import android.view.MotionEvent;
-import android.view.View;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    private AppBarConfiguration mAppBarConfiguration;
+    private int fragment = 0;
+    private FloatingActionButton fab;
     public AgendaBD agendaBD;
     public AdaptadorAgendaBD adaptador;
     private CasosUsoAO casosUsoAO;
-    private RecyclerView recycler;
-    private SwipeRefreshLayout refresh;
-    private FloatingActionButton fab;
-    private RippleDrawable rippleDrawable;
+    public static final int REQUEST_ADD = 1;
+    public static final int REQUEST_EDIT = 2;
+    private TimetableView timetable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
 
         adaptador = ((Aplicacion) getApplication()).adaptador;
 
@@ -43,81 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
         casosUsoAO = new CasosUsoAO(this, agendaBD, adaptador);
 
-        recycler = findViewById(R.id.recycler_view);
-        recycler.setHasFixedSize(true);
-        recycler.setLayoutManager(new LinearLayoutManager(this));
-        recycler.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        recycler.setAdapter(adaptador);
-
-        refresh = findViewById(R.id.refreshl);
-
         fab = findViewById(R.id.fab);
-        inicializarListeners();
-
-    }
-
-    private void inicializarListeners() {
-
-        refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                adaptador = new AdaptadorAgendaBD(agendaBD, agendaBD.extraeCursor());
-                recycler.setAdapter(adaptador);
-                ((Aplicacion) getApplication()).adaptador = adaptador;
-                refresh.setRefreshing(false);
-            }
-        });
-
-        final GestureDetector GestureDetector =
-                new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
-                    @Override
-                    public boolean onDoubleTapEvent(MotionEvent e) {
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onSingleTapUp(MotionEvent e) {
-                        return true;
-                    }
-
-                });
-
-        recycler.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
-            @Override
-            public void onRequestDisallowInterceptTouchEvent(boolean b) {
-
-            }
-
-            @Override
-            public boolean onInterceptTouchEvent(RecyclerView recyclerView, MotionEvent motionEvent) {
-                try {
-                    View child = recyclerView.findChildViewUnder(motionEvent.getX(), motionEvent.getY());
-                    if (child != null) {
-
-
-                        if (GestureDetector.onTouchEvent(motionEvent)) {
-
-                            rippleDrawable = (RippleDrawable) child.getBackground();
-                            rippleDrawable.setHotspot(motionEvent.getX(), motionEvent.getY());
-                            rippleDrawable.setState(new int[]{android.R.attr.state_pressed, android.R.attr.state_enabled});
-
-                            int pos = recyclerView.getChildAdapterPosition(child);
-                            casosUsoAO.mostrar(pos, 1);
-                            return true;
-                        }
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                return false;
-            }
-
-            @Override
-            public void onTouchEvent(RecyclerView recyclerView, MotionEvent motionEvent) {
-
-            }
-        });
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -130,7 +72,65 @@ public class MainActivity extends AppCompatActivity {
                         }).show();
             }
         });
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+
+
+        mAppBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.nav_inicio, R.id.nav_agenda, R.id.nav_horario)
+                .setDrawerLayout(drawer)
+                .build();
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
+            @Override
+            public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
+                CharSequence desti = destination.getLabel();
+                System.out.println(destination.getLabel());
+                fragment = 0;
+                fab.setVisibility(View.GONE);
+                if (desti.equals("Horario")) {
+                    fragment = 1;
+                    timetable = findViewById(R.id.timetable);
+                }else if(desti.equals("Agenda")){
+                    fragment=2;
+                    fab.setVisibility(View.VISIBLE);
+                }
+                Toolbar toolbar = findViewById(R.id.toolbar);
+                setSupportActionBar(toolbar);
+            }
+        });
+        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
+        NavigationUI.setupWithNavController(navigationView, navController);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if (fragment == 1) {
+            getMenuInflater().inflate(R.menu.horario, menu);
+        } else {
+            getMenuInflater().inflate(R.menu.main, menu);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
+                || super.onSupportNavigateUp();
     }
 
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.accion_annadir:
+                return false;
+            case R.id.accion_limpiar:
+                return false;
+
+        }
+        return false;
+    }
 }
