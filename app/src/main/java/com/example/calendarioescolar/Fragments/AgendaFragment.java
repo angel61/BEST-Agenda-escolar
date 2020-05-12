@@ -1,7 +1,6 @@
-package com.example.calendarioescolar.Fragments.agenda;
+package com.example.calendarioescolar.Fragments;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.graphics.drawable.RippleDrawable;
 import android.os.Bundle;
 import android.view.GestureDetector;
@@ -11,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,7 +21,6 @@ import com.example.calendarioescolar.Aplicacion;
 import com.example.calendarioescolar.CasosDeUso.CasosUsoAO;
 import com.example.calendarioescolar.Modelo.AgendaBD;
 import com.example.calendarioescolar.R;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class AgendaFragment extends Fragment {
 
@@ -40,7 +37,7 @@ public class AgendaFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        root = inflater.inflate(R.layout.agenda_layout, container, false);
+        root = inflater.inflate(R.layout.fragment_agenda, container, false);
 
         actividad = getActivity();
         iniciar();

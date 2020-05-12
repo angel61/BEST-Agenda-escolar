@@ -15,5 +15,59 @@
         <item>V</item>
         <item>S</item>
         <item>D</item>
-    </array>
+    </array>    <string-array name="frases">
+    <item>Siempre parece imposible hasta que se hace (Nelson Mandela)</item>
+    <item>La motivación es lo que te pone en marcha, el hábito es lo que hace que sigas (Jim Ryun)</item>
+    <item>No dejes que lo que no puedes hacer interfiera con lo que puedes hacer (John R. Wooden)</item>
+    <item>Siempre se puede ser mejor (Tiger Woods)</item>
+    <item>No hay un sustituto para el trabajo duro (Thomas Edison)</item>
+    <item>Sin estudiar enferma el alma (Séneca)</item>
+    <item>El hombre que es un maestro de la paciencia es un maestro de todo lo demás (George Saville)</item>
+    <item>Cuanto más trabajo, más suerte parezco tener (Thomas Jefferson)</item>
+    <item>Tus talentos y habilidades irán mejorando con el tiempo, pero para eso has de empezar (Martin Luther King)</item>
+    <item>Aprender sin pensar es inútil. Pensar sin aprender, peligroso (Confucio)</item>
+    <item>Ponte objetivos arduos y no pares hasta llegar ahí (Bo Jackson)</item>
+    <item>Nunca olvidamos lo que aprendemos con placer (Alfred Mercier)</item>
+    <item>El conocimiento no vale si no se comparte (Juan Miguel Hernández Cruz)</item>
+    <item>Cuando las arañas tejen juntas, pueden atar a un león» (Proverbio Etíope)</item>
+    <item>El primer paso para lograr algo es estudiar (Brian G)</item>
+    <item>Ninguno de nosotros es tan bueno como todos nosotros juntos (Ray Kroc)</item>
+    <item>Si no hay héroes que te salven, te tienes que convertir en héroe. (Denpa Kyoshi)</item>
+    <item>Un bote no va hacia delante si cada uno rema a su propia manera» (Proverbio Swahili)</item>
+    <item>Trata a los demás como te gustarían que te trataran a ti mismo</item>
+    <item>La buena fortuna favorece a los atrevidos (Virgilio)</item>
+    <item>Si hiciésemos todas las cosas de las que somos capaces, nos asombraríamos (Thomas Edison)</item>
+    <item>La calidad nunca es un accidente, siempre es resultado de un esfuerzo de la inteligencia (John Ruskiin)</item>
+    <item>La verdadera educación consiste en obtener lo mejor de uno mismo (Mahatma Gandhi)</item>
+    <item>Nuestra paciencia conseguirá más cosas que nuestra fuerza (Edmund Burke)</item>
+    <item>La manera más efectiva de hacerlo es hacerlo (Amelia Earhat)</item>
+    <item>Ganar no lo es todo, pero querer ganar sí lo es (Vince Lombardi)</item>
+    <item>Lo que puedes hacer hoy puede mejorar todos tus mañanas (Ralph Martson)</item>
+    <item>La mejor forma de predecir el futuro es crearlo (Peter Drucker)</item>
+    <item>El éxito depende del esfuerzo (Sófocles)</item>
+    <item>Sin autodisciplina, el éxito es imposible (Lou Holz)</item>
+    <item>Quien no lo ha dado todo no ha dado nada (Helenio Herrera)</item>
+    <item>La energía y la persistencia conquistan todas las cosas (Benjamin Franklin)</item>
+    <item>Haz de cada día una obra maestra (John Wooden)</item>
+    <item>El secreto de ir avanzando es empezar (Mark Twain)</item>
+    <item>No mires el reloj; haz lo mismo que él, ve avanzando (Sam Levenson)</item>
+    <item>La calidad no es un acto, sino un hábito (Aristóteles)</item>
+    <item>Acepta los retos para sentir la euforia del triunfo (George S. Patton)</item>
+    <item>La paciencia es amarga pero sus frutos son dulces (Jean Jacques Rousseau)</item>
+    <item>Los problemas no son signos de Stop, son pautas (Robert H. Schuller)</item>
+    <item>Puedes encontrar derrotas, pero no debes ser derrotado (Maya Angelou)</item>
+    <item>La perseverancia es caer 19 veces y levantarse 20 (Julie Andrews)</item>
+    <item>Sin sufrimiento, no hay felicidad. He aprendido a disfrutar sufriendo (Rafael Nadal)</item>
+    <item>No hay un sustituto para el trabajo duro (Thomas Edison)</item>
+    <item>El genio se hace con un 1% de talento, y un 99% de trabajo (Albert Einstein)</item>
+    <item>Confía en ti mismo sin importar los que los demás piensen (Arnold Schwarzenegger)</item>
+    <item>Siempre pasas por el fracaso en el camino al éxito (Mickey Rooney)</item>
+    <item>Ten el coraje para hacer lo que te dice tu corazón y tu intuición (Steve Jobs)</item>
+    <item>La mejor forma de predecir el futuro es crearlo (Abraham Lincoln)</item>
+    <item>El punto de partida del éxito es el deseo (Napoleon Hill)</item>
+    <item>Acepta los retos para sentir la euforia del triunfo (George S. Patton)</item>
+    <item>Cree y actúa como si fuese imposible fracasar (Charles F. Kettering)</item>
+    <item>No importa cuán despacio vayas mientras no te detengas (Confucio)</item>
+    <item>El futuro pertenece a aquellos que creen en la belleza de sus sueños (Eleanor Roosevelt)</item>
+</string-array>
 </resources>

@@ -8,7 +8,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_below="@id/app_bar"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/detalle_elemento_agenda">
+    tools:showIn="@layout/activity_elemento_agenda">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

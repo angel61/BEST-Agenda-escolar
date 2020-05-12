@@ -18,7 +18,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.calendarioescolar.Aplicacion;
 import com.example.calendarioescolar.CasosDeUso.CasosUsoAsignatura;
-import com.example.calendarioescolar.Fragments.horario.HorarioFragment;
+import com.example.calendarioescolar.Fragments.HorarioFragment;
 import com.example.calendarioescolar.Modelo.AsignaturasBD;
 import com.example.calendarioescolar.R;
 import com.github.tlaabs.timetableview.Schedule;
@@ -57,7 +57,7 @@ public class EditarHorarioActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.editar_horario_layout);
+        setContentView(R.layout.activity_editar_horario);
         iniciar();
     }
 

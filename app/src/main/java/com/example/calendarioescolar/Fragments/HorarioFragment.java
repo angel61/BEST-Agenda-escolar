@@ -1,4 +1,4 @@
-package com.example.calendarioescolar.Fragments.horario;
+package com.example.calendarioescolar.Fragments;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.example.calendarioescolar.Aplicacion;
 import com.example.calendarioescolar.Presentacion.EditarHorarioActivity;
 import com.example.calendarioescolar.R;
 import com.github.tlaabs.timetableview.Schedule;
@@ -37,7 +36,7 @@ public class HorarioFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        root = inflater.inflate(R.layout.horario_layout, container, false);
+        root = inflater.inflate(R.layout.fragment_horario, container, false);
         setHasOptionsMenu(true);
         iniciar();
         return root;

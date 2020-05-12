@@ -41,7 +41,7 @@ public class AgendaObjectActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.detalle_elemento_agenda);
+        setContentView(R.layout.activity_elemento_agenda);
         extras = getIntent().getExtras();
         pos = extras.getInt("pos", 0);
         agBD = ((Aplicacion) getApplication()).agendaBD;
@@ -55,7 +55,7 @@ public class AgendaObjectActivity extends AppCompatActivity {
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.detalle_ao, menu);
+        getMenuInflater().inflate(R.menu.activity_elemento_agenda, menu);
         return true;
     }
     @Override

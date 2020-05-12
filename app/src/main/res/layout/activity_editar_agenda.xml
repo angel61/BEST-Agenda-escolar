@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:id="@+id/editar_layout"
-    tools:context=".Presentacion.EditarHorarioActivity">
+    tools:context=".Presentacion.EditarObjectAgendaActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
@@ -23,6 +23,6 @@
 
 
     </com.google.android.material.appbar.AppBarLayout>
-    <include layout="@layout/editar_horario_content" />
+    <include layout="@layout/content_editar_agenda" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

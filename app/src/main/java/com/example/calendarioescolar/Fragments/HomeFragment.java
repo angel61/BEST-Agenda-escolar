@@ -1,4 +1,4 @@
-package com.example.calendarioescolar.Fragments.home;
+package com.example.calendarioescolar.Fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,13 +11,18 @@ import androidx.fragment.app.Fragment;
 
 import com.example.calendarioescolar.R;
 
+import java.util.Calendar;
+
 public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-        final TextView textView = root.findViewById(R.id.text_home);
-                textView.setText("fragment inicio");
+        TextView textView = root.findViewById(R.id.frase_txt);
+        Calendar cal = Calendar.getInstance();
+        String[] frasesSemanales = getResources().getStringArray(R.array.frases);
+        int semanaDelAnno = cal.get(Calendar.WEEK_OF_YEAR) - 1;
+        textView.setText(frasesSemanales[semanaDelAnno]);
         return root;
     }
 }

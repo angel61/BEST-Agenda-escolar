@@ -52,7 +52,7 @@ public class EditarObjectAgendaActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.editar_layout);
+        setContentView(R.layout.activity_editar_agenda);
 
         extras = getIntent().getExtras();
         pos = extras.getInt("pos", 0);
@@ -70,7 +70,7 @@ public class EditarObjectAgendaActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.editar_agenda_object, menu);
+        getMenuInflater().inflate(R.menu.activity_editar_agenda, menu);
         return true;
     }
 
