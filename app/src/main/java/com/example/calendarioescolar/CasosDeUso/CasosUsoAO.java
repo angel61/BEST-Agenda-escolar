@@ -45,29 +45,28 @@ public class CasosUsoAO {
 
     public void borrar(final int id) {
         agBD.borrar(id);
-        adaptador.setCursor(agBD.extraeCursor());
+        adaptador.setCursor(agBD.extraeCursor(aplicacion.agendaCursor));
         adaptador.notifyDataSetChanged();
-        aplicacion.adaptadorHome.setCursor(agBD.extraeCursorHome());
+        aplicacion.adaptadorHome.setCursor(agBD.extraeCursor(2));
         aplicacion.adaptadorHome.notifyDataSetChanged();
         actividad.finish();
     }
 
     public void borrarSinFinish(final int id) {
         agBD.borrar(id);
-        adaptador.setCursor(agBD.extraeCursor());
+        adaptador.setCursor(agBD.extraeCursor(aplicacion.agendaCursor));
         adaptador.notifyDataSetChanged();
-        aplicacion.adaptadorHome.setCursor(agBD.extraeCursorHome());
+        aplicacion.adaptadorHome.setCursor(agBD.extraeCursor(2));
         aplicacion.adaptadorHome.notifyDataSetChanged();
     }
 
     public void guardar(int id, agenda_object nuevoagObject) {
         agBD.actualiza(id, nuevoagObject);
 
-        aplicacion.adaptadorHome.setCursor(agBD.extraeCursorHome());
-        aplicacion.adaptadorHome.notifyDataSetChanged();
-
-        adaptador.setCursor(agBD.extraeCursor());
+        adaptador.setCursor(agBD.extraeCursor(aplicacion.agendaCursor));
         adaptador.notifyDataSetChanged();
+        aplicacion.adaptadorHome.setCursor(agBD.extraeCursor(2));
+        aplicacion.adaptadorHome.notifyDataSetChanged();
     }
 
     public void compartir(agenda_object AO) {

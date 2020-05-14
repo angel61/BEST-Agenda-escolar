@@ -1,13 +1,14 @@
 package com.example.calendarioescolar.Presentacion;
 
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -26,14 +27,11 @@ import com.example.calendarioescolar.Adaptadores.AdaptadorAgendaBD;
 import com.example.calendarioescolar.Aplicacion;
 import com.example.calendarioescolar.CasosDeUso.CasosUsoAO;
 import com.example.calendarioescolar.Modelo.AgendaBD;
+import com.example.calendarioescolar.Modelo.TipoAgenda;
 import com.example.calendarioescolar.R;
-import com.github.tlaabs.timetableview.Schedule;
 import com.github.tlaabs.timetableview.TimetableView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-
-import java.util.ArrayList;
-import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -65,11 +63,44 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                final TipoAgenda[] items={
+                        TipoAgenda.RECORDATORIO,
+                        TipoAgenda.EJERCICIOS,
+                        TipoAgenda.TRABAJO,
+                        TipoAgenda.EXAMEN
+                };
+                ArrayAdapter<TipoAgenda> arrayAdapter = new ArrayAdapter<TipoAgenda>(
+                        MainActivity.this,
+                        android.R.layout.select_dialog_item,
+                        android.R.id.text1,
+                        items){
+                    public View getView(int position, View convertView, ViewGroup parent) {
+                        View v = super.getView(position, convertView, parent);
+                        TextView tv = (TextView)v.findViewById(android.R.id.text1);
+                        tv.setText(items[position].getTexto());
+
+                        int dp36 = (int) (36 * getResources().getDisplayMetrics().density + 0.5f);
+                        Drawable img = getDrawable(items[position].getRecurso());
+                        img.setBounds(0, 0, dp36, dp36);
+                        tv.setCompoundDrawables(img, null, null, null);
+
+                        int dp5 = (int) (5 * getResources().getDisplayMetrics().density + 0.5f);
+                        tv.setCompoundDrawablePadding(dp5);
+
+                        tv.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+
+                        return v;
+                    }
+                };
+
+                ListAdapter adapter=arrayAdapter;
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 builder.setTitle("Selecciona el tipo de actividad")
-                        .setItems(R.array.tipo_agenda, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                casosUsoAO.nuevo(which);
+                        .setAdapter(adapter, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int item) {
+                                casosUsoAO.nuevo(item);
                             }
                         }).show();
             }
@@ -110,6 +141,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         if (fragment == 1) {
             getMenuInflater().inflate(R.menu.horario, menu);
+        } else if (fragment == 2) {
+            getMenuInflater().inflate(R.menu.agenda, menu);
         } else {
             getMenuInflater().inflate(R.menu.main, menu);
         }

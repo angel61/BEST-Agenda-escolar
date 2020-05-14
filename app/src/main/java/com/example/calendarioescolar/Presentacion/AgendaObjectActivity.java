@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -98,6 +99,10 @@ public class AgendaObjectActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         TextView tvComentario=findViewById(R.id.tv_comentario);
         tvComentario.setText(agendaObject.getComentario());
+        if(agendaObject.getComentario().trim().length()<=0){
+            LinearLayout ll=findViewById(R.id.ll_comentario);
+            ll.setVisibility(LinearLayout.GONE);
+        }
 
         TextView tvAsignatura = findViewById(R.id.tv_asignatura);
         if(agendaObject.getAsig().length()>0) {
@@ -113,20 +118,12 @@ public class AgendaObjectActivity extends AppCompatActivity {
         TextView tvTipo=findViewById(R.id.tv_Tipo);
         tvTipo.setText(agendaObject.getTipoAg().getTexto());
         setTitle(agendaObject.getTitulo());
-
-       /* TextView tvTitulo=findViewById(R.id.titleOb);
-        tvTitulo.setText(agendaObject.getTitulo());
-
-        btnborrar=findViewById(R.id.btnBorrar);
-        btnEditar=findViewById(R.id.btnEditar);*/
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RESULTADO_EDITAR) {
             agendaObject = agBD.elemento(_id);
             actualizarVistas();
-        }
     }
 }

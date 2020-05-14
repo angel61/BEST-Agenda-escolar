@@ -11,7 +11,7 @@
         android:label="Inicio"
         tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_nav_home_to_nav_gallery"
+            android:id="@+id/action_nav_home_to_nav_agenda"
             app:destination="@id/nav_agenda"
             app:enterAnim="@anim/slide_left"
             app:exitAnim="@anim/wait_anim"
@@ -19,7 +19,7 @@
             app:popExitAnim="@anim/slide_right"
             app:popUpTo="@+id/nav_inicio" />
         <action
-            android:id="@+id/action_nav_home_to_nav_slideshow"
+            android:id="@+id/action_nav_home_to_nav_horario"
             app:destination="@id/nav_horario"
             app:enterAnim="@anim/slide_left"
             app:exitAnim="@anim/wait_anim"

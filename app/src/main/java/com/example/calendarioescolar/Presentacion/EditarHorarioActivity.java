@@ -26,6 +26,7 @@ import com.github.tlaabs.timetableview.Time;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -234,12 +235,22 @@ public class EditarHorarioActivity extends AppCompatActivity {
             case R.id.accion_guardar:
                 schedule.setClassTitle(asignatura.getEditText().getText().toString());
                 if (mode == HorarioFragment.REQUEST_ADD) {
-                    Intent i = new Intent();
-                    ArrayList<Schedule> schedules = new ArrayList<Schedule>();
-                    schedules.add(schedule);
-                    i.putExtra("schedules", schedules);
-                    setResult(RESULT_OK_ADD, i);
-                    finish();
+                    if(asignatura.getEditText().getText().toString().length()>0&&hInicio.getEditText().getText().length()>0&&hFin.getEditText().getText().length()>0) {
+                        Intent i = new Intent();
+                        ArrayList<Schedule> schedules = new ArrayList<Schedule>();
+                        schedules.add(schedule);
+                        i.putExtra("schedules", schedules);
+                        setResult(RESULT_OK_ADD, i);
+                        finish();
+                    }else{
+                        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                        builder.setTitle("Faltan campos por rellenar")
+                                .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                    }
+                                })
+                                .show();
+                    }
                 } else if (mode == HorarioFragment.REQUEST_EDIT) {
                     Intent i = new Intent();
                     ArrayList<Schedule> schedules = new ArrayList<Schedule>();
@@ -285,18 +296,24 @@ public class EditarHorarioActivity extends AppCompatActivity {
         asignatura.getEditText().setText(schedule.getClassTitle());
         day.setSelection(schedule.getDay());
 
+        int horaInicio=schedule.getStartTime().getHour();
         int mInicio = schedule.getStartTime().getMinute();
+        int horaFin=schedule.getEndTime().getHour();
         int mFin = schedule.getEndTime().getMinute();
-        if (mInicio > 9) {
-            hInicio.getEditText().setText(schedule.getStartTime().getHour() + ":" + mInicio);
-        } else {
-            hInicio.getEditText().setText(schedule.getStartTime().getHour() + ":0" + mInicio);
-        }
-        if (mFin > 9) {
-            hFin.getEditText().setText(schedule.getEndTime().getHour() + ":" + mFin);
-        } else {
-            hFin.getEditText().setText(schedule.getEndTime().getHour() + ":0" + mFin);
-        }
+        Calendar Inicio=Calendar.getInstance();
+        Inicio.set(Calendar.MINUTE,mInicio);
+        Inicio.set(Calendar.HOUR_OF_DAY,horaInicio);
+        SimpleDateFormat sdm=new SimpleDateFormat("HH:mm");
+        String inicioStr=sdm.format(Inicio.getTime());
+
+        Calendar Fin= Calendar.getInstance();
+        Fin.set(Calendar.MINUTE,mFin);
+        Inicio.set(Calendar.HOUR_OF_DAY,horaFin);
+        String finStr=sdm.format(Fin.getTime());
+
+            hInicio.getEditText().setText(inicioStr);
+
+            hFin.getEditText().setText(finStr);
     }
 
 }

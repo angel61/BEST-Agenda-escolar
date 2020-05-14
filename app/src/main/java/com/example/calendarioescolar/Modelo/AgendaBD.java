@@ -129,25 +129,43 @@ public class AgendaBD extends SQLiteOpenHelper
         return agendaobject;
     }
 
-    public Cursor extraeCursor() {
-        SharedPreferences pref =
-                PreferenceManager.getDefaultSharedPreferences(contexto);
-        String consulta;
-        consulta = "SELECT * FROM agenda WHERE fecha>="+System.currentTimeMillis()+" ORDER BY fecha";
-        consulta += " LIMIT " + pref.getString("maximo", "12");
-        SQLiteDatabase bd = getReadableDatabase();
-        return bd.rawQuery(consulta, null);
-    }
-
-    public Cursor extraeCursorHome() {
-        Long ahora =System.currentTimeMillis();
+    public Cursor extraeCursor(int i) {
         Calendar cal=Calendar.getInstance();
-        cal.setTimeInMillis(ahora);
-        cal.add(Calendar.DAY_OF_YEAR,1);
-        Long mannana=cal.getTimeInMillis();
-
-        String consulta = "SELECT * FROM agenda WHERE fecha>="+System.currentTimeMillis()
-                +" AND fecha<"+mannana+" ORDER BY fecha LIMIT 5";
+        cal.set(Calendar.HOUR_OF_DAY,0);
+        cal.set(Calendar.MINUTE,0);
+        Long hoy = cal.getTimeInMillis();
+        String consulta="";
+        switch (i) {
+            case 0:
+                consulta = "SELECT * FROM agenda WHERE fecha<"+System.currentTimeMillis()+" ORDER BY fecha";
+                break;
+            case 1:
+                cal.add(Calendar.DAY_OF_YEAR,-1);
+                Long ayer=cal.getTimeInMillis();
+                consulta = "SELECT * FROM agenda WHERE fecha>="+ayer
+                        +" AND fecha<"+hoy+" ORDER BY fecha";
+                break;
+            case 2:
+                cal.add(Calendar.DAY_OF_YEAR,1);
+                Long mannana=cal.getTimeInMillis();
+                consulta = "SELECT * FROM agenda WHERE fecha>="+hoy
+                        +" AND fecha<"+mannana+" ORDER BY fecha";
+                break;
+            case 3:
+                cal.add(Calendar.DAY_OF_YEAR,1);
+                Long manna=cal.getTimeInMillis();
+                cal.add(Calendar.DAY_OF_YEAR,1);
+                Long pasmanna=cal.getTimeInMillis();
+                consulta = "SELECT * FROM agenda WHERE fecha>="+manna
+                        +" AND fecha<"+pasmanna+" ORDER BY fecha";
+                break;
+            case 4:
+                consulta = "SELECT * FROM agenda WHERE fecha>="+System.currentTimeMillis()+" ORDER BY fecha";
+                break;
+            case 5:
+                consulta = "SELECT * FROM agenda ORDER BY fecha";
+                break;
+        }
         SQLiteDatabase bd = getReadableDatabase();
         return bd.rawQuery(consulta, null);
     }

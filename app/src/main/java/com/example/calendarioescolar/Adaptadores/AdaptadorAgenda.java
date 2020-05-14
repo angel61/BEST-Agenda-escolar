@@ -85,14 +85,15 @@ public class AdaptadorAgenda extends RecyclerView.Adapter<AdaptadorAgenda.ViewHo
 
                 cal.setTime(fec);
                 String textoFecha;
+                SimpleDateFormat sdm=new SimpleDateFormat("HH:mm");
                 if (fecInt == ayer) {
-                    textoFecha = "Ayer a las " + cal.get(Calendar.HOUR_OF_DAY) + ":" + cal.get(Calendar.MINUTE);
+                    textoFecha = "Ayer a las " +sdm.format(cal.getTime());
 
                 } else if (fecInt == mannana) {
-                    textoFecha = "Mañana a las " + cal.get(Calendar.HOUR_OF_DAY) + ":" + cal.get(Calendar.MINUTE);
+                    textoFecha = "Mañana a las " +sdm.format(cal.getTime());
 
                 } else if (fecInt == hoy) {
-                    textoFecha = "Hoy a las " + cal.get(Calendar.HOUR_OF_DAY) + ":" + cal.get(Calendar.MINUTE);
+                    textoFecha = "Hoy a las " +sdm.format(cal.getTime());
                 } else {
                     textoFecha = new SimpleDateFormat("dd-MM-yyyy").format(fec);
                 }

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/pasadas"
+        android:title="Pasadas" />
+    <item android:id="@+id/ayer"
+        android:title="Ayer"/>
+    <item android:id="@+id/hoy"
+        android:title="Hoy" />
+    <item android:id="@+id/mannana"
+        android:title="Mañana" />
+    <item android:id="@+id/proximas"
+        android:title="Proximas" />
+    <item android:id="@+id/todo"
+        android:title="Todo" />
+</menu>

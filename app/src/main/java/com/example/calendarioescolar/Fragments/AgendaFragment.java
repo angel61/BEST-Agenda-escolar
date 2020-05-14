@@ -1,15 +1,20 @@
 package com.example.calendarioescolar.Fragments;
 
 import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.RippleDrawable;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,6 +25,7 @@ import com.example.calendarioescolar.Adaptadores.AdaptadorAgendaBD;
 import com.example.calendarioescolar.Aplicacion;
 import com.example.calendarioescolar.CasosDeUso.CasosUsoAO;
 import com.example.calendarioescolar.Modelo.AgendaBD;
+import com.example.calendarioescolar.Presentacion.EditarHorarioActivity;
 import com.example.calendarioescolar.R;
 
 public class AgendaFragment extends Fragment {
@@ -30,6 +36,7 @@ public class AgendaFragment extends Fragment {
     private RecyclerView recycler;
     private SwipeRefreshLayout refresh;
     private RippleDrawable rippleDrawable;
+    private Aplicacion aplicacion;
 
     private Activity actividad;
 
@@ -39,18 +46,19 @@ public class AgendaFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_agenda, container, false);
 
-        actividad = getActivity();
+        setHasOptionsMenu(true);
         iniciar();
 
         return root;
     }
 
     private void iniciar() {
+        actividad = getActivity();
+        aplicacion=((Aplicacion) actividad.getApplication());
 
+        adaptador = aplicacion.adaptador;
 
-        adaptador = ((Aplicacion) actividad.getApplication()).adaptador;
-
-        agendaBD = ((Aplicacion) actividad.getApplication()).agendaBD;
+        agendaBD = aplicacion.agendaBD;
 
         casosUsoAO = new CasosUsoAO(actividad, agendaBD, adaptador);
 
@@ -74,10 +82,7 @@ public class AgendaFragment extends Fragment {
         refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                adaptador = new AdaptadorAgendaBD(agendaBD,R.layout.elemento_agenda, agendaBD.extraeCursor());
-                recycler.setAdapter(adaptador);
-                ((Aplicacion) actividad.getApplication()).adaptador = adaptador;
-                refresh.setRefreshing(false);
+                cargarCursor();
             }
         });
 
@@ -131,5 +136,63 @@ public class AgendaFragment extends Fragment {
 
             }
         });
+    }
+
+    private void cargarCursor() {
+        adaptador = new AdaptadorAgendaBD(agendaBD, R.layout.elemento_agenda, agendaBD.extraeCursor(aplicacion.agendaCursor));
+        recycler.setAdapter(adaptador);
+        aplicacion.adaptador = adaptador;
+        refresh.setRefreshing(false);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.accion_ordenar:
+                View v = actividad.findViewById(R.id.accion_ordenar);
+                PopupMenu popup = new PopupMenu(actividad, v);
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.pasadas:
+                                aplicacion.agendaCursor=0;
+                                cargarCursor();
+                                return true;
+
+                            case R.id.ayer:
+                                aplicacion.agendaCursor=1;
+                                cargarCursor();
+                                return true;
+
+                            case R.id.hoy:
+                                aplicacion.agendaCursor=2;
+                                cargarCursor();
+                                return true;
+
+                            case R.id.mannana:
+                                aplicacion.agendaCursor=3;
+                                cargarCursor();
+                                return true;
+
+                            case R.id.proximas:
+                                aplicacion.agendaCursor=4;
+                                cargarCursor();
+                                return true;
+
+                            case R.id.todo:
+                                aplicacion.agendaCursor=5;
+                                cargarCursor();
+                                return true;
+                        }
+                        return false;
+                    }
+                });
+                popup.inflate(R.menu.popup_filter);
+                popup.show();
+                return true;
+
+        }
+        return false;
     }
 }

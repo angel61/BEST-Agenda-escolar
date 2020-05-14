@@ -15,6 +15,7 @@ public class Aplicacion extends Application {
     public AdaptadorAgendaBD adaptador;
     public AdaptadorAgendaBD adaptadorHome;
     public AsignaturasBD asigBD;
+    public int agendaCursor;
 
     @Override
     public void onCreate() {
@@ -22,11 +23,12 @@ public class Aplicacion extends Application {
 
         agendaBD = new AgendaBD(this);
         asigBD = new AsignaturasBD(this);
-        adaptador = new AdaptadorAgendaBD(agendaBD,R.layout.elemento_agenda, agendaBD.extraeCursor());
+        agendaCursor=4;
+        adaptador = new AdaptadorAgendaBD(agendaBD,R.layout.elemento_agenda, agendaBD.extraeCursor(4));
         adaptador.setTiempo(0);
 
 
-        adaptadorHome = new AdaptadorAgendaBD(agendaBD,R.layout.elemento_agenda_home, agendaBD.extraeCursorHome());
+        adaptadorHome = new AdaptadorAgendaBD(agendaBD,R.layout.elemento_agenda_home, agendaBD.extraeCursor(2));
 
     }
 
