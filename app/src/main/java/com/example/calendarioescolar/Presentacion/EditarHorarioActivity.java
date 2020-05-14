@@ -252,10 +252,20 @@ public class EditarHorarioActivity extends AppCompatActivity {
                 return true;
             case R.id.accion_borrar:
 
-                Intent i = new Intent();
-                i.putExtra("idx", editIdx);
-                setResult(RESULT_OK_DELETE, i);
-                finish();
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("¿Deseas eliminar este elemento del horario?")
+                        .setPositiveButton("Eliminar", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                casosUsoAsignatura.borrar(editIdx);
+                            }
+                        })
+                        .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        })
+                        .show();
                 return true;
             case android.R.id.home:
 

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 
 import com.example.calendarioescolar.Adaptadores.AdaptadorAgendaBD;
+import com.example.calendarioescolar.Aplicacion;
 import com.example.calendarioescolar.Presentacion.AgendaObjectActivity;
 import com.example.calendarioescolar.Presentacion.EditarObjectAgendaActivity;
 import com.example.calendarioescolar.Modelo.AgendaBD;
@@ -16,13 +17,14 @@ public class CasosUsoAO {
     private Activity actividad;
     private AgendaBD agBD;
     private AdaptadorAgendaBD adaptador;
-
+    private Aplicacion aplicacion;
 
     public CasosUsoAO(Activity actividad, AgendaBD agBD,
                       AdaptadorAgendaBD adaptador) {
         this.actividad = actividad;
         this.agBD = agBD;
         this.adaptador = adaptador;
+        aplicacion=(Aplicacion)actividad.getApplication();
     }
 
 
@@ -45,6 +47,8 @@ public class CasosUsoAO {
         agBD.borrar(id);
         adaptador.setCursor(agBD.extraeCursor());
         adaptador.notifyDataSetChanged();
+        aplicacion.adaptadorHome.setCursor(agBD.extraeCursorHome());
+        aplicacion.adaptadorHome.notifyDataSetChanged();
         actividad.finish();
     }
 
@@ -52,10 +56,16 @@ public class CasosUsoAO {
         agBD.borrar(id);
         adaptador.setCursor(agBD.extraeCursor());
         adaptador.notifyDataSetChanged();
+        aplicacion.adaptadorHome.setCursor(agBD.extraeCursorHome());
+        aplicacion.adaptadorHome.notifyDataSetChanged();
     }
 
     public void guardar(int id, agenda_object nuevoagObject) {
         agBD.actualiza(id, nuevoagObject);
+
+        aplicacion.adaptadorHome.setCursor(agBD.extraeCursorHome());
+        aplicacion.adaptadorHome.notifyDataSetChanged();
+
         adaptador.setCursor(agBD.extraeCursor());
         adaptador.notifyDataSetChanged();
     }

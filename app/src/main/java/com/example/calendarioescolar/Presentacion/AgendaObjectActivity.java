@@ -1,5 +1,6 @@
 package com.example.calendarioescolar.Presentacion;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -8,6 +9,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -65,7 +67,21 @@ public class AgendaObjectActivity extends AppCompatActivity {
                 casosUso.editar(pos, RESULTADO_EDITAR);
                 return true;
             case R.id.accion_borrar:
-                casosUso.borrar(_id);
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("¿Deseas eliminar la actividad?")
+                        .setPositiveButton("Eliminar", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                casosUso.borrar(_id);
+                            }
+                        })
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
                 return true;
 
             default:

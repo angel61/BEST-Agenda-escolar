@@ -2,7 +2,6 @@ package com.example.calendarioescolar.Adaptadores;
 
 import android.database.Cursor;
 
-import com.example.calendarioescolar.Adaptadores.AdaptadorAgenda;
 import com.example.calendarioescolar.Modelo.AgendaBD;
 import com.example.calendarioescolar.Modelo.RepositorioAgenda;
 import com.example.calendarioescolar.Modelo.agenda_object;
@@ -11,18 +10,14 @@ public class AdaptadorAgendaBD extends AdaptadorAgenda {
 
     protected Cursor cursor;
 
-    public int getTiempo() {
-        return tiempo;
-    }
-
     public void setTiempo(int tiempo) {
         this.tiempo = tiempo;
     }
 
     private int tiempo;
 
-    public AdaptadorAgendaBD(RepositorioAgenda repAgenda, Cursor cursor) {
-        super(repAgenda);
+    public AdaptadorAgendaBD(RepositorioAgenda repAgenda,int idV, Cursor cursor) {
+        super(repAgenda, idV);
         this.cursor = cursor;
     }
 

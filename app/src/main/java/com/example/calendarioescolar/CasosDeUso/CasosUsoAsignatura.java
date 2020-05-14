@@ -2,6 +2,7 @@ package com.example.calendarioescolar.CasosDeUso;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.util.TypedValue;
@@ -12,6 +13,7 @@ import android.widget.FrameLayout;
 import androidx.appcompat.app.AlertDialog;
 
 import com.example.calendarioescolar.Modelo.AsignaturasBD;
+import com.example.calendarioescolar.Presentacion.EditarHorarioActivity;
 import com.example.calendarioescolar.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -75,5 +77,11 @@ public class CasosUsoAsignatura {
         builder.show();
 
 
+    }
+    public void borrar(int _id){
+        Intent i = new Intent();
+        i.putExtra("idx", _id);
+        actividad.setResult(EditarHorarioActivity.RESULT_OK_DELETE, i);
+        actividad.finish();
     }
 }

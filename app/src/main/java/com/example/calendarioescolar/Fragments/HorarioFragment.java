@@ -2,6 +2,7 @@ package com.example.calendarioescolar.Fragments;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.example.calendarioescolar.Presentacion.EditarHorarioActivity;
@@ -86,7 +88,23 @@ public class HorarioFragment extends Fragment {
                 startActivityForResult(i, REQUEST_ADD);
                 return true;
             case R.id.accion_limpiar:
-                timetable.removeAll();
+
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(actividad);
+                builder.setMessage("¿Deseas borrar el horario?")
+                        .setPositiveButton("Eliminar", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                timetable.removeAll();
+                                guardarPreferencias(timetable.createSaveData());
+                            }
+                        })
+                        .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        })
+                        .show();
                 return true;
 
         }

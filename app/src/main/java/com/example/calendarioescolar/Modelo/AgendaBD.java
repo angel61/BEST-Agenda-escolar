@@ -133,8 +133,21 @@ public class AgendaBD extends SQLiteOpenHelper
         SharedPreferences pref =
                 PreferenceManager.getDefaultSharedPreferences(contexto);
         String consulta;
-                    consulta = "SELECT * FROM agenda WHERE fecha>="+System.currentTimeMillis()+" ORDER BY fecha";
+        consulta = "SELECT * FROM agenda WHERE fecha>="+System.currentTimeMillis()+" ORDER BY fecha";
         consulta += " LIMIT " + pref.getString("maximo", "12");
+        SQLiteDatabase bd = getReadableDatabase();
+        return bd.rawQuery(consulta, null);
+    }
+
+    public Cursor extraeCursorHome() {
+        Long ahora =System.currentTimeMillis();
+        Calendar cal=Calendar.getInstance();
+        cal.setTimeInMillis(ahora);
+        cal.add(Calendar.DAY_OF_YEAR,1);
+        Long mannana=cal.getTimeInMillis();
+
+        String consulta = "SELECT * FROM agenda WHERE fecha>="+System.currentTimeMillis()
+                +" AND fecha<"+mannana+" ORDER BY fecha LIMIT 5";
         SQLiteDatabase bd = getReadableDatabase();
         return bd.rawQuery(consulta, null);
     }

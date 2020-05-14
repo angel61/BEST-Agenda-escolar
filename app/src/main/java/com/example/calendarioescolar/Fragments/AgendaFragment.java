@@ -57,7 +57,11 @@ public class AgendaFragment extends Fragment {
         recycler = root.findViewById(R.id.recycler_view);
         recycler.setHasFixedSize(true);
         recycler.setLayoutManager(new LinearLayoutManager(actividad));
-        recycler.addItemDecoration(new DividerItemDecoration(actividad, DividerItemDecoration.VERTICAL));
+
+        DividerItemDecoration itemDecorator = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+        itemDecorator.setDrawable(actividad.getDrawable(R.drawable.divider_agenda));
+        recycler.addItemDecoration(itemDecorator);
+
         recycler.setAdapter(adaptador);
 
         refresh = root.findViewById(R.id.refreshl);
@@ -70,7 +74,7 @@ public class AgendaFragment extends Fragment {
         refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                adaptador = new AdaptadorAgendaBD(agendaBD, agendaBD.extraeCursor());
+                adaptador = new AdaptadorAgendaBD(agendaBD,R.layout.elemento_agenda, agendaBD.extraeCursor());
                 recycler.setAdapter(adaptador);
                 ((Aplicacion) actividad.getApplication()).adaptador = adaptador;
                 refresh.setRefreshing(false);
