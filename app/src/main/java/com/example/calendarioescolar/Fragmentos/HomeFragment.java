@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -26,6 +28,11 @@ import com.example.calendarioescolar.CasosDeUso.CasosUsoAO;
 import com.example.calendarioescolar.Modelo.AgendaBD;
 import com.example.calendarioescolar.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class HomeFragment extends Fragment {
@@ -42,6 +49,10 @@ public class HomeFragment extends Fragment {
     private Activity actividad;
 
     private View root;
+
+    private ListView listview;
+    private ArrayList<String> asignaturas;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_home, container, false);
@@ -66,7 +77,7 @@ public class HomeFragment extends Fragment {
 
         casosUsoAO = new CasosUsoAO(actividad, agendaBD, adaptador);
 
-        nada=root.findViewById(R.id.noActividades);
+        nada = root.findViewById(R.id.noActividades);
 
         recycler = root.findViewById(R.id.rvActividadesHoy);
         recycler.setHasFixedSize(true);
@@ -84,12 +95,10 @@ public class HomeFragment extends Fragment {
                 sinContenido();
             }
         });
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(actividad);
-        String[] pruebaD=pref.getString("timetable_demo", "").split("\"day\":");
-        for(int i=0;i<pruebaD.length;i++) {
-            String[] aux2=pruebaD[i].split(",");
-                System.out.println(aux2[0] + " " + pruebaD[i].split("classTitle\":\"")[0]);
-        }
+
+        listview=root.findViewById(R.id.listAsignaturasHoy);
+        incializarListView();
+
         inicializarListeners();
     }
 
@@ -144,7 +153,6 @@ public class HomeFragment extends Fragment {
 
             }
         });
-
     }
 
     @Override
@@ -154,10 +162,44 @@ public class HomeFragment extends Fragment {
     }
 
     private void sinContenido() {
-        if(((AdaptadorAgendaBD)recycler.getAdapter()).getCursor().getCount()<=0){
+        if (((AdaptadorAgendaBD) recycler.getAdapter()).getCursor().getCount() <= 0) {
             nada.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             nada.setVisibility(View.GONE);
         }
     }
+    private void incializarListView(){
+        asignaturas=new ArrayList<String>();
+        Calendar cal=Calendar.getInstance();
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(actividad);
+        String pruebaD = pref.getString("timetable_demo", "");
+        int dia = (cal.get(Calendar.DAY_OF_WEEK) - 1);
+        JSONObject result = null;
+        try {
+            result = new JSONObject(pruebaD);
+            JSONArray stickers = result.getJSONArray("sticker");
+            for (int i = 0; stickers.length() > i; i++) {
+                JSONObject sticker = stickers.getJSONObject(i);
+                JSONArray schedule = sticker.getJSONArray("schedule");
+                JSONObject clase = schedule.getJSONObject(0);
+                if (clase.getInt("day") == (dia - 1)) {
+                    String nombre=clase.getString("classTitle");
+                    asignaturas.add(nombre);
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        if (asignaturas.size()<=0){asignaturas.add("No hay clases para hoy");}
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(actividad, android.R.layout.simple_list_item_1, asignaturas);
+        listview.setAdapter(adapter);
+        int dp =(int) (48 * actividad.getResources().getSystem().getDisplayMetrics().density);
+        ViewGroup.LayoutParams params=listview.getLayoutParams();
+        params.height=(dp+1)*asignaturas.size();
+        listview.setLayoutParams(params);
+    }
+
+
 }
