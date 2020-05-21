@@ -6,7 +6,7 @@
     tools:showIn="@layout/activity_editar_agenda"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Presentacion.EditarObjectAgendaActivity"
+    tools:context=".Actividades.EditarObjectAgendaActivity"
     android:theme="@style/Theme.AppCompat.NoActionBar"
     android:layout_below="@id/app_bar"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -26,6 +26,7 @@
             android:hint="Titulo"
             android:padding="8dp"
             android:textColorHint="#BEFFFFFF"
+            app:errorTextColor="@color/colorAccent"
             app:hintTextAppearance="@style/TextInputMod">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -44,6 +45,7 @@
             android:hint="Comentario"
             android:padding="8dp"
             android:textColorHint="#BEFFFFFF"
+            app:errorTextColor="@color/colorAccent"
             app:hintTextAppearance="@style/TextInputMod">
 
             <com.google.android.material.textfield.TextInputEditText

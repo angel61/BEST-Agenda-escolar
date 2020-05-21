@@ -11,21 +11,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Presentacion.AgendaObjectActivity"
+        <activity android:name=".Actividades.AgendaObjectActivity"
             android:label="AgendaObject View"
-            android:parentActivityName=".Presentacion.AgendaActivity"
+            android:parentActivityName=".Actividades.AgendaActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".Presentacion.EditarObjectAgendaActivity"
+        <activity android:name=".Actividades.EditarObjectAgendaActivity"
             android:label="Editar actividad"
-            android:parentActivityName=".Presentacion.AgendaActivity"
+            android:parentActivityName=".Actividades.AgendaActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".Presentacion.AgendaActivity"
+            android:name=".Actividades.AgendaActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".Presentacion.MainActivity"
+            android:name=".Actividades.MainActivity"
             android:label="Principal"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -35,13 +35,13 @@
             </intent-filter>
 
         </activity>
-        <activity android:name=".Presentacion.HorarioActivity"
+        <activity android:name=".Actividades.HorarioActivity"
             android:label="Horario"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".Presentacion.EditarHorarioActivity"
+            android:name=".Actividades.EditarHorarioActivity"
             android:label="Editar horario"
-            android:parentActivityName=".Presentacion.HorarioActivity"
+            android:parentActivityName=".Actividades.HorarioActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 

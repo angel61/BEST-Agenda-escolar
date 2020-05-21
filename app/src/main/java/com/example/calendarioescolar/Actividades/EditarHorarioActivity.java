@@ -1,4 +1,4 @@
-package com.example.calendarioescolar.Presentacion;
+package com.example.calendarioescolar.Actividades;
 
 import android.app.TimePickerDialog;
 import android.content.Context;
@@ -18,7 +18,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.calendarioescolar.Aplicacion;
 import com.example.calendarioescolar.CasosDeUso.CasosUsoAsignatura;
-import com.example.calendarioescolar.Fragments.HorarioFragment;
+import com.example.calendarioescolar.Fragmentos.HorarioFragment;
 import com.example.calendarioescolar.Modelo.AsignaturasBD;
 import com.example.calendarioescolar.R;
 import com.github.tlaabs.timetableview.Schedule;
@@ -247,6 +247,18 @@ public class EditarHorarioActivity extends AppCompatActivity {
                         builder.setTitle("Faltan campos por rellenar")
                                 .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
+                                        if(asignatura.getEditText().getText().toString().length()<=0){
+                                            asignatura.setError("Campo vacio");
+                                            asignatura.setErrorEnabled(true);
+                                        }
+                                        if(hInicio.getEditText().getText().toString().length()<=0){
+                                            hInicio.setError("Campo vacio");
+                                            hInicio.setErrorEnabled(true);
+                                        }
+                                        if(hFin.getEditText().getText().toString().length()<=0){
+                                            hFin.setError("Campo vacio");
+                                            hFin.setErrorEnabled(true);
+                                        }
                                     }
                                 })
                                 .show();

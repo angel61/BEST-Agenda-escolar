@@ -1,10 +1,11 @@
-package com.example.calendarioescolar.Fragments;
+package com.example.calendarioescolar.Fragmentos;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.drawable.RippleDrawable;
 import android.os.Bundle;
+import android.view.ContextThemeWrapper;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -21,11 +22,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.example.calendarioescolar.Actividades.AgendaObjectActivity;
 import com.example.calendarioescolar.Adaptadores.AdaptadorAgendaBD;
 import com.example.calendarioescolar.Aplicacion;
 import com.example.calendarioescolar.CasosDeUso.CasosUsoAO;
 import com.example.calendarioescolar.Modelo.AgendaBD;
-import com.example.calendarioescolar.Presentacion.EditarHorarioActivity;
 import com.example.calendarioescolar.R;
 
 public class AgendaFragment extends Fragment {
@@ -85,7 +86,6 @@ public class AgendaFragment extends Fragment {
                 cargarCursor();
             }
         });
-
         final GestureDetector GestureDetector =
                 new GestureDetector(actividad, new GestureDetector.SimpleOnGestureListener() {
                     @Override
@@ -99,6 +99,56 @@ public class AgendaFragment extends Fragment {
                     }
 
                 });
+        final GestureDetector gd2 =
+                new GestureDetector(actividad, new GestureDetector.SimpleOnGestureListener() {
+                    @Override
+                    public void onLongPress(MotionEvent e) {
+
+                        final View child = recycler.findChildViewUnder(e.getX(), e.getY());
+                        if (child != null) {
+
+                            final int pos = recycler.getChildAdapterPosition(child);
+                            PopupMenu popup = new PopupMenu(actividad,child);
+                            popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
+                            popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                                public boolean onMenuItemClick(MenuItem item) {
+
+                                    switch (item.getItemId()) {
+                                        case R.id.accion_editar:
+                                            casosUsoAO.editar(pos, AgendaObjectActivity.RESULTADO_EDITAR);
+                                            return true;
+                                        case R.id.accion_borrar:
+
+                                            AlertDialog.Builder builder = new AlertDialog.Builder(actividad);
+                                            builder.setMessage("¿Deseas eliminar la actividad?")
+                                                    .setPositiveButton("Eliminar", new DialogInterface.OnClickListener() {
+                                                        public void onClick(DialogInterface dialog, int id) {
+                                                            int _id = adaptador.idPosicion(pos);
+                                                            casosUsoAO.borrar(_id);
+                                                        }
+                                                    })
+                                                    .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int which) {
+
+                                                        }
+                                                    });
+                                            AlertDialog alert = builder.create();
+                                            alert.show();
+
+                                            return true;
+                                        default:
+                                            return false;
+                                    }
+                                }
+                            });
+
+                            popup.show();
+                        }
+                    }
+
+                });
+
 
         recycler.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
             @Override
@@ -112,6 +162,7 @@ public class AgendaFragment extends Fragment {
                     View child = recyclerView.findChildViewUnder(motionEvent.getX(), motionEvent.getY());
                     if (child != null) {
 
+                        gd2.onTouchEvent(motionEvent);
 
                         if (GestureDetector.onTouchEvent(motionEvent)) {
 

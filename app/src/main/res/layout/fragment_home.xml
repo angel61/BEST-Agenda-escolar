@@ -48,7 +48,20 @@
                     android:id="@+id/rvActividadesHoy"
                     android:layout_width="match_parent"
                     android:background="@drawable/textv_hoy"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent" >
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/noActividades"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/textv_hoy"
+                android:gravity="center"
+                android:padding="16dp"
+                android:text="No hay actividades hoy"
+                android:visibility="gone" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

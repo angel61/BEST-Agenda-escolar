@@ -6,7 +6,7 @@
     tools:showIn="@layout/activity_editar_horario"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Presentacion.EditarHorarioActivity"
+    tools:context=".Actividades.EditarHorarioActivity"
     android:theme="@style/Theme.AppCompat.NoActionBar"
     android:layout_below="@id/app_bar"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">

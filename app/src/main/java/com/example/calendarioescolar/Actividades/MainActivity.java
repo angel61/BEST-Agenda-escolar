@@ -1,4 +1,4 @@
-package com.example.calendarioescolar.Presentacion;
+package com.example.calendarioescolar.Actividades;
 
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;

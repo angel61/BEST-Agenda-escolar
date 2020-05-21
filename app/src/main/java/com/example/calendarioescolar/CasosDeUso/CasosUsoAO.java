@@ -5,8 +5,8 @@ import android.content.Intent;
 
 import com.example.calendarioescolar.Adaptadores.AdaptadorAgendaBD;
 import com.example.calendarioescolar.Aplicacion;
-import com.example.calendarioescolar.Presentacion.AgendaObjectActivity;
-import com.example.calendarioescolar.Presentacion.EditarObjectAgendaActivity;
+import com.example.calendarioescolar.Actividades.AgendaObjectActivity;
+import com.example.calendarioescolar.Actividades.EditarObjectAgendaActivity;
 import com.example.calendarioescolar.Modelo.AgendaBD;
 import com.example.calendarioescolar.Modelo.agenda_object;
 
@@ -32,6 +32,7 @@ public class CasosUsoAO {
         if (adaptador.getCursor().getCount() > 0) {
             Intent i = new Intent(actividad, AgendaObjectActivity.class);
             i.putExtra("pos", pos);
+            i.putExtra("codR", codidoSolicitud);
             actividad.startActivityForResult(i, codidoSolicitud);
         } else {
         }

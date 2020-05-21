@@ -1,4 +1,4 @@
-package com.example.calendarioescolar.Fragments;
+package com.example.calendarioescolar.Fragmentos;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,7 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
-import com.example.calendarioescolar.Presentacion.EditarHorarioActivity;
+import com.example.calendarioescolar.Actividades.EditarHorarioActivity;
 import com.example.calendarioescolar.R;
 import com.github.tlaabs.timetableview.Schedule;
 import com.github.tlaabs.timetableview.TimetableView;

@@ -1,8 +1,11 @@
-package com.example.calendarioescolar.Fragments;
+package com.example.calendarioescolar.Fragmentos;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.RippleDrawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -11,12 +14,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.calendarioescolar.Adaptadores.AdaptadorAgendaBD;
 import com.example.calendarioescolar.Aplicacion;
@@ -34,6 +36,8 @@ public class HomeFragment extends Fragment {
     private CasosUsoAO casosUsoAO;
     private RecyclerView recycler;
     private RippleDrawable rippleDrawable;
+
+    private TextView nada;
 
     private Activity actividad;
 
@@ -62,6 +66,8 @@ public class HomeFragment extends Fragment {
 
         casosUsoAO = new CasosUsoAO(actividad, agendaBD, adaptador);
 
+        nada=root.findViewById(R.id.noActividades);
+
         recycler = root.findViewById(R.id.rvActividadesHoy);
         recycler.setHasFixedSize(true);
         recycler.setLayoutManager(new LinearLayoutManager(actividad));
@@ -72,7 +78,18 @@ public class HomeFragment extends Fragment {
 
         recycler.setAdapter(adaptador);
         recycler.setClipToOutline(true);
-
+        recycler.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
+            @Override
+            public void onSystemUiVisibilityChange(int visibility) {
+                sinContenido();
+            }
+        });
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(actividad);
+        String[] pruebaD=pref.getString("timetable_demo", "").split("\"day\":");
+        for(int i=0;i<pruebaD.length;i++) {
+            String[] aux2=pruebaD[i].split(",");
+                System.out.println(aux2[0] + " " + pruebaD[i].split("classTitle\":\"")[0]);
+        }
         inicializarListeners();
     }
 
@@ -106,7 +123,7 @@ public class HomeFragment extends Fragment {
                             rippleDrawable.setState(new int[]{android.R.attr.state_pressed, android.R.attr.state_enabled});
 
                             int pos = rv.getChildAdapterPosition(child);
-                            casosUsoAO.mostrar(pos, 1);
+                            casosUsoAO.mostrar(pos, 2);
                             return true;
                         }
                     }
@@ -128,5 +145,19 @@ public class HomeFragment extends Fragment {
             }
         });
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        sinContenido();
+    }
+
+    private void sinContenido() {
+        if(((AdaptadorAgendaBD)recycler.getAdapter()).getCursor().getCount()<=0){
+            nada.setVisibility(View.VISIBLE);
+        }else{
+            nada.setVisibility(View.GONE);
+        }
     }
 }

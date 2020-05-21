@@ -1,8 +1,9 @@
-package com.example.calendarioescolar.Presentacion;
+package com.example.calendarioescolar.Actividades;
 
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -96,6 +97,15 @@ public class EditarObjectAgendaActivity extends AppCompatActivity {
                     builder.setTitle("Faltan campos por rellenar")
                             .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
+
+                                    if(asignatura.getEditText().getText().toString().length()<=0){
+                                        asignatura.setError("Campo vacio");
+                                        asignatura.setErrorEnabled(true);
+                                    }
+                                    if(titulo.getEditText().getText().toString().length()<=0){
+                                        titulo.setError("Campo vacio");
+                                        titulo.setErrorEnabled(true);
+                                    }
                                 }
                             })
                             .show();
@@ -186,6 +196,15 @@ public class EditarObjectAgendaActivity extends AppCompatActivity {
                 if (hasFocus) {
                     asignatura.performClick();
                 }
+            }
+        });
+        titulo.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if(titulo.getEditText().getText().toString().length()>0) {
+                    titulo.setErrorEnabled(false);
+                }
+                return false;
             }
         });
     }

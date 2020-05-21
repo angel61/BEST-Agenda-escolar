@@ -1,11 +1,10 @@
-package com.example.calendarioescolar.Presentacion;
+package com.example.calendarioescolar.Actividades;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -30,7 +29,7 @@ public class AgendaObjectActivity extends AppCompatActivity {
     public AgendaBD agBD;
     private int pos;
     private agenda_object agendaObject;
-    final static int RESULTADO_EDITAR = 1;
+    public final static int RESULTADO_EDITAR = 1;
 
     private Toolbar toolbar;
     private FloatingActionButton fab;
@@ -41,14 +40,20 @@ public class AgendaObjectActivity extends AppCompatActivity {
     private Button btnEditar;
     private Button btnborrar;
     private CasosUsoAO casosUso;
+    private int home_agenda;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_elemento_agenda);
         extras = getIntent().getExtras();
         pos = extras.getInt("pos", 0);
+        home_agenda = extras.getInt("codR", 0);
         agBD = ((Aplicacion) getApplication()).agendaBD;
-        adaptador = ((Aplicacion) getApplication()).adaptador;
+        if(home_agenda==1) {
+            adaptador = ((Aplicacion) getApplication()).adaptador;
+        }else{
+            adaptador = ((Aplicacion) getApplication()).adaptadorHome;
+        }
         _id = adaptador.idPosicion(pos);
         agendaObject = adaptador.agendaPosicion(pos);
         casosUso=new CasosUsoAO(this,agBD,adaptador);
