@@ -6,7 +6,7 @@
         android:title="Compartir"
         android:icon="@drawable/ic_share_24dp"
         android:orderInCategory="10"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/accion_editar"
         android:icon="@drawable/ic_edit"
@@ -18,5 +18,5 @@
         android:icon="@drawable/ic_delete"
         android:title="Borrar"
         android:orderInCategory="30"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom" />
 </menu>

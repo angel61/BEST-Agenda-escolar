@@ -96,7 +96,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        listview=root.findViewById(R.id.listAsignaturasHoy);
+        listview = root.findViewById(R.id.listAsignaturasHoy);
         incializarListView();
 
         inicializarListeners();
@@ -168,9 +168,10 @@ public class HomeFragment extends Fragment {
             nada.setVisibility(View.GONE);
         }
     }
-    private void incializarListView(){
-        asignaturas=new ArrayList<String>();
-        Calendar cal=Calendar.getInstance();
+
+    private void incializarListView() {
+        asignaturas = new ArrayList<String>();
+        Calendar cal = Calendar.getInstance();
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(actividad);
         String pruebaD = pref.getString("timetable_demo", "");
         int dia = (cal.get(Calendar.DAY_OF_WEEK) - 1);
@@ -183,7 +184,7 @@ public class HomeFragment extends Fragment {
                 JSONArray schedule = sticker.getJSONArray("schedule");
                 JSONObject clase = schedule.getJSONObject(0);
                 if (clase.getInt("day") == (dia - 1)) {
-                    String nombre=clase.getString("classTitle");
+                    String nombre = clase.getString("classTitle");
                     asignaturas.add(nombre);
                 }
             }
@@ -191,13 +192,15 @@ public class HomeFragment extends Fragment {
             e.printStackTrace();
         }
 
-        if (asignaturas.size()<=0){asignaturas.add("No hay clases para hoy");}
+        if (asignaturas.size() <= 0) {
+            asignaturas.add("No hay clases para hoy");
+        }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(actividad, android.R.layout.simple_list_item_1, asignaturas);
         listview.setAdapter(adapter);
-        int dp =(int) (48 * actividad.getResources().getSystem().getDisplayMetrics().density);
-        ViewGroup.LayoutParams params=listview.getLayoutParams();
-        params.height=(dp+1)*asignaturas.size();
+        int dp = (int) (48 * actividad.getResources().getSystem().getDisplayMetrics().density);
+        ViewGroup.LayoutParams params = listview.getLayoutParams();
+        params.height = (dp + 1) * asignaturas.size();
         listview.setLayoutParams(params);
     }
 

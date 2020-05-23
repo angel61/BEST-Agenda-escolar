@@ -98,11 +98,11 @@ public class EditarObjectAgendaActivity extends AppCompatActivity {
                             .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
 
-                                    if(asignatura.getEditText().getText().toString().length()<=0){
+                                    if (asignatura.getEditText().getText().toString().length() <= 0) {
                                         asignatura.setError("Campo vacio");
                                         asignatura.setErrorEnabled(true);
                                     }
-                                    if(titulo.getEditText().getText().toString().length()<=0){
+                                    if (titulo.getEditText().getText().toString().length() <= 0) {
                                         titulo.setError("Campo vacio");
                                         titulo.setErrorEnabled(true);
                                     }
@@ -201,7 +201,7 @@ public class EditarObjectAgendaActivity extends AppCompatActivity {
         titulo.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if(titulo.getEditText().getText().toString().length()>0) {
+                if (titulo.getEditText().getText().toString().length() > 0) {
                     titulo.setErrorEnabled(false);
                 }
                 return false;

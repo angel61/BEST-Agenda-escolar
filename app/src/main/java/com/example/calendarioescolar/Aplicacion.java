@@ -5,7 +5,6 @@ import android.app.Application;
 import com.example.calendarioescolar.Adaptadores.AdaptadorAgendaBD;
 import com.example.calendarioescolar.Modelo.AgendaBD;
 import com.example.calendarioescolar.Modelo.AsignaturasBD;
-import com.github.tlaabs.timetableview.TimetableView;
 
 
 public class Aplicacion extends Application {
@@ -23,12 +22,12 @@ public class Aplicacion extends Application {
 
         agendaBD = new AgendaBD(this);
         asigBD = new AsignaturasBD(this);
-        agendaCursor=4;
-        adaptador = new AdaptadorAgendaBD(agendaBD,R.layout.elemento_agenda, agendaBD.extraeCursor(4));
+        agendaCursor = 4;
+        adaptador = new AdaptadorAgendaBD(agendaBD, R.layout.elemento_agenda, agendaBD.extraeCursor(4));
         adaptador.setTiempo(0);
 
 
-        adaptadorHome = new AdaptadorAgendaBD(agendaBD,R.layout.elemento_agenda_home, agendaBD.extraeCursor(2));
+        adaptadorHome = new AdaptadorAgendaBD(agendaBD, R.layout.elemento_agenda_home, agendaBD.extraeCursor(2));
 
     }
 

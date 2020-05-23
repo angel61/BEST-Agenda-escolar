@@ -26,7 +26,7 @@ public class AdaptadorAgenda extends RecyclerView.Adapter<AdaptadorAgenda.ViewHo
 
     public AdaptadorAgenda(RepositorioAgenda agenda, int view) {
         this.agenda = agenda;
-        this.viewId=view;
+        this.viewId = view;
     }
 
 
@@ -61,7 +61,7 @@ public class AdaptadorAgenda extends RecyclerView.Adapter<AdaptadorAgenda.ViewHo
             foto.setImageResource(id);
             foto.setScaleType(ImageView.ScaleType.FIT_END);
 
-            if(viewId!=R.layout.elemento_agenda_home) {
+            if (viewId != R.layout.elemento_agenda_home) {
                 String texto = agendaOb.getComentario();
                 if (texto.length() > 35) {
                     texto = texto.substring(0, 32) + "...";
@@ -85,15 +85,15 @@ public class AdaptadorAgenda extends RecyclerView.Adapter<AdaptadorAgenda.ViewHo
 
                 cal.setTime(fec);
                 String textoFecha;
-                SimpleDateFormat sdm=new SimpleDateFormat("HH:mm");
+                SimpleDateFormat sdm = new SimpleDateFormat("HH:mm");
                 if (fecInt == ayer) {
-                    textoFecha = "Ayer a las " +sdm.format(cal.getTime());
+                    textoFecha = "Ayer a las " + sdm.format(cal.getTime());
 
                 } else if (fecInt == mannana) {
-                    textoFecha = "Mañana a las " +sdm.format(cal.getTime());
+                    textoFecha = "Mañana a las " + sdm.format(cal.getTime());
 
                 } else if (fecInt == hoy) {
-                    textoFecha = "Hoy a las " +sdm.format(cal.getTime());
+                    textoFecha = "Hoy a las " + sdm.format(cal.getTime());
                 } else {
                     textoFecha = new SimpleDateFormat("dd-MM-yyyy").format(fec);
                 }

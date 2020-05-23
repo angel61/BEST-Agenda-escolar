@@ -8,9 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.preference.PreferenceManager;
 
-import java.util.ArrayList;
-
-public class AsignaturasBD extends SQLiteOpenHelper{
+public class AsignaturasBD extends SQLiteOpenHelper {
 
     Context contexto;
 
@@ -53,7 +51,7 @@ public class AsignaturasBD extends SQLiteOpenHelper{
 
     public int annade(String nombre) {
         int _id = -1;
-        getWritableDatabase().execSQL("INSERT INTO asignatura (nombre) VALUES ('"+nombre+"')");
+        getWritableDatabase().execSQL("INSERT INTO asignatura (nombre) VALUES ('" + nombre + "')");
         Cursor c = getReadableDatabase().rawQuery(
                 "SELECT _id FROM asignatura order by _id", null);
         if (c.moveToNext()) _id = c.getInt(0);

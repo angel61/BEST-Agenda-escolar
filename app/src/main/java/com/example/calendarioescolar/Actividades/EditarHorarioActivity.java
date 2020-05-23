@@ -235,27 +235,27 @@ public class EditarHorarioActivity extends AppCompatActivity {
             case R.id.accion_guardar:
                 schedule.setClassTitle(asignatura.getEditText().getText().toString());
                 if (mode == HorarioFragment.REQUEST_ADD) {
-                    if(asignatura.getEditText().getText().toString().length()>0&&hInicio.getEditText().getText().length()>0&&hFin.getEditText().getText().length()>0) {
+                    if (asignatura.getEditText().getText().toString().length() > 0 && hInicio.getEditText().getText().length() > 0 && hFin.getEditText().getText().length() > 0) {
                         Intent i = new Intent();
                         ArrayList<Schedule> schedules = new ArrayList<Schedule>();
                         schedules.add(schedule);
                         i.putExtra("schedules", schedules);
                         setResult(RESULT_OK_ADD, i);
                         finish();
-                    }else{
+                    } else {
                         AlertDialog.Builder builder = new AlertDialog.Builder(this);
                         builder.setTitle("Faltan campos por rellenar")
                                 .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
-                                        if(asignatura.getEditText().getText().toString().length()<=0){
+                                        if (asignatura.getEditText().getText().toString().length() <= 0) {
                                             asignatura.setError("Campo vacio");
                                             asignatura.setErrorEnabled(true);
                                         }
-                                        if(hInicio.getEditText().getText().toString().length()<=0){
+                                        if (hInicio.getEditText().getText().toString().length() <= 0) {
                                             hInicio.setError("Campo vacio");
                                             hInicio.setErrorEnabled(true);
                                         }
-                                        if(hFin.getEditText().getText().toString().length()<=0){
+                                        if (hFin.getEditText().getText().toString().length() <= 0) {
                                             hFin.setError("Campo vacio");
                                             hFin.setErrorEnabled(true);
                                         }
@@ -308,24 +308,24 @@ public class EditarHorarioActivity extends AppCompatActivity {
         asignatura.getEditText().setText(schedule.getClassTitle());
         day.setSelection(schedule.getDay());
 
-        int horaInicio=schedule.getStartTime().getHour();
+        int horaInicio = schedule.getStartTime().getHour();
         int mInicio = schedule.getStartTime().getMinute();
-        int horaFin=schedule.getEndTime().getHour();
+        int horaFin = schedule.getEndTime().getHour();
         int mFin = schedule.getEndTime().getMinute();
-        Calendar Inicio=Calendar.getInstance();
-        Inicio.set(Calendar.MINUTE,mInicio);
-        Inicio.set(Calendar.HOUR_OF_DAY,horaInicio);
-        SimpleDateFormat sdm=new SimpleDateFormat("HH:mm");
-        String inicioStr=sdm.format(Inicio.getTime());
+        Calendar Inicio = Calendar.getInstance();
+        Inicio.set(Calendar.MINUTE, mInicio);
+        Inicio.set(Calendar.HOUR_OF_DAY, horaInicio);
+        SimpleDateFormat sdm = new SimpleDateFormat("HH:mm");
+        String inicioStr = sdm.format(Inicio.getTime());
 
-        Calendar Fin= Calendar.getInstance();
-        Fin.set(Calendar.MINUTE,mFin);
-        Inicio.set(Calendar.HOUR_OF_DAY,horaFin);
-        String finStr=sdm.format(Fin.getTime());
+        Calendar Fin = Calendar.getInstance();
+        Fin.set(Calendar.MINUTE, mFin);
+        Inicio.set(Calendar.HOUR_OF_DAY, horaFin);
+        String finStr = sdm.format(Fin.getTime());
 
-            hInicio.getEditText().setText(inicioStr);
+        hInicio.getEditText().setText(inicioStr);
 
-            hFin.getEditText().setText(finStr);
+        hFin.getEditText().setText(finStr);
     }
 
 }

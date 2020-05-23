@@ -8,8 +8,8 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AlertDialog;
 
-import com.example.calendarioescolar.Modelo.AsignaturasBD;
 import com.example.calendarioescolar.Actividades.EditarHorarioActivity;
+import com.example.calendarioescolar.Modelo.AsignaturasBD;
 import com.example.calendarioescolar.R;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -73,7 +73,8 @@ public class CasosUsoAsignatura {
 
 
     }
-    public void borrar(int _id){
+
+    public void borrar(int _id) {
         Intent i = new Intent();
         i.putExtra("idx", _id);
         actividad.setResult(EditarHorarioActivity.RESULT_OK_DELETE, i);

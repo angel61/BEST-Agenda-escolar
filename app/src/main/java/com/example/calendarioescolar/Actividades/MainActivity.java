@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                final TipoAgenda[] items={
+                final TipoAgenda[] items = {
                         TipoAgenda.RECORDATORIO,
                         TipoAgenda.EJERCICIOS,
                         TipoAgenda.TRABAJO,
@@ -74,10 +74,10 @@ public class MainActivity extends AppCompatActivity {
                         MainActivity.this,
                         android.R.layout.select_dialog_item,
                         android.R.id.text1,
-                        items){
+                        items) {
                     public View getView(int position, View convertView, ViewGroup parent) {
                         View v = super.getView(position, convertView, parent);
-                        TextView tv = (TextView)v.findViewById(android.R.id.text1);
+                        TextView tv = (TextView) v.findViewById(android.R.id.text1);
                         tv.setText(items[position].getTexto());
 
                         int dp36 = (int) (36 * getResources().getDisplayMetrics().density + 0.5f);
@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 };
 
-                ListAdapter adapter=arrayAdapter;
+                ListAdapter adapter = arrayAdapter;
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 builder.setTitle("Selecciona el tipo de actividad")
@@ -125,8 +125,8 @@ public class MainActivity extends AppCompatActivity {
                 if (desti.equals("Horario")) {
                     fragment = 1;
                     timetable = findViewById(R.id.timetable);
-                }else if(desti.equals("Agenda")){
-                    fragment=2;
+                } else if (desti.equals("Agenda")) {
+                    fragment = 2;
                     fab.setVisibility(View.VISIBLE);
                 }
                 Toolbar toolbar = findViewById(R.id.toolbar);

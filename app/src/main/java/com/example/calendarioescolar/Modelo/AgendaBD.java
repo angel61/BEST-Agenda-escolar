@@ -1,12 +1,10 @@
 package com.example.calendarioescolar.Modelo;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.preference.PreferenceManager;
 
 import java.util.Calendar;
 
@@ -34,19 +32,19 @@ public class AgendaBD extends SQLiteOpenHelper
         bd.execSQL("INSERT INTO agenda VALUES (null, " +
                 "'Prueba1', " +
                 "'Esto es una prueba para comprobar si funciona correctamente', " +
-                TipoAgenda.RECORDATORIO.ordinal() + ", '', "+System.currentTimeMillis()+")");
+                TipoAgenda.RECORDATORIO.ordinal() + ", '', " + System.currentTimeMillis() + ")");
         bd.execSQL("INSERT INTO agenda VALUES (null, " +
                 "'Prueba2', " +
                 "'Esto es una prueba para comprobar si funciona correctamente', " +
-                TipoAgenda.EJERCICIOS.ordinal() + ", 'Mates', "+System.currentTimeMillis()+")");
+                TipoAgenda.EJERCICIOS.ordinal() + ", 'Mates', " + System.currentTimeMillis() + ")");
         bd.execSQL("INSERT INTO agenda VALUES (null, " +
                 "'Prueba3', " +
                 "'Esto es una prueba para comprobar si funciona correctamente', " +
-                TipoAgenda.TRABAJO.ordinal() + ", 'Lengua', "+System.currentTimeMillis()+")");
+                TipoAgenda.TRABAJO.ordinal() + ", 'Lengua', " + System.currentTimeMillis() + ")");
         bd.execSQL("INSERT INTO agenda VALUES (null, " +
                 "'Prueba4', " +
                 "'Esto es una prueba para comprobar si funciona correctamente', " +
-                TipoAgenda.EXAMEN.ordinal() + ", 'Tecnologia', "+System.currentTimeMillis()+")");
+                TipoAgenda.EXAMEN.ordinal() + ", 'Tecnologia', " + System.currentTimeMillis() + ")");
     }
 
 
@@ -81,17 +79,17 @@ public class AgendaBD extends SQLiteOpenHelper
     @Override
     public int nuevo(int tipo) {
         int _id = -1;
-        long fecha= System.currentTimeMillis();
-        Calendar cal=Calendar.getInstance();
+        long fecha = System.currentTimeMillis();
+        Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(fecha);
-        cal.add(Calendar.DAY_OF_MONTH,1);
-        fecha=cal.getTimeInMillis();
+        cal.add(Calendar.DAY_OF_MONTH, 1);
+        fecha = cal.getTimeInMillis();
 
         getWritableDatabase().execSQL("INSERT INTO agenda (titulo, " +
                 "comentario, tipo, asignatura, fecha" +
-                ") VALUES ('', '',  "+tipo+", '', "+fecha+")");
+                ") VALUES ('', '',  " + tipo + ", '', " + fecha + ")");
         Cursor c = getReadableDatabase().rawQuery(
-                "SELECT _id FROM agenda WHERE fecha = "+fecha, null);
+                "SELECT _id FROM agenda WHERE fecha = " + fecha, null);
         if (c.moveToNext()) _id = c.getInt(0);
         c.close();
         return _id;
@@ -113,7 +111,7 @@ public class AgendaBD extends SQLiteOpenHelper
                 "   titulo = '" + agendaobject.getTitulo() +
                 "', comentario = '" + agendaobject.getComentario() +
                 "', tipo = " + agendaobject.getTipoAg().ordinal() +
-                " , asignatura = '" + agendaobject.getAsig()+
+                " , asignatura = '" + agendaobject.getAsig() +
                 "', fecha = " + agendaobject.getFecha() +
                 " WHERE _id = " + id);
     }
@@ -130,37 +128,37 @@ public class AgendaBD extends SQLiteOpenHelper
     }
 
     public Cursor extraeCursor(int i) {
-        Calendar cal=Calendar.getInstance();
-        cal.set(Calendar.HOUR_OF_DAY,0);
-        cal.set(Calendar.MINUTE,0);
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
         Long hoy = cal.getTimeInMillis();
-        String consulta="";
+        String consulta = "";
         switch (i) {
             case 0:
-                consulta = "SELECT * FROM agenda WHERE fecha<"+System.currentTimeMillis()+" ORDER BY fecha";
+                consulta = "SELECT * FROM agenda WHERE fecha<" + System.currentTimeMillis() + " ORDER BY fecha";
                 break;
             case 1:
-                cal.add(Calendar.DAY_OF_YEAR,-1);
-                Long ayer=cal.getTimeInMillis();
-                consulta = "SELECT * FROM agenda WHERE fecha>="+ayer
-                        +" AND fecha<"+hoy+" ORDER BY fecha";
+                cal.add(Calendar.DAY_OF_YEAR, -1);
+                Long ayer = cal.getTimeInMillis();
+                consulta = "SELECT * FROM agenda WHERE fecha>=" + ayer
+                        + " AND fecha<" + hoy + " ORDER BY fecha";
                 break;
             case 2:
-                cal.add(Calendar.DAY_OF_YEAR,1);
-                Long mannana=cal.getTimeInMillis();
-                consulta = "SELECT * FROM agenda WHERE fecha>="+hoy
-                        +" AND fecha<"+mannana+" ORDER BY fecha";
+                cal.add(Calendar.DAY_OF_YEAR, 1);
+                Long mannana = cal.getTimeInMillis();
+                consulta = "SELECT * FROM agenda WHERE fecha>=" + hoy
+                        + " AND fecha<" + mannana + " ORDER BY fecha";
                 break;
             case 3:
-                cal.add(Calendar.DAY_OF_YEAR,1);
-                Long manna=cal.getTimeInMillis();
-                cal.add(Calendar.DAY_OF_YEAR,1);
-                Long pasmanna=cal.getTimeInMillis();
-                consulta = "SELECT * FROM agenda WHERE fecha>="+manna
-                        +" AND fecha<"+pasmanna+" ORDER BY fecha";
+                cal.add(Calendar.DAY_OF_YEAR, 1);
+                Long manna = cal.getTimeInMillis();
+                cal.add(Calendar.DAY_OF_YEAR, 1);
+                Long pasmanna = cal.getTimeInMillis();
+                consulta = "SELECT * FROM agenda WHERE fecha>=" + manna
+                        + " AND fecha<" + pasmanna + " ORDER BY fecha";
                 break;
             case 4:
-                consulta = "SELECT * FROM agenda WHERE fecha>="+System.currentTimeMillis()+" ORDER BY fecha";
+                consulta = "SELECT * FROM agenda WHERE fecha>=" + System.currentTimeMillis() + " ORDER BY fecha";
                 break;
             case 5:
                 consulta = "SELECT * FROM agenda ORDER BY fecha";

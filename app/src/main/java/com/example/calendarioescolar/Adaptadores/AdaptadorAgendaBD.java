@@ -16,7 +16,7 @@ public class AdaptadorAgendaBD extends AdaptadorAgenda {
 
     private int tiempo;
 
-    public AdaptadorAgendaBD(RepositorioAgenda repAgenda,int idV, Cursor cursor) {
+    public AdaptadorAgendaBD(RepositorioAgenda repAgenda, int idV, Cursor cursor) {
         super(repAgenda, idV);
         this.cursor = cursor;
     }

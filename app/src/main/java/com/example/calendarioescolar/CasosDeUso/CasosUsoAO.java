@@ -3,10 +3,10 @@ package com.example.calendarioescolar.CasosDeUso;
 import android.app.Activity;
 import android.content.Intent;
 
-import com.example.calendarioescolar.Adaptadores.AdaptadorAgendaBD;
-import com.example.calendarioescolar.Aplicacion;
 import com.example.calendarioescolar.Actividades.AgendaObjectActivity;
 import com.example.calendarioescolar.Actividades.EditarObjectAgendaActivity;
+import com.example.calendarioescolar.Adaptadores.AdaptadorAgendaBD;
+import com.example.calendarioescolar.Aplicacion;
 import com.example.calendarioescolar.Modelo.AgendaBD;
 import com.example.calendarioescolar.Modelo.agenda_object;
 
@@ -24,7 +24,7 @@ public class CasosUsoAO {
         this.actividad = actividad;
         this.agBD = agBD;
         this.adaptador = adaptador;
-        aplicacion=(Aplicacion)actividad.getApplication();
+        aplicacion = (Aplicacion) actividad.getApplication();
     }
 
 

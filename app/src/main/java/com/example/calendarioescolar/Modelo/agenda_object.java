@@ -24,12 +24,14 @@ public class agenda_object {
         this.tipoAg = tipoAg;
         this.Asig = Asig;
     }
+
     public agenda_object(String titulo, String comentario, long fecha, TipoAgenda tipoAg) {
         this.titulo = titulo;
         this.comentario = comentario;
         this.fecha = fecha;
         this.tipoAg = tipoAg;
     }
+
     public agenda_object() {
     }
 

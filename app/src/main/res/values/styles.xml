@@ -12,6 +12,7 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
     <style name="AppTheme.DialogoPers" parent="@style/Theme.AppCompat.DayNight.Dialog">
         <item name="android:windowNoTitle">false</item>
         <item name="android:dialogTitle">@color/colorPrimary</item>
@@ -25,18 +26,19 @@
         <item name="colorAccent">@color/colorPrimaryDark</item>
         <item name="colorPrimary">@color/gris</item>
     </style>
+
     <style name="TextInputMod" parent="TextAppearance.AppCompat">
         <item name="colorAccent">@android:color/white</item>
     </style>
+
     <style name="inputD1" parent="TextAppearance.AppCompat">
         <item name="android:textSize">16sp</item>
         <item name="colorAccent">@color/colorPrimaryDark</item>
     </style>
+
     <style name="inputD2" parent="TextAppearance.AppCompat">
         <item name="colorAccent">@color/colorPrimaryDark</item>
     </style>
-
-
 
 
 </resources>

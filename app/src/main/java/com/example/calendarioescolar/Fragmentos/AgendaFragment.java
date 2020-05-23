@@ -1,11 +1,9 @@
 package com.example.calendarioescolar.Fragmentos;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.RippleDrawable;
 import android.os.Bundle;
-import android.view.ContextThemeWrapper;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -55,7 +53,7 @@ public class AgendaFragment extends Fragment {
 
     private void iniciar() {
         actividad = getActivity();
-        aplicacion=((Aplicacion) actividad.getApplication());
+        aplicacion = ((Aplicacion) actividad.getApplication());
 
         adaptador = aplicacion.adaptador;
 
@@ -108,7 +106,7 @@ public class AgendaFragment extends Fragment {
                         if (child != null) {
 
                             final int pos = recycler.getChildAdapterPosition(child);
-                            PopupMenu popup = new PopupMenu(actividad,child);
+                            PopupMenu popup = new PopupMenu(actividad, child);
                             popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
                             popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                                 public boolean onMenuItemClick(MenuItem item) {
@@ -207,32 +205,32 @@ public class AgendaFragment extends Fragment {
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.pasadas:
-                                aplicacion.agendaCursor=0;
+                                aplicacion.agendaCursor = 0;
                                 cargarCursor();
                                 return true;
 
                             case R.id.ayer:
-                                aplicacion.agendaCursor=1;
+                                aplicacion.agendaCursor = 1;
                                 cargarCursor();
                                 return true;
 
                             case R.id.hoy:
-                                aplicacion.agendaCursor=2;
+                                aplicacion.agendaCursor = 2;
                                 cargarCursor();
                                 return true;
 
                             case R.id.mannana:
-                                aplicacion.agendaCursor=3;
+                                aplicacion.agendaCursor = 3;
                                 cargarCursor();
                                 return true;
 
                             case R.id.proximas:
-                                aplicacion.agendaCursor=4;
+                                aplicacion.agendaCursor = 4;
                                 cargarCursor();
                                 return true;
 
                             case R.id.todo:
-                                aplicacion.agendaCursor=5;
+                                aplicacion.agendaCursor = 5;
                                 cargarCursor();
                                 return true;
                         }

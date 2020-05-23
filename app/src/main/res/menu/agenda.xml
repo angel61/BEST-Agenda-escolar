@@ -5,5 +5,5 @@
         android:id="@+id/accion_ordenar"
         android:title="Ordenar"
         android:icon="@drawable/ic_filter"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom" />
 </menu>

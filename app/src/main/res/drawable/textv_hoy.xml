@@ -6,10 +6,10 @@
         android:right="0dp"
         android:bottom="0dp">
         <shape android:shape="rectangle">
-            <solid android:color="#f4f4f4"/>
+            <solid android:color="#f4f4f4" />
             <stroke
                 android:width="0.5dp"
-                android:color="#bbb"/>
+                android:color="#bbb" />
         </shape>
     </item>
 </layer-list>

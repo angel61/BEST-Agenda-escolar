@@ -41,6 +41,7 @@ public class AgendaObjectActivity extends AppCompatActivity {
     private Button btnborrar;
     private CasosUsoAO casosUso;
     private int home_agenda;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,23 +50,25 @@ public class AgendaObjectActivity extends AppCompatActivity {
         pos = extras.getInt("pos", 0);
         home_agenda = extras.getInt("codR", 0);
         agBD = ((Aplicacion) getApplication()).agendaBD;
-        if(home_agenda==1) {
+        if (home_agenda == 1) {
             adaptador = ((Aplicacion) getApplication()).adaptador;
-        }else{
+        } else {
             adaptador = ((Aplicacion) getApplication()).adaptadorHome;
         }
         _id = adaptador.idPosicion(pos);
         agendaObject = adaptador.agendaPosicion(pos);
-        casosUso=new CasosUsoAO(this,agBD,adaptador);
-        actualizarVistas ();
+        casosUso = new CasosUsoAO(this, agBD, adaptador);
+        actualizarVistas();
         listeners();
 
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_elemento_agenda, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -80,12 +83,12 @@ public class AgendaObjectActivity extends AppCompatActivity {
                                 casosUso.borrar(_id);
                             }
                         })
-                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                        .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
 
-                    }
-                });
+                            }
+                        });
                 AlertDialog alert = builder.create();
                 alert.show();
                 return true;
@@ -94,41 +97,43 @@ public class AgendaObjectActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
     private void listeners() {
     }
 
-    private void actualizarVistas (){
+    private void actualizarVistas() {
         fab = findViewById(R.id.fab);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        TextView tvComentario=findViewById(R.id.tv_comentario);
+        TextView tvComentario = findViewById(R.id.tv_comentario);
         tvComentario.setText(agendaObject.getComentario());
-        if(agendaObject.getComentario().trim().length()<=0){
-            LinearLayout ll=findViewById(R.id.ll_comentario);
+        if (agendaObject.getComentario().trim().length() <= 0) {
+            LinearLayout ll = findViewById(R.id.ll_comentario);
             ll.setVisibility(LinearLayout.GONE);
         }
 
         TextView tvAsignatura = findViewById(R.id.tv_asignatura);
-        if(agendaObject.getAsig().length()>0) {
+        if (agendaObject.getAsig().length() > 0) {
             tvAsignatura.setText(agendaObject.getAsig());
-        }else{
-            LinearLayout ll=findViewById(R.id.ll_asignatura);
+        } else {
+            LinearLayout ll = findViewById(R.id.ll_asignatura);
             ll.setVisibility(LinearLayout.GONE);
         }
 
-        TextView tvFecha=findViewById(R.id.tv_Fecha);
+        TextView tvFecha = findViewById(R.id.tv_Fecha);
         tvFecha.setText(new SimpleDateFormat("HH:mm dd/MM/yy").format(new Date(agendaObject.getFecha())));
 
-        TextView tvTipo=findViewById(R.id.tv_Tipo);
+        TextView tvTipo = findViewById(R.id.tv_Tipo);
         tvTipo.setText(agendaObject.getTipoAg().getTexto());
         setTitle(agendaObject.getTitulo());
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-            agendaObject = agBD.elemento(_id);
-            actualizarVistas();
+        agendaObject = agBD.elemento(_id);
+        actualizarVistas();
     }
 }
