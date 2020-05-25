@@ -123,7 +123,6 @@ public class EditarHorarioActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ArrayList<String> array = new ArrayList<String>();
-                array.add("+ Añadir asignatura");
 
                 array = casosUsoAsignatura.arrayAsignaturas(array);
 
