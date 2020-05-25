@@ -288,6 +288,7 @@ public class EditarHorarioActivity extends AppCompatActivity {
                     setResult(RESULT_OK_EDIT, i);
                     finish();
                 }
+                ((Aplicacion)getApplication()).home.incializarListView();
                 return true;
             case R.id.accion_borrar:
 
@@ -305,6 +306,7 @@ public class EditarHorarioActivity extends AppCompatActivity {
                             }
                         })
                         .show();
+                ((Aplicacion)getApplication()).home.incializarListView();
                 return true;
             case android.R.id.home:
 

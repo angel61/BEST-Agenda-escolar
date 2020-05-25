@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.drawable.RippleDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.GestureDetector;
@@ -167,7 +168,7 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    private void incializarListView() {
+    public void incializarListView() {
         asignaturas = new ArrayList<String>();
         Calendar cal = Calendar.getInstance();
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(actividad);
@@ -191,7 +192,8 @@ public class HomeFragment extends Fragment {
         }
 
         if (asignaturas.size() <= 0) {
-            asignaturas.add("No hay clases para hoy");
+            root.findViewById(R.id.noAsignaturas).setVisibility(View.VISIBLE);
+
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(actividad, android.R.layout.simple_list_item_1, asignaturas);

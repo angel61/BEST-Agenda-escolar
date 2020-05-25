@@ -108,6 +108,15 @@
                     android:fitsSystemWindows="true"
                     android:scrollbars="none" />
             </LinearLayout>
+            <TextView
+                android:id="@+id/noAsignaturas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/textv_hoy"
+                android:gravity="center"
+                android:padding="16dp"
+                android:text="No hay clases para hoy"
+                android:visibility="gone" />
 
             <TextView
                 android:layout_width="match_parent"

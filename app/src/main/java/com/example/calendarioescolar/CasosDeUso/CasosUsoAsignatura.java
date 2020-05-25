@@ -9,6 +9,7 @@ import android.widget.EditText;
 import androidx.appcompat.app.AlertDialog;
 
 import com.example.calendarioescolar.Actividades.EditarHorarioActivity;
+import com.example.calendarioescolar.Aplicacion;
 import com.example.calendarioescolar.Modelo.AsignaturasBD;
 import com.example.calendarioescolar.R;
 import com.google.android.material.textfield.TextInputLayout;
@@ -18,10 +19,12 @@ import java.util.ArrayList;
 public class CasosUsoAsignatura {
     private AsignaturasBD asBD;
     private Activity actividad;
+    private Aplicacion aplicacion;
 
     public CasosUsoAsignatura(Activity actividad, AsignaturasBD asBD) {
         this.actividad = actividad;
         this.asBD = asBD;
+        aplicacion = (Aplicacion) actividad.getApplication();
     }
 
     public ArrayList<String> arrayAsignaturas(ArrayList<String> lista) {
@@ -52,7 +55,7 @@ public class CasosUsoAsignatura {
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String aux = input.getText().toString();
+                String aux = input.getText().toString().trim();
                 if (aux.length() > 0) {
                     asBD.annade(aux);
 
@@ -60,6 +63,7 @@ public class CasosUsoAsignatura {
                     cursAux.moveToLast();
                     TextInputLayout asignatura = actividad.findViewById(R.id.asignaturae);
                     asignatura.getEditText().setText(cursAux.getString(1));
+
                 }
             }
         });
