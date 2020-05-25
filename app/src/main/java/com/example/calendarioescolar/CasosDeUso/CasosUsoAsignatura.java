@@ -80,4 +80,14 @@ public class CasosUsoAsignatura {
         actividad.setResult(EditarHorarioActivity.RESULT_OK_DELETE, i);
         actividad.finish();
     }
+
+    public void eliminarAsig(int pos) {
+        int id=idPosicion(pos);
+        asBD.borrar(id);
+    }
+    public int idPosicion(int posicion) {
+        Cursor cursor=asBD.extraeCursor();
+        cursor.moveToPosition(posicion);
+        return cursor.getInt(0);
+    }
 }

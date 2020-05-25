@@ -73,12 +73,6 @@ public class AsignaturasBD extends SQLiteOpenHelper {
         return extraeCursor().getCount();
     }
 
-    public void actualiza(int id, String nombre) {
-        getWritableDatabase().execSQL("UPDATE asignatura SET" +
-                "   nombre = '" + nombre +
-                " WHERE _id = " + id);
-    }
-
     public static String extraeAsignatura(Cursor cursor) {
         return cursor.getString(1);
     }

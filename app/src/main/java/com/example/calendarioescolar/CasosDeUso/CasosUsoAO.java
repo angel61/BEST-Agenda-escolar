@@ -53,14 +53,6 @@ public class CasosUsoAO {
         actividad.finish();
     }
 
-    public void borrarSinFinish(final int id) {
-        agBD.borrar(id);
-        adaptador.setCursor(agBD.extraeCursor(aplicacion.agendaCursor));
-        adaptador.notifyDataSetChanged();
-        aplicacion.adaptadorHome.setCursor(agBD.extraeCursor(2));
-        aplicacion.adaptadorHome.notifyDataSetChanged();
-    }
-
     public void guardar(int id, agenda_object nuevoagObject) {
         agBD.actualiza(id, nuevoagObject);
 

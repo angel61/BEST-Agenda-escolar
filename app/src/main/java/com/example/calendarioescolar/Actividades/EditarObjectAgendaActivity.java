@@ -2,6 +2,7 @@ package com.example.calendarioescolar.Actividades;
 
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -164,24 +165,39 @@ public class EditarObjectAgendaActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ArrayList<String> array = new ArrayList<String>();
-                array.add("+ Añadir asignatura");
-
+                final int[] aux = new int[1];
                 array = casosUsoAsignatura.arrayAsignaturas(array);
 
                 final String[] a = array.toArray(new String[0]);
                 final boolean annadir = false;
                 final AlertDialog.Builder builder = new AlertDialog.Builder(EditarObjectAgendaActivity.this);
                 builder.setTitle("Seleccionar una asignatura")
-                        .setItems(a, new DialogInterface.OnClickListener() {
+                        .setSingleChoiceItems(a,0, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                if (which == 0) {
-                                    casosUsoAsignatura.dialogoAnnadirAsignatura();
-                                } else {
-                                    System.out.println(which);
-                                    asignatura.getEditText().setText(a[which]);
-                                }
+                                aux[0] =which;
                             }
-                        }).show();
+                        });
+                builder.setPositiveButton("Seleccionar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                            asignatura.getEditText().setText(a[aux[0]]);
+                    }
+                });
+                builder.setNegativeButton("Eliminar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        casosUsoAsignatura.eliminarAsig(aux[0]);
+                        asignatura.getEditText().setText("");
+                    }
+                });
+                builder.setNeutralButton("Añadir", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        casosUsoAsignatura.dialogoAnnadirAsignatura();
+                    }
+                });
+                builder.show();
             }
         });
         asignaturaText.setOnClickListener(new View.OnClickListener() {
