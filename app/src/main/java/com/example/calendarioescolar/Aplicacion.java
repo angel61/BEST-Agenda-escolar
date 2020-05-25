@@ -1,8 +1,10 @@
 package com.example.calendarioescolar;
 
 import android.app.Application;
+import android.view.View;
 
 import com.example.calendarioescolar.Adaptadores.AdaptadorAgendaBD;
+import com.example.calendarioescolar.Fragmentos.HomeFragment;
 import com.example.calendarioescolar.Modelo.AgendaBD;
 import com.example.calendarioescolar.Modelo.AsignaturasBD;
 
@@ -15,6 +17,7 @@ public class Aplicacion extends Application {
     public AdaptadorAgendaBD adaptadorHome;
     public AsignaturasBD asigBD;
     public int agendaCursor;
+    public HomeFragment home;
 
     @Override
     public void onCreate() {

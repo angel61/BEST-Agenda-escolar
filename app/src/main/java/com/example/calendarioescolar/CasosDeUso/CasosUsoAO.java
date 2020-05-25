@@ -50,6 +50,7 @@ public class CasosUsoAO {
         adaptador.notifyDataSetChanged();
         aplicacion.adaptadorHome.setCursor(agBD.extraeCursor(2));
         aplicacion.adaptadorHome.notifyDataSetChanged();
+        aplicacion.home.sinContenido();
         actividad.finish();
     }
 
@@ -60,6 +61,7 @@ public class CasosUsoAO {
         adaptador.notifyDataSetChanged();
         aplicacion.adaptadorHome.setCursor(agBD.extraeCursor(2));
         aplicacion.adaptadorHome.notifyDataSetChanged();
+        aplicacion.home.sinContenido();
     }
 
     public void compartir(agenda_object AO) {

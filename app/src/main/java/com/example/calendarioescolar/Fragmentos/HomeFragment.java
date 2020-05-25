@@ -3,6 +3,7 @@ package com.example.calendarioescolar.Fragmentos;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.drawable.RippleDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -22,7 +23,9 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.calendarioescolar.Adaptadores.AdaptadorAgenda;
 import com.example.calendarioescolar.Adaptadores.AdaptadorAgendaBD;
+import com.example.calendarioescolar.Adaptadores.AdaptadorDivider;
 import com.example.calendarioescolar.Aplicacion;
 import com.example.calendarioescolar.CasosDeUso.CasosUsoAO;
 import com.example.calendarioescolar.Modelo.AgendaBD;
@@ -58,7 +61,7 @@ public class HomeFragment extends Fragment {
         root = inflater.inflate(R.layout.fragment_home, container, false);
 
         iniciar();
-
+        ((Aplicacion)actividad.getApplication()).home=this;
         return root;
     }
 
@@ -83,18 +86,12 @@ public class HomeFragment extends Fragment {
         recycler.setHasFixedSize(true);
         recycler.setLayoutManager(new LinearLayoutManager(actividad));
 
-        DividerItemDecoration itemDecorator = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
-        itemDecorator.setDrawable(actividad.getDrawable(R.drawable.divider_home));
-        recycler.addItemDecoration(itemDecorator);
+        RecyclerView.ItemDecoration dividerItemDecoration = new AdaptadorDivider(actividad.getDrawable(R.drawable.divider_home));
+        recycler.addItemDecoration(dividerItemDecoration);
 
         recycler.setAdapter(adaptador);
         recycler.setClipToOutline(true);
-        recycler.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
-            @Override
-            public void onSystemUiVisibilityChange(int visibility) {
-                sinContenido();
-            }
-        });
+        sinContenido();
 
         listview = root.findViewById(R.id.listAsignaturasHoy);
         incializarListView();
@@ -161,8 +158,9 @@ public class HomeFragment extends Fragment {
         sinContenido();
     }
 
-    private void sinContenido() {
-        if (((AdaptadorAgendaBD) recycler.getAdapter()).getCursor().getCount() <= 0) {
+    public void sinContenido() {
+
+            if (((AdaptadorAgendaBD)recycler.getAdapter()).getCursor().getCount() <= 0) {
             nada.setVisibility(View.VISIBLE);
         } else {
             nada.setVisibility(View.GONE);
@@ -200,7 +198,7 @@ public class HomeFragment extends Fragment {
         listview.setAdapter(adapter);
         int dp = (int) (48 * actividad.getResources().getSystem().getDisplayMetrics().density);
         ViewGroup.LayoutParams params = listview.getLayoutParams();
-        params.height = (dp + 1) * asignaturas.size();
+        params.height = (dp) * asignaturas.size();
         listview.setLayoutParams(params);
     }
 
