@@ -41,6 +41,7 @@ public class AgendaObjectActivity extends AppCompatActivity {
     private Button btnborrar;
     private CasosUsoAO casosUso;
     private int home_agenda;
+    public String titulo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +59,8 @@ public class AgendaObjectActivity extends AppCompatActivity {
         _id = adaptador.idPosicion(pos);
         agendaObject = adaptador.agendaPosicion(pos);
         casosUso = new CasosUsoAO(this, agBD, adaptador);
+        titulo=agendaObject.getTitulo();
+        setTitle(titulo);
         actualizarVistas();
         listeners();
 
@@ -102,6 +105,7 @@ public class AgendaObjectActivity extends AppCompatActivity {
     }
 
     private void actualizarVistas() {
+        titulo=agendaObject.getTitulo();
         fab = findViewById(R.id.fab);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -126,14 +130,13 @@ public class AgendaObjectActivity extends AppCompatActivity {
 
         TextView tvTipo = findViewById(R.id.tv_Tipo);
         tvTipo.setText(agendaObject.getTipoAg().getTexto());
-        setTitle(agendaObject.getTitulo());
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        agendaObject = agBD.elemento(_id);
-        actualizarVistas();
+        casosUso.mostrar(pos, 1);
+        finish();
     }
 }
