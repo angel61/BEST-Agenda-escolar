@@ -169,7 +169,6 @@ public class EditarObjectAgendaActivity extends AppCompatActivity {
                 array = casosUsoAsignatura.arrayAsignaturas(array);
 
                 final String[] a = array.toArray(new String[0]);
-                final boolean annadir = false;
                 final AlertDialog.Builder builder = new AlertDialog.Builder(EditarObjectAgendaActivity.this);
                 builder.setTitle("Seleccionar una asignatura")
                         .setSingleChoiceItems(a,0, new DialogInterface.OnClickListener() {

@@ -128,18 +128,35 @@ public class EditarHorarioActivity extends AppCompatActivity {
                 array = casosUsoAsignatura.arrayAsignaturas(array);
 
                 final String[] a = array.toArray(new String[0]);
-                final boolean annadir = false;
-                final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                final int[] aux = new int[1];
+                final AlertDialog.Builder builder = new AlertDialog.Builder(EditarHorarioActivity.this);
                 builder.setTitle("Seleccionar una asignatura")
-                        .setItems(a, new DialogInterface.OnClickListener() {
+                        .setSingleChoiceItems(a,0, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                if (which == 0) {
-                                    casosUsoAsignatura.dialogoAnnadirAsignatura();
-                                } else {
-                                    asignatura.getEditText().setText(a[which]);
-                                }
+                                aux[0] =which;
                             }
-                        }).show();
+                        });
+                builder.setPositiveButton("Seleccionar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        asignatura.getEditText().setText(a[aux[0]]);
+                    }
+                });
+                builder.setNegativeButton("Eliminar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        casosUsoAsignatura.eliminarAsig(aux[0]);
+                        asignatura.getEditText().setText("");
+                    }
+                });
+                builder.setNeutralButton("Añadir", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        casosUsoAsignatura.dialogoAnnadirAsignatura();
+                    }
+                });
+                builder.show();
             }
         });
 
