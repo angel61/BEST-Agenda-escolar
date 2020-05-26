@@ -10,6 +10,8 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -60,6 +62,8 @@ public class AgendaFragment extends Fragment {
         agendaBD = aplicacion.agendaBD;
 
         casosUsoAO = new CasosUsoAO(actividad, agendaBD, adaptador);
+        final LayoutAnimationController controller =
+                AnimationUtils.loadLayoutAnimation(actividad, R.anim.layout_animation_rv);
 
         recycler = root.findViewById(R.id.recycler_view);
         recycler.setHasFixedSize(true);
@@ -71,6 +75,8 @@ public class AgendaFragment extends Fragment {
 
         recycler.setAdapter(adaptador);
 
+        recycler.setLayoutAnimation(controller);
+        recycler.scheduleLayoutAnimation();
         refresh = root.findViewById(R.id.refreshl);
 
         inicializarListeners();
@@ -191,6 +197,7 @@ public class AgendaFragment extends Fragment {
         adaptador = new AdaptadorAgendaBD(agendaBD, R.layout.elemento_agenda, agendaBD.extraeCursor(aplicacion.agendaCursor));
         recycler.setAdapter(adaptador);
         aplicacion.adaptador = adaptador;
+        recycler.scheduleLayoutAnimation();
         refresh.setRefreshing(false);
     }
 
