@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/acercade"
+    android:theme="@style/Theme.AppCompat.Light.Dialog"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/TextView01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|end"
+        android:layout_marginBottom="12dp"
+        android:padding="16dp"
+        android:text="Este programa ha sido desarrollado como proyecto final del grado superior de desarrollo de aplicaciones multiplataforma (DAM) desarrollada por Ángel López Palacios."
+        android:textAlignment="inherit"></TextView>
+
+    <TextView
+        android:id="@+id/TextView02"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="16dp"
+        android:paddingTop="16dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="4dp"
+        android:text="Correo:" />
+
+    <TextView
+        android:id="@+id/TextViewCorreo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:paddingStart="16dp"
+        android:paddingTop="4dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="16dp"
+        android:text="angellopezpalacios61@gmail.com"
+        android:textColor="@color/colorPrimaryDark" />
+</LinearLayout>

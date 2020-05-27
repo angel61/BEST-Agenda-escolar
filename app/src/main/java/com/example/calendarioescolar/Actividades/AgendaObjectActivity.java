@@ -95,7 +95,9 @@ public class AgendaObjectActivity extends AppCompatActivity {
                 AlertDialog alert = builder.create();
                 alert.show();
                 return true;
-
+            case R.id.accion_compartir:
+                casosUso.compartir(agendaObject);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
