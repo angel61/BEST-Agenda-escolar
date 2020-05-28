@@ -29,22 +29,6 @@ public class AgendaBD extends SQLiteOpenHelper
                 "tipo INTEGER, " +
                 "asignatura TEXT, " +
                 "fecha BIGINT)");
-        bd.execSQL("INSERT INTO agenda VALUES (null, " +
-                "'Prueba1', " +
-                "'Esto es una prueba para comprobar si funciona correctamente', " +
-                TipoAgenda.RECORDATORIO.ordinal() + ", '', " + System.currentTimeMillis() + ")");
-        bd.execSQL("INSERT INTO agenda VALUES (null, " +
-                "'Prueba2', " +
-                "'Esto es una prueba para comprobar si funciona correctamente', " +
-                TipoAgenda.EJERCICIOS.ordinal() + ", 'Mates', " + System.currentTimeMillis() + ")");
-        bd.execSQL("INSERT INTO agenda VALUES (null, " +
-                "'Prueba3', " +
-                "'Esto es una prueba para comprobar si funciona correctamente', " +
-                TipoAgenda.TRABAJO.ordinal() + ", 'Lengua', " + System.currentTimeMillis() + ")");
-        bd.execSQL("INSERT INTO agenda VALUES (null, " +
-                "'Prueba4', " +
-                "'Esto es una prueba para comprobar si funciona correctamente', " +
-                TipoAgenda.EXAMEN.ordinal() + ", 'Tecnologia', " + System.currentTimeMillis() + ")");
     }
 
 

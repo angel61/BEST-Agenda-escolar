@@ -57,13 +57,34 @@ public class CasosUsoAsignatura {
             public void onClick(DialogInterface dialog, int which) {
                 String aux = input.getText().toString().trim();
                 if (aux.length() > 0) {
-                    asBD.annade(aux);
+                    int i = asBD.annade(aux);
 
-                    Cursor cursAux = asBD.extraeCursor();
-                    cursAux.moveToLast();
-                    TextInputLayout asignatura = actividad.findViewById(R.id.asignaturae);
-                    asignatura.getEditText().setText(cursAux.getString(1));
+                    if(i==-1) {
+                        new AlertDialog.Builder(actividad)
+                                .setTitle("Ya existe una asignatura con ese nombre.")
+                                .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
 
+                                    }
+                                })
+                                .show();
+                    }else{
+                        Cursor cursAux = asBD.extraeCursor();
+                        cursAux.moveToLast();
+                        TextInputLayout asignatura = actividad.findViewById(R.id.asignaturae);
+                        asignatura.getEditText().setText(cursAux.getString(1));
+                    }
+                }else{
+                    new AlertDialog.Builder(actividad)
+                            .setTitle("El nombre de la asignatura no puede quedarse en blanco.")
+                            .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            })
+                            .show();
                 }
             }
         });

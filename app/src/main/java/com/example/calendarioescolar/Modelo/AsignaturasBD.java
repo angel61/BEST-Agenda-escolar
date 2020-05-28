@@ -23,7 +23,7 @@ public class AsignaturasBD extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase bd) {
         bd.execSQL("CREATE TABLE asignatura (" +
                 "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "nombre TEXT)");
+                "nombre TEXT PRIMARY KEY)");
     }
 
 
@@ -50,12 +50,18 @@ public class AsignaturasBD extends SQLiteOpenHelper {
 
 
     public int annade(String nombre) {
+        Cursor cursor = getReadableDatabase().rawQuery(
+            "SELECT nombre FROM asignatura WHERE upper(nombre) = '" + nombre.toUpperCase()+"'", null);
+
         int _id = -1;
-        getWritableDatabase().execSQL("INSERT INTO asignatura (nombre) VALUES ('" + nombre + "')");
-        Cursor c = getReadableDatabase().rawQuery(
-                "SELECT _id FROM asignatura order by _id", null);
-        if (c.moveToNext()) _id = c.getInt(0);
-        c.close();
+
+        if(cursor.getCount()<=0) {
+            getWritableDatabase().execSQL("INSERT INTO asignatura (nombre) VALUES ('" + nombre + "')");
+            Cursor c = getReadableDatabase().rawQuery(
+                    "SELECT _id FROM asignatura order by _id", null);
+            if (c.moveToNext()) _id = c.getInt(0);
+            c.close();
+        }
         return _id;
 
     }
