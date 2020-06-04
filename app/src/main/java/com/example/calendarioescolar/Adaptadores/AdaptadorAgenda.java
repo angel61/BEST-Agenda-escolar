@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.calendarioescolar.Modelo.RepositorioAgenda;
+import com.example.calendarioescolar.Modelo.AgendaBD;
 import com.example.calendarioescolar.Modelo.agenda_object;
 import com.example.calendarioescolar.R;
 
@@ -27,18 +27,18 @@ public class AdaptadorAgenda extends RecyclerView.Adapter<AdaptadorAgenda.ViewHo
     protected View.OnClickListener onClickListener;
 
 
-    protected RepositorioAgenda agenda;
+    protected AgendaBD agenda;
     protected int viewId;
 
     /**
      * Constructor de la clase
      *
-     * @param agenda interfaz RepositorioAgenda
+     * @param agenda clase para trabajar en la tabla de agenda
      * @author Angel Lopez Palacios
      * @version 1.0
-     * @see RepositorioAgenda
+     * @see AgendaBD
      */
-    public AdaptadorAgenda(RepositorioAgenda agenda, int view) {
+    public AdaptadorAgenda(AgendaBD agenda, int view) {
         this.agenda = agenda;
         this.viewId = view;
     }

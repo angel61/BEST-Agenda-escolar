@@ -2,7 +2,6 @@ package com.example.calendarioescolar.Actividades;
 
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -28,7 +27,6 @@ import com.example.calendarioescolar.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 
 /**

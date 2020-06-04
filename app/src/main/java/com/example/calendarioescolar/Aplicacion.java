@@ -1,7 +1,6 @@
 package com.example.calendarioescolar;
 
 import android.app.Application;
-import android.view.View;
 
 import com.example.calendarioescolar.Adaptadores.AdaptadorAgendaBD;
 import com.example.calendarioescolar.Fragmentos.HomeFragment;

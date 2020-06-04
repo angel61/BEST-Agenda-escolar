@@ -3,9 +3,7 @@ package com.example.calendarioescolar.Fragmentos;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.graphics.drawable.RippleDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.GestureDetector;
@@ -20,11 +18,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.calendarioescolar.Adaptadores.AdaptadorAgenda;
 import com.example.calendarioescolar.Adaptadores.AdaptadorAgendaBD;
 import com.example.calendarioescolar.Adaptadores.AdaptadorDivider;
 import com.example.calendarioescolar.Aplicacion;
@@ -39,33 +35,55 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+
+/**
+ * Clase que extiende de Fragment utilizada para mostrar la interfaz de la pantalla principal de la aplicacion
+ *
+ * @author Angel Lopez Palacios
+ * @version 1.0
+ * @see Fragment
+ */
 public class HomeFragment extends Fragment {
-
-
     public AgendaBD agendaBD;
     public AdaptadorAgendaBD adaptador;
     private CasosUsoAO casosUsoAO;
     private RecyclerView recycler;
     private RippleDrawable rippleDrawable;
-
     private TextView nada;
-
     private Activity actividad;
-
     private View root;
-
     private ListView listview;
     private ArrayList<String> asignaturas;
 
+
+    /**
+     * Se encarga de cargar la interfaz que se va ha mostrar
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return View
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     * @see HomeFragment#iniciar()
+     */
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_home, container, false);
 
         iniciar();
-        ((Aplicacion)actividad.getApplication()).home=this;
+        ((Aplicacion) actividad.getApplication()).home = this;
         return root;
     }
 
+
+    /**
+     * Se encarga de inicializar los componentes del fragmento
+     *
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     * @see HomeFragment#inicializarListeners()
+     */
     private void iniciar() {
 
         actividad = getActivity();
@@ -100,6 +118,13 @@ public class HomeFragment extends Fragment {
         inicializarListeners();
     }
 
+
+    /**
+     * Se encarga de inicializar los listeners de los componentes del fragmento
+     *
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     */
     private void inicializarListeners() {
         final GestureDetector GestureDetector =
                 new GestureDetector(actividad, new GestureDetector.SimpleOnGestureListener() {
@@ -153,21 +178,45 @@ public class HomeFragment extends Fragment {
         });
     }
 
+
+    /**
+     * En el resultado de una actividad se comprobara si sigue existiendo contenido en el recyclerView
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         sinContenido();
     }
 
+
+    /**
+     * Se encarga de mostrar el mensaje de falta de contenido del recyclerView
+     *
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     */
     public void sinContenido() {
 
-            if (((AdaptadorAgendaBD)recycler.getAdapter()).getCursor().getCount() <= 0) {
+        if (((AdaptadorAgendaBD) recycler.getAdapter()).getCursor().getCount() <= 0) {
             nada.setVisibility(View.VISIBLE);
         } else {
             nada.setVisibility(View.GONE);
         }
     }
 
+
+    /**
+     * Se encarga de inicializar el listView que contendra las asignaturas que estan planeadas para ese mismo dia
+     *
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     */
     public void incializarListView() {
         asignaturas = new ArrayList<String>();
         Calendar cal = Calendar.getInstance();
@@ -203,6 +252,4 @@ public class HomeFragment extends Fragment {
         params.height = (dp) * asignaturas.size();
         listview.setLayoutParams(params);
     }
-
-
 }

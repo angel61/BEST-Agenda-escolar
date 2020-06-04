@@ -25,17 +25,34 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 
+/**
+ * Clase que extiende de Fragment utilizada para mostrar la interfaz de la pantalla principal del horario
+ *
+ * @author Angel Lopez Palacios
+ * @version 1.0
+ * @see Fragment
+ */
 public class HorarioFragment extends Fragment {
 
     private Context context;
     private Activity actividad;
     public static final int REQUEST_ADD = 1;
     public static final int REQUEST_EDIT = 2;
-
     private View root;
-
     private TimetableView timetable;
 
+
+    /**
+     * Se encarga de cargar la interfaz que se va ha mostrar
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return View
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     * @see HorarioFragment#iniciar()
+     */
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_horario, container, false);
@@ -44,6 +61,13 @@ public class HorarioFragment extends Fragment {
         return root;
     }
 
+    /**
+     * Se encarga de inicializar los componentes del fragmento
+     *
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     * @see HorarioFragment#iniciarListeners() ()
+     */
     private void iniciar() {
         actividad = getActivity();
         context = getActivity();
@@ -55,6 +79,13 @@ public class HorarioFragment extends Fragment {
         iniciarListeners();
     }
 
+
+    /**
+     * Se encarga de inicializar los listeners de los componentes del fragmento
+     *
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     */
     private void iniciarListeners() {
 
         timetable.setOnStickerSelectEventListener(new TimetableView.OnStickerSelectedListener() {
@@ -71,6 +102,7 @@ public class HorarioFragment extends Fragment {
         cargarTabla();
     }
 
+
     private void cargarTabla() {
         timetable.removeAll();
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(actividad);
@@ -79,6 +111,15 @@ public class HorarioFragment extends Fragment {
         if (datos != null && !datos.equals("")) timetable.load(datos);
     }
 
+
+    /**
+     * Evento que es lanzado cuando se selecciona alguna opcion del menu
+     *
+     * @param item objeto item del menu
+     * @return boolean
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -111,6 +152,16 @@ public class HorarioFragment extends Fragment {
         return false;
     }
 
+
+    /**
+     * En el resultado de una actividad segun el codigo del resultado se ejcutaran algunas ordenes
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -137,13 +188,17 @@ public class HorarioFragment extends Fragment {
         }
     }
 
-
+    /**
+     * Se encarga de guardar el horairo como preferencias
+     *
+     * @param data
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     */
     private void guardarPreferencias(String data) {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(actividad);
         SharedPreferences.Editor editor = pref.edit();
         editor.putString("timetable_demo", data);
         editor.commit();
     }
-
-
 }

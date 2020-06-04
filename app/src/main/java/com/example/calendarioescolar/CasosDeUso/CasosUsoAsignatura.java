@@ -2,13 +2,11 @@ package com.example.calendarioescolar.CasosDeUso;
 
 import android.app.Activity;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.database.Cursor;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AlertDialog;
 
-import com.example.calendarioescolar.Actividades.EditarHorarioActivity;
 import com.example.calendarioescolar.Aplicacion;
 import com.example.calendarioescolar.Modelo.AsignaturasBD;
 import com.example.calendarioescolar.R;
@@ -59,7 +57,7 @@ public class CasosUsoAsignatura {
                 if (aux.length() > 0) {
                     int i = asBD.annade(aux);
 
-                    if(i==-1) {
+                    if (i == -1) {
                         new AlertDialog.Builder(actividad)
                                 .setTitle("Ya existe una asignatura con ese nombre.")
                                 .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
@@ -69,13 +67,13 @@ public class CasosUsoAsignatura {
                                     }
                                 })
                                 .show();
-                    }else{
+                    } else {
                         Cursor cursAux = asBD.extraeCursor();
                         cursAux.moveToLast();
                         TextInputLayout asignatura = actividad.findViewById(R.id.asignaturae);
                         asignatura.getEditText().setText(cursAux.getString(1));
                     }
-                }else{
+                } else {
                     new AlertDialog.Builder(actividad)
                             .setTitle("El nombre de la asignatura no puede quedarse en blanco.")
                             .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
@@ -100,11 +98,12 @@ public class CasosUsoAsignatura {
     }
 
     public void eliminarAsig(int pos) {
-        int id=idPosicion(pos);
+        int id = idPosicion(pos);
         asBD.borrar(id);
     }
+
     public int idPosicion(int posicion) {
-        Cursor cursor=asBD.extraeCursor();
+        Cursor cursor = asBD.extraeCursor();
         cursor.moveToPosition(posicion);
         return cursor.getInt(0);
     }

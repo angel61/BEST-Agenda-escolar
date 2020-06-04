@@ -29,6 +29,13 @@ import com.example.calendarioescolar.CasosDeUso.CasosUsoAO;
 import com.example.calendarioescolar.Modelo.AgendaBD;
 import com.example.calendarioescolar.R;
 
+/**
+ * Clase que extiende de Fragment utilizada para mostrar la interfaz de la pantalla principal de agenda
+ *
+ * @author Angel Lopez Palacios
+ * @version 1.0
+ * @see Fragment
+ */
 public class AgendaFragment extends Fragment {
 
     public AgendaBD agendaBD;
@@ -38,11 +45,21 @@ public class AgendaFragment extends Fragment {
     private SwipeRefreshLayout refresh;
     private RippleDrawable rippleDrawable;
     private Aplicacion aplicacion;
-
     private Activity actividad;
-
     private View root;
 
+
+    /**
+     * Se encarga de cargar la interfaz que se va ha mostrar
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return View
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     * @see AgendaFragment#iniciar()
+     */
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_agenda, container, false);
@@ -53,6 +70,14 @@ public class AgendaFragment extends Fragment {
         return root;
     }
 
+
+    /**
+     * Se encarga de inicializar los componentes del fragmento
+     *
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     * @see AgendaFragment#inicializarListeners()
+     */
     private void iniciar() {
         actividad = getActivity();
         aplicacion = ((Aplicacion) actividad.getApplication());
@@ -82,6 +107,13 @@ public class AgendaFragment extends Fragment {
         inicializarListeners();
     }
 
+
+    /**
+     * Se encarga de inicializar los listeners de los componentes del fragmento
+     *
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     */
     private void inicializarListeners() {
 
         refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -193,6 +225,13 @@ public class AgendaFragment extends Fragment {
         });
     }
 
+
+    /**
+     * Su funcion es cargar el cursor en el recyclerView
+     *
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     */
     private void cargarCursor() {
         adaptador = new AdaptadorAgendaBD(agendaBD, R.layout.elemento_agenda, agendaBD.extraeCursor(aplicacion.agendaCursor));
         recycler.setAdapter(adaptador);
@@ -201,6 +240,15 @@ public class AgendaFragment extends Fragment {
         refresh.setRefreshing(false);
     }
 
+
+    /**
+     * Evento que es lanzado cuando se selecciona alguna opcion del menu
+     *
+     * @param item objeto item del menu
+     * @return boolean
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

@@ -216,4 +216,14 @@ public class AgendaBD extends SQLiteOpenHelper {
         SQLiteDatabase bd = getReadableDatabase();
         return bd.rawQuery(consulta, null);
     }
+
+
+    /**
+     * @return int
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     */
+    public int tamanno() {
+        return 0;
+    }
 }
