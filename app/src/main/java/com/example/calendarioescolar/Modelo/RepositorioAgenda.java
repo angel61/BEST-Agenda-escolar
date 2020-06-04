@@ -1,10 +1,14 @@
 package com.example.calendarioescolar.Modelo;
 
+/**
+ * Interfaz RepositorioAgenda
+ *
+ * @author Angel Lopez Palacios
+ * @version 1.0
+ */
 public interface RepositorioAgenda {
 
     agenda_object elemento(int id);
-
-    void annade(agenda_object agendaobject);
 
     int nuevo(int tipo);
 

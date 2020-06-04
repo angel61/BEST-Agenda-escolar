@@ -18,6 +18,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.calendarioescolar.Aplicacion;
 import com.example.calendarioescolar.CasosDeUso.CasosUsoAsignatura;
+import com.example.calendarioescolar.CasosDeUso.CasosUsoHorario;
 import com.example.calendarioescolar.Fragmentos.HorarioFragment;
 import com.example.calendarioescolar.Modelo.AsignaturasBD;
 import com.example.calendarioescolar.R;
@@ -30,6 +31,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+/**
+ * Clase para controlar la actividad del formulario de activity_editar_horario, sus elementos
+ * y el control de eventos.
+ *
+ * @author Angel Lopez Palacios
+ * @version 1.0
+ * @see androidx.appcompat.app.AppCompatActivity
+ */
 public class EditarHorarioActivity extends AppCompatActivity {
     public static final int RESULT_OK_ADD = 1;
     public static final int RESULT_OK_EDIT = 2;
@@ -50,23 +59,46 @@ public class EditarHorarioActivity extends AppCompatActivity {
 
     private Schedule schedule;
     private int editIdx;
+    private CasosUsoHorario casosUsoHorario;
 
 
     private CasosUsoAsignatura casosUsoAsignatura;
     private AsignaturasBD asBD;
 
+    /**
+     * El argumento Bundle
+     * contiene el estado ya guardado de la actividad.
+     * Si la actividad nunca ha existido, el valor del objeto Bundle es nulo.
+     * <p>
+     * muestra la configuración básica de la actividad, como declarar
+     * la interfaz de usuario (definida en un archivo XML de diseño),
+     * definir las variables de miembro y configurar parte de la IU
+     * </p>
+     *
+     * @param savedInstanceState objeto Bundle que contiene el estado de la actividad.
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editar_horario);
         iniciar();
+        iniciarListeners();
     }
 
+    /**
+     * El metodo inicializa los componentes de la actividad.
+     *
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     */
     private void iniciar() {
         this.context = this;
 
         asBD = ((Aplicacion) getApplication()).asigBD;
         casosUsoAsignatura = new CasosUsoAsignatura(this, asBD);
+        casosUsoHorario = new CasosUsoHorario(this);
 
         asignatura = findViewById(R.id.asignaturae);
         asignaturaText = findViewById(R.id.asignaturaeTIET);
@@ -85,10 +117,16 @@ public class EditarHorarioActivity extends AppCompatActivity {
         schedule = new Schedule();
         schedule.setStartTime(new Time(hora, 0));
         schedule.setEndTime(new Time(hora + 1, 0));
-
-        iniciarListeners();
     }
 
+    /**
+     * Se encarga de mostrar el menu personalizado en la actividad
+     *
+     * @param menu objeto Menu que va a ser inicializado.
+     * @return
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         Intent i = getIntent();
@@ -103,7 +141,12 @@ public class EditarHorarioActivity extends AppCompatActivity {
         return true;
     }
 
-
+    /**
+     * Se encarga de inicializar los listeners de los TextInputLayout
+     *
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     */
     private void iniciarListeners() {
         asignaturaText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,40 +165,7 @@ public class EditarHorarioActivity extends AppCompatActivity {
         asignatura.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArrayList<String> array = new ArrayList<String>();
-
-                array = casosUsoAsignatura.arrayAsignaturas(array);
-
-                final String[] a = array.toArray(new String[0]);
-                final int[] aux = new int[1];
-                final AlertDialog.Builder builder = new AlertDialog.Builder(EditarHorarioActivity.this);
-                builder.setTitle("Seleccionar una asignatura")
-                        .setSingleChoiceItems(a,0, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                aux[0] =which;
-                            }
-                        });
-                builder.setPositiveButton("Seleccionar", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        asignatura.getEditText().setText(a[aux[0]]);
-                    }
-                });
-                builder.setNegativeButton("Eliminar", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        casosUsoAsignatura.eliminarAsig(aux[0]);
-                        asignatura.getEditText().setText("");
-                    }
-                });
-                builder.setNeutralButton("Añadir", new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        casosUsoAsignatura.dialogoAnnadirAsignatura();
-                    }
-                });
-                builder.show();
+                casosUsoAsignatura.dialogoAsignatura(asignatura);
             }
         });
 
@@ -245,6 +255,14 @@ public class EditarHorarioActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Evento que es lanzado cuando se selecciona alguna opcion del menu
+     *
+     * @param item objeto item del menu
+     * @return boolean
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -252,12 +270,7 @@ public class EditarHorarioActivity extends AppCompatActivity {
                 schedule.setClassTitle(asignatura.getEditText().getText().toString());
                 if (mode == HorarioFragment.REQUEST_ADD) {
                     if (asignatura.getEditText().getText().toString().length() > 0 && hInicio.getEditText().getText().length() > 0 && hFin.getEditText().getText().length() > 0) {
-                        Intent i = new Intent();
-                        ArrayList<Schedule> schedules = new ArrayList<Schedule>();
-                        schedules.add(schedule);
-                        i.putExtra("schedules", schedules);
-                        setResult(RESULT_OK_ADD, i);
-                        finish();
+                        casosUsoHorario.guardarAnnadir(schedule);
                     } else {
                         AlertDialog.Builder builder = new AlertDialog.Builder(this);
                         builder.setTitle("Faltan campos por rellenar")
@@ -280,15 +293,9 @@ public class EditarHorarioActivity extends AppCompatActivity {
                                 .show();
                     }
                 } else if (mode == HorarioFragment.REQUEST_EDIT) {
-                    Intent i = new Intent();
-                    ArrayList<Schedule> schedules = new ArrayList<Schedule>();
-                    schedules.add(schedule);
-                    i.putExtra("idx", editIdx);
-                    i.putExtra("schedules", schedules);
-                    setResult(RESULT_OK_EDIT, i);
-                    finish();
+                    casosUsoHorario.guardarEditar(schedule, editIdx);
                 }
-                ((Aplicacion)getApplication()).home.incializarListView();
+                ((Aplicacion) getApplication()).home.incializarListView();
                 return true;
             case R.id.accion_borrar:
 
@@ -296,7 +303,7 @@ public class EditarHorarioActivity extends AppCompatActivity {
                 builder.setMessage("¿Deseas eliminar este elemento del horario?")
                         .setPositiveButton("Eliminar", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                casosUsoAsignatura.borrar(editIdx);
+                                casosUsoHorario.borrar(editIdx);
                             }
                         })
                         .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -306,7 +313,7 @@ public class EditarHorarioActivity extends AppCompatActivity {
                             }
                         })
                         .show();
-                ((Aplicacion)getApplication()).home.incializarListView();
+                ((Aplicacion) getApplication()).home.incializarListView();
                 return true;
             case android.R.id.home:
 
@@ -317,7 +324,12 @@ public class EditarHorarioActivity extends AppCompatActivity {
         }
     }
 
-
+    /**
+     * Metodo utilizado para cargar los datos cuando el formulario es utilizado para editar un elemento del horario
+     *
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     */
     private void cargarDatos() {
         Intent i = getIntent();
         editIdx = i.getIntExtra("idx", -1);

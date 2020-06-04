@@ -8,18 +8,37 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.Calendar;
 
-public class AgendaBD extends SQLiteOpenHelper
-        implements RepositorioAgenda {
+/**
+ * Clase que crea  la tabla de base de datos "agenda" si no existe y que contiene
+ * operaciones basicas con la base de datos SQLite
+ *
+ * @author Angel Lopez Palacios
+ * @version 1.0
+ */
+public class AgendaBD extends SQLiteOpenHelper {
 
     Context contexto;
 
-
+    /**
+     * Constructor de la clase
+     *
+     * @param contexto Contexto
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     */
     public AgendaBD(Context contexto) {
         super(contexto, "recordatorios", null, 1);
         this.contexto = contexto;
     }
 
 
+    /**
+     * Crea la tabla de base de datos "agenda" si no esta creada ya.
+     *
+     * @param bd base datos
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     */
     @Override
     public void onCreate(SQLiteDatabase bd) {
         bd.execSQL("CREATE TABLE agenda (" +
@@ -32,12 +51,29 @@ public class AgendaBD extends SQLiteOpenHelper
     }
 
 
+    /**
+     * Actualizar base de datos a una nueva version
+     *
+     * @param db         base de datos
+     * @param oldVersion Version vieja de la base de datos.
+     * @param newVersion Version nueva de la base de datos.
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion,
                           int newVersion) {
     }
 
-    @Override
+
+    /**
+     * Recibe identificador y devuelve el elemento de la agenda correspondiente a él.
+     *
+     * @param id identificador del elemento de la agenda
+     * @return agenda_object
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     */
     public agenda_object elemento(int id) {
         Cursor cursor = getReadableDatabase().rawQuery(
                 "SELECT * FROM agenda WHERE _id = " + id, null);
@@ -54,13 +90,13 @@ public class AgendaBD extends SQLiteOpenHelper
     }
 
 
-    @Override
-    public void annade(agenda_object agendaobject) {
-
-    }
-
-
-    @Override
+    /**
+     * Crea un nuevo elemento vacio y devuelve su identificador correspondiente
+     *
+     * @return int
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     */
     public int nuevo(int tipo) {
         int _id = -1;
         long fecha = System.currentTimeMillis();
@@ -79,17 +115,28 @@ public class AgendaBD extends SQLiteOpenHelper
         return _id;
     }
 
-    @Override
+
+    /**
+     * Borrar el elemento al que corresponde el id pasado por parametro
+     *
+     * @param id ID correspondiente al identificador del elemento
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     */
     public void borrar(int id) {
         getWritableDatabase().execSQL("DELETE FROM agenda WHERE _id = " + id);
     }
 
-    @Override
-    public int tamanno() {
-        return 0;
-    }
 
-    @Override
+    /**
+     * Recibe el elemento que va actualizar y el id que lo identifica en la base de datos
+     * para poder actualizar.
+     *
+     * @param id           identificador del lugar
+     * @param agendaobject Elemento que recibe con los nuevos datos.
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     */
     public void actualiza(int id, agenda_object agendaobject) {
         getWritableDatabase().execSQL("UPDATE agenda SET" +
                 "   titulo = '" + agendaobject.getTitulo() +
@@ -100,6 +147,15 @@ public class AgendaBD extends SQLiteOpenHelper
                 " WHERE _id = " + id);
     }
 
+
+    /**
+     * Extrae el elemento de un cursor
+     *
+     * @param cursor El cursor del cual se va a extraer el elemento
+     * @return agenda_object
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     */
     public static agenda_object extraeAgenda(Cursor cursor) {
         agenda_object agendaobject = new agenda_object();
         agendaobject.setTitulo(cursor.getString(1));
@@ -111,6 +167,15 @@ public class AgendaBD extends SQLiteOpenHelper
         return agendaobject;
     }
 
+
+    /**
+     * Extrae el cursor segun el numero recibido como parametro.
+     *
+     * @param i Numero usado para extraer elementos de la agenda segun el filtro
+     * @return Cursor
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     */
     public Cursor extraeCursor(int i) {
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.HOUR_OF_DAY, 0);

@@ -99,13 +99,6 @@ public class CasosUsoAsignatura {
 
     }
 
-    public void borrar(int _id) {
-        Intent i = new Intent();
-        i.putExtra("idx", _id);
-        actividad.setResult(EditarHorarioActivity.RESULT_OK_DELETE, i);
-        actividad.finish();
-    }
-
     public void eliminarAsig(int pos) {
         int id=idPosicion(pos);
         asBD.borrar(id);
@@ -114,5 +107,42 @@ public class CasosUsoAsignatura {
         Cursor cursor=asBD.extraeCursor();
         cursor.moveToPosition(posicion);
         return cursor.getInt(0);
+    }
+
+    public void dialogoAsignatura(final TextInputLayout asignatura) {
+        ArrayList<String> array = new ArrayList<String>();
+
+        array = arrayAsignaturas(array);
+
+        final String[] a = array.toArray(new String[0]);
+        final int[] aux = new int[1];
+        final AlertDialog.Builder builder = new AlertDialog.Builder(actividad);
+        builder.setTitle("Seleccionar una asignatura")
+                .setSingleChoiceItems(a, 0, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        aux[0] = which;
+                    }
+                });
+        builder.setPositiveButton("Seleccionar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                asignatura.getEditText().setText(a[aux[0]]);
+            }
+        });
+        builder.setNegativeButton("Eliminar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                eliminarAsig(aux[0]);
+                asignatura.getEditText().setText("");
+            }
+        });
+        builder.setNeutralButton("Añadir", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialogoAnnadirAsignatura();
+            }
+        });
+        builder.show();
     }
 }

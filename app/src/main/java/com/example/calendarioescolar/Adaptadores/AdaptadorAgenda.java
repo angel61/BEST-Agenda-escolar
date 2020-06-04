@@ -16,7 +16,13 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-
+/**
+ * Clase para adaptar la información de los elementos de la agenda para poder mostrarla en el RecycleView
+ *
+ * @author Angel Lopez Palacios
+ * @version 1.0
+ * @see androidx.recyclerview.widget.RecyclerView.Adapter
+ */
 public class AdaptadorAgenda extends RecyclerView.Adapter<AdaptadorAgenda.ViewHolder> {
     protected View.OnClickListener onClickListener;
 
@@ -24,12 +30,26 @@ public class AdaptadorAgenda extends RecyclerView.Adapter<AdaptadorAgenda.ViewHo
     protected RepositorioAgenda agenda;
     protected int viewId;
 
+    /**
+     * Constructor de la clase
+     *
+     * @param agenda interfaz RepositorioAgenda
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     * @see RepositorioAgenda
+     */
     public AdaptadorAgenda(RepositorioAgenda agenda, int view) {
         this.agenda = agenda;
         this.viewId = view;
     }
 
 
+    /**
+     * Instancia de elementos a mostrar en el RecycleView
+     *
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     */
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView titulo, comentario, fecha;
         public ImageView foto;
@@ -102,6 +122,15 @@ public class AdaptadorAgenda extends RecyclerView.Adapter<AdaptadorAgenda.ViewHo
         }
     }
 
+    /**
+     * Crea un ViewHolder e inicializa los campos siguiendo el diseño de elemento_agenda.xml
+     *
+     * @param parent
+     * @param viewType
+     * @return ViewHolder
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     */
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
@@ -110,20 +139,30 @@ public class AdaptadorAgenda extends RecyclerView.Adapter<AdaptadorAgenda.ViewHo
         return new ViewHolder(v);
     }
 
+
+    /**
+     * Método que actualiza los ViewHolder a partir de la posicion del elemento
+     *
+     * @param holder
+     * @param posicion
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     */
     @Override
     public void onBindViewHolder(ViewHolder holder, int posicion) {
         agenda_object ag = agenda.elemento(posicion);
         holder.personaliza(ag);
     }
 
+
+    /**
+     * Devuelve el número total de elementos en el conjunto de datos
+     *
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     */
     @Override
     public int getItemCount() {
         return agenda.tamanno();
     }
-
-    public void setOnItemClickListener(View.OnClickListener onClickListener) {
-        this.onClickListener = onClickListener;
-    }
-
-
 }

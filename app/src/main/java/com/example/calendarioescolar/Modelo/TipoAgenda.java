@@ -2,6 +2,12 @@ package com.example.calendarioescolar.Modelo;
 
 import com.example.calendarioescolar.R;
 
+/**
+ * Listado de los tipos con su respectivo icono
+ *
+ * @author Angel Lopez Palacios
+ * @version 1.0
+ */
 public enum TipoAgenda {
     RECORDATORIO("Recordatorio", R.drawable.recordatorio),
     EJERCICIOS("Ejercicios", R.drawable.deberes),

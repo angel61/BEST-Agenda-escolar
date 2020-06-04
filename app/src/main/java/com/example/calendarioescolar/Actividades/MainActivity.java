@@ -33,6 +33,13 @@ import com.github.tlaabs.timetableview.TimetableView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
+/**
+ * Clase principal en la que se muestran los fragments y se inicializa el navigation drawer.
+ *
+ * @author Angel Lopez Palacios
+ * @version 1.0
+ * @see androidx.appcompat.app.AppCompatActivity
+ */
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
@@ -41,16 +48,42 @@ public class MainActivity extends AppCompatActivity {
     public AgendaBD agendaBD;
     public AdaptadorAgendaBD adaptador;
     private CasosUsoAO casosUsoAO;
-    public static final int REQUEST_ADD = 1;
-    public static final int REQUEST_EDIT = 2;
     private TimetableView timetable;
+    private NavController navController;
 
+
+    /**
+     * El argumento Bundle
+     * contiene el estado ya guardado de la actividad.
+     * Si la actividad nunca ha existido, el valor del objeto Bundle es nulo.
+     * <p>
+     * muestra la configuración básica de la actividad, como declarar
+     * la interfaz de usuario (definida en un archivo XML de diseño),
+     * definir las variables de miembro y configurar parte de la IU
+     * </p>
+     *
+     * @param savedInstanceState objeto Bundle que contiene el estado de la actividad.
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        iniciar();
+        iniciarListeners();
+    }
+
+    /**
+     * El metodo inicializa los componentes de la actividad.
+     *
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     */
+    public void iniciar() {
 
 
         adaptador = ((Aplicacion) getApplication()).adaptador;
@@ -60,6 +93,28 @@ public class MainActivity extends AppCompatActivity {
         casosUsoAO = new CasosUsoAO(this, agendaBD, adaptador);
 
         fab = findViewById(R.id.fab);
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+
+
+        mAppBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.nav_inicio, R.id.nav_agenda, R.id.nav_horario)
+                .setDrawerLayout(drawer)
+                .build();
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
+        NavigationUI.setupWithNavController(navigationView, navController);
+    }
+
+    /**
+     * Se encarga de inicializar los listeners
+     *
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     */
+    public void iniciarListeners() {
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -105,16 +160,6 @@ public class MainActivity extends AppCompatActivity {
                         }).show();
             }
         });
-
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-
-
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_inicio, R.id.nav_agenda, R.id.nav_horario)
-                .setDrawerLayout(drawer)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
             @Override
             public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
@@ -133,10 +178,16 @@ public class MainActivity extends AppCompatActivity {
                 setSupportActionBar(toolbar);
             }
         });
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);
     }
 
+    /**
+     * Se encarga de mostrar el menu personalizado en la actividad
+     *
+     * @param menu objeto Menu que va a ser inicializado.
+     * @return boolean
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (fragment == 1) {
@@ -149,6 +200,13 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Se encarga de mostrar el navigation drawer
+     *
+     * @return boolean
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     */
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -157,6 +215,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Evento que es lanzado cuando se selecciona alguna opcion del menu
+     *
+     * @param item objeto item del menu
+     * @return boolean
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

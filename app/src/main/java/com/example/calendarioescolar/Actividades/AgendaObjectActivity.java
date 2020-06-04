@@ -24,6 +24,14 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 
+/**
+ * Clase para controlar la actividad de la interfaz de activity_elemento_agenda, sus elementos
+ * y el control de eventos.
+ *
+ * @author Angel Lopez Palacios
+ * @version 1.0
+ * @see androidx.appcompat.app.AppCompatActivity
+ */
 public class AgendaObjectActivity extends AppCompatActivity {
 
     public AgendaBD agBD;
@@ -32,9 +40,7 @@ public class AgendaObjectActivity extends AppCompatActivity {
     public final static int RESULTADO_EDITAR = 1;
 
     private Toolbar toolbar;
-    private FloatingActionButton fab;
     private AdaptadorAgendaBD adaptador;
-    private Toolbar toolb;
     private Bundle extras;
     public int _id = -1;
     private Button btnEditar;
@@ -43,10 +49,35 @@ public class AgendaObjectActivity extends AppCompatActivity {
     private int home_agenda;
     public String titulo;
 
+    /**
+     * Establece la interfaz de la actividad y lanza los metodos que realizan funciones esenciales de la actividad
+     *
+     * @param savedInstanceState objeto Bundle que contiene el estado de la actividad.
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     * @see AgendaObjectActivity#iniciar
+     * @see AgendaObjectActivity#actualizarVistas
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_elemento_agenda);
+        iniciar();
+        actualizarVistas();
+
+    }
+
+    /**
+     * Se encarga de extraer la informacion que va a utilizar la actividad
+     *
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     * @see CasosUsoAO
+     * @see AgendaBD
+     * @see AdaptadorAgendaBD
+     * @see agenda_object
+     */
+    private void iniciar() {
         extras = getIntent().getExtras();
         pos = extras.getInt("pos", 0);
         home_agenda = extras.getInt("codR", 0);
@@ -59,19 +90,35 @@ public class AgendaObjectActivity extends AppCompatActivity {
         _id = adaptador.idPosicion(pos);
         agendaObject = adaptador.agendaPosicion(pos);
         casosUso = new CasosUsoAO(this, agBD, adaptador);
-        titulo=agendaObject.getTitulo();
+        titulo = agendaObject.getTitulo();
         setTitle(titulo);
-        actualizarVistas();
-        listeners();
-
     }
 
+    /**
+     * Se encarga de mostrar el menu personalizado en la actividad
+     *
+     * @param menu objeto Menu que va a ser inicializado.
+     * @return
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_elemento_agenda, menu);
         return true;
     }
 
+
+    /**
+     * Se encarga de dar funcionalidad a las opciones del menu
+     *
+     * @param item objeto MenuItem que contiene el elemento que ha sido pulsado del menu.
+     * @return boolean
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     * @see CasosUsoAO
+     * @see AlertDialog
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -103,12 +150,14 @@ public class AgendaObjectActivity extends AppCompatActivity {
         }
     }
 
-    private void listeners() {
-    }
-
+    /**
+     * Su uso esta destinado a mostrar la informacion obtenida en los elementos de la interfaz.
+     *
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     */
     private void actualizarVistas() {
-        titulo=agendaObject.getTitulo();
-        fab = findViewById(R.id.fab);
+        titulo = agendaObject.getTitulo();
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -134,11 +183,22 @@ public class AgendaObjectActivity extends AppCompatActivity {
         tvTipo.setText(agendaObject.getTipoAg().getTexto());
     }
 
+    /**
+     * Este evento se encarga de volver a cargar la actividad despues de editar el elemento de la agenda.
+     *
+     * @param requestCode numero de solicitud enviado desde esta actividad.
+     * @param resultCode  numero de resultado recivido desde la actividad {@link EditarObjectAgendaActivity}
+     * @param data        objeto Intent el cual se recive la intencion.
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        casosUso.mostrar(pos, 1);
-        finish();
+        if (resultCode == RESULTADO_EDITAR) {
+            casosUso.mostrar(pos, 1);
+            finish();
+        }
     }
 }

@@ -8,7 +8,12 @@ import com.example.calendarioescolar.Fragmentos.HomeFragment;
 import com.example.calendarioescolar.Modelo.AgendaBD;
 import com.example.calendarioescolar.Modelo.AsignaturasBD;
 
-
+/**
+ * Esta clase es utilizada para compartir informacion entre clases
+ *
+ * @author Angel Lopez Palacios
+ * @version 1.0
+ */
 public class Aplicacion extends Application {
 
 
@@ -19,6 +24,13 @@ public class Aplicacion extends Application {
     public int agendaCursor;
     public HomeFragment home;
 
+
+    /**
+     * Al iniciar esta clase inicializa la informacion que van a compartir las actividades
+     *
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     */
     @Override
     public void onCreate() {
         super.onCreate();

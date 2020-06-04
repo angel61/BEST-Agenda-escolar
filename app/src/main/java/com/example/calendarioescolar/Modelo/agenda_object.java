@@ -1,6 +1,11 @@
 package com.example.calendarioescolar.Modelo;
 
-
+/**
+ * Clase utilizada para manejar los datos de un elemento de la agenda
+ *
+ * @author Angel Lopez Palacios
+ * @version 1.0
+ */
 public class agenda_object {
     private String titulo;
     private String comentario;
@@ -8,14 +13,6 @@ public class agenda_object {
     private TipoAgenda tipoAg;
     private String Asig;
     private int id;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public agenda_object(String titulo, String comentario, long fecha, TipoAgenda tipoAg, String Asig) {
         this.titulo = titulo;
@@ -25,14 +22,15 @@ public class agenda_object {
         this.Asig = Asig;
     }
 
-    public agenda_object(String titulo, String comentario, long fecha, TipoAgenda tipoAg) {
-        this.titulo = titulo;
-        this.comentario = comentario;
-        this.fecha = fecha;
-        this.tipoAg = tipoAg;
+    public agenda_object() {
     }
 
-    public agenda_object() {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitulo() {
