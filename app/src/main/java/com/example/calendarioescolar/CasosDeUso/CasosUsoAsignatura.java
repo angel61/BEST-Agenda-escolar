@@ -14,17 +14,40 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 
+/**
+ * Clase encargada de cumplir los casos de uso del modulo de asignatura
+ *
+ * @author Angel Lopez Palacios
+ * @version 1.0
+ */
 public class CasosUsoAsignatura {
     private AsignaturasBD asBD;
     private Activity actividad;
     private Aplicacion aplicacion;
 
+    /**
+     * Constructor de la clase que obtiene como parametros la actividad y las clase que controla la base de datos
+     *
+     * @param actividad Actividad que va a ser manejada
+     * @param asBD      Clase que controla la base de datos
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     */
     public CasosUsoAsignatura(Activity actividad, AsignaturasBD asBD) {
         this.actividad = actividad;
         this.asBD = asBD;
         aplicacion = (Aplicacion) actividad.getApplication();
     }
 
+
+    /**
+     * Se encarga de rellenar el ArrayList pasado como parametro
+     *
+     * @param lista ArrayList que contiene el nombre de cada asignatura
+     * @return ArrayList<String>
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     */
     public ArrayList<String> arrayAsignaturas(ArrayList<String> lista) {
         Cursor cursor = asBD.extraeCursor();
         cursor.moveToFirst();
@@ -35,10 +58,26 @@ public class CasosUsoAsignatura {
         return lista;
     }
 
+
+    /**
+     * Se encarga de obtener como parametro la posicion en la cual se va a obtener el nombre de la asignatura
+     *
+     * @param pos Posicion de la asignatura de la cual se quiere obtener el nombre
+     * @return String
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     */
     public String nombreAsignatura(int pos) {
         return asBD.elemento(pos);
     }
 
+
+    /**
+     * Muestra un dialogo para añadir una asignatura
+     *
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     */
     public void dialogoAnnadirAsignatura() {
         AlertDialog.Builder builder = new AlertDialog.Builder(actividad);
         builder.setTitle("Introducir nombre de la asignatura");
@@ -97,17 +136,42 @@ public class CasosUsoAsignatura {
 
     }
 
+
+    /**
+     * Se encarga de eliminar la asignatura que se encuentra en la posicion que se consiguio como parametro
+     *
+     * @param pos Posicion de la asignatura de la cual se quiere eliminar
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     */
     public void eliminarAsig(int pos) {
         int id = idPosicion(pos);
         asBD.borrar(id);
     }
 
+
+    /**
+     * Se encarga de obtener el id de la asignatura que corresponde con la posicion
+     *
+     * @param posicion Posicion de la asignatura de la cual se quiere obtener el ID
+     * @return int
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     */
     public int idPosicion(int posicion) {
         Cursor cursor = asBD.extraeCursor();
         cursor.moveToPosition(posicion);
         return cursor.getInt(0);
     }
 
+
+    /**
+     * Se encarga de mostrar un dialogo capaz de gestionar la asignaturas
+     *
+     * @param asignatura El campo de texto que va a ser rellenado
+     * @author Angel Lopez Palacios
+     * @version 1.0
+     */
     public void dialogoAsignatura(final TextInputLayout asignatura) {
         ArrayList<String> array = new ArrayList<String>();
 
