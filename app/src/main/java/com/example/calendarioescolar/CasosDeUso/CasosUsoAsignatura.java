@@ -189,14 +189,18 @@ public class CasosUsoAsignatura {
         builder.setPositiveButton("Seleccionar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                asignatura.getEditText().setText(a[aux[0]]);
+                if (a.length > 0) {
+                    asignatura.getEditText().setText(a[aux[0]]);
+                }
             }
         });
         builder.setNegativeButton("Eliminar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                eliminarAsig(aux[0]);
-                asignatura.getEditText().setText("");
+                if (a.length > 0) {
+                    eliminarAsig(aux[0]);
+                    asignatura.getEditText().setText("");
+                }
             }
         });
         builder.setNeutralButton("Añadir", new DialogInterface.OnClickListener() {

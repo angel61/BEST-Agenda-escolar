@@ -144,6 +144,8 @@ public class AgendaObjectActivity extends AppCompatActivity {
             case R.id.accion_compartir:
                 casosUso.compartir(agendaObject);
                 return true;
+            case android.R.id.home:
+                finish();
             default:
                 return super.onOptionsItemSelected(item);
         }
